@@ -1,7 +1,3 @@
-
-
-
-
 from NewDeclarationInQueue.preprocess.models import DocumentType
 
 

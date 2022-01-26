@@ -27,10 +27,8 @@ class FormularBase:
     
     
     def find_table_in_document_between_lines(self, data: dict, page_no: int, max_pages_no: int, \
-                    upper_search: str, upper_contains: list, upper_contains_all: bool, \
-                    lower_search: str, lower_contains: list, lower_contains_all: bool, \
-                    table_search: str, table_contains: list, table_contains_all: bool, \
-                    message: ProcessMessages) -> Tuple[list, ProcessMessages, int]:
+                    up_search: SearchTextLineParameter, low_search: SearchTextLineParameter, \
+                    t_search: SearchTextLineParameter, message: ProcessMessages) -> Tuple[list, ProcessMessages, int]:
         """
             Find a table between two lines. The line are defined by the following two condition, at least one is required:
                 The text the page starts with
@@ -45,22 +43,15 @@ class FormularBase:
             upper_search (str): text with which the upper line starts
             upper_contains (list): list of words that is contained in the upper line
             upper_contains_all (bool): if the two above conditions must be met for the upper line or only one
-            lower_search (str): text with which the lower line starts
-            lower_contains (list): list of words that is contained in the lower line
-            lower_contains_all (bool): if the two above conditions must be met for the lower line or only one
-            table_search (str): text with which the first header in the table starts
-            table_contains (list): list of words that is contained in the first header in the table starts
-            table_contains_all (bool): if the two above conditions must be met for the in 
-                                            the first header in the table starts or only one
             message (ProcessMessage): collector of the messages generated in the processing workflow
 
         Returns:
             Tuple[list, ProcessMessages, int]: output info from the table, processing messages, page where the table ends
         """
     
-        upper_search = SearchTextLineParameter(upper_search, upper_contains, upper_contains_all)
-        lower_search = SearchTextLineParameter(lower_search, lower_contains, lower_contains_all)
-        table_column_search = SearchTextLineParameter(table_search, table_contains, table_contains_all)
+        upper_search = up_search
+        lower_search = low_search
+        table_column_search = t_search
 
         search = SearchTableInPages(page_no = page_no, upper_text_search = upper_search, \
                                    lower_text_search =lower_search, cell_search = table_column_search)
@@ -143,7 +134,7 @@ class FormularBase:
                 
         return lt_objects
     
-    def extract_table_info_to_json(self, tables: list, predicate, message: ProcessMessages) -> Tuple[ProcessMessages, list]:
+    def extract_table_info_to_json(self, sname: str, tables: list, predicate, message: ProcessMessages) -> Tuple[ProcessMessages, list]:
         """ 
             Transform the list of objects corresponding to a table to custom JSON
         
@@ -157,7 +148,7 @@ class FormularBase:
         """
         
         if tables is None:
-            message.add_error('table not found', 'extract_table_info_to_json')
+            message.add_error('table not found ' + sname, 'extract_table_info_to_json')
             return message, None
         
         lt_objects = self.extract_table_info(tables, predicate)
@@ -245,7 +236,8 @@ class FormularBase:
                 vect.sort(key=lambda x: x['column'])
                 
                 for level in vlevel:
-                    if level in vect[0]['text']:
+                    if level.check_contains(vect[0]['text']):
+                    #if level in vect[0]['text']:
                         current_level = vect[0]['text']
                         row += 1
                         vect = [cell for cell in table['cells'] if int(cell['row']) == row]
@@ -326,17 +318,20 @@ class FormularBase:
                 b_level_found = False
                 vect.sort(key=lambda x: x['column'])
                 
-                if vect[0]['text'] in vlevel:
-                    current_level = vect[0]['text']
-                    row += 1
-                    vect = [cell for cell in table['cells'] if int(cell['row']) == row]
-                    b_level_found = True
+                for lev in vlevel:
+                    if len(vect) > 0 and lev.check_contains(vect[0]['text']):
+                #if vect[0]['text'] in vlevel:
+                        current_level = vect[0]['text']
+                        row += 1
+                        vect = [cell for cell in table['cells'] if int(cell['row']) == row]
+                        b_level_found = True
                         
                 if b_level_found:
                     continue    
                     
                 for level in vtwolevel:
-                    if level in vect[0]['text']:
+                    if level.contains(vect[0]['text']):
+                    #if level in vect[0]['text']:
                         current_second_level = vect[0]['text']
                         row += 1
                         vect = [cell for cell in table['cells'] if int(cell['row']) == row]

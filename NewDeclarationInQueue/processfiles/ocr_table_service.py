@@ -76,8 +76,21 @@ class OcrTableService:
         message.add_message('form recognizer service call', 'service called for the initial pdf file', '')
         message = storage.save_ocr_json(output_path, ocr_json_table_filename, dict_ocr, cnt, message)
         
+        message = self.generate_and_save_custom_json(storage, output_path, dict_ocr, ocr_json_custom_filename, 
+                                                     declaration_type, formular_type, cnt, message)
+        
         # process the JSON obtained from the service and generate a custom JSON
-        extractor = TableExtractor()
+        #extractor = TableExtractor()
+        #message, custom_json = extractor.extract_from_doc_to_json(declaration_type, formular_type, dict_ocr, message)
+        #message = storage.save_ocr_json(output_path, ocr_json_custom_filename, custom_json, cnt, message)
+        
+        return message
+    
+    def generate_and_save_custom_json(self, storage: StorageSupport, output_path: str, dict_ocr: dict,
+                                config_tables: dict, ocr_json_custom_filename: str,
+                                declaration_type: str, formular_type: str, cnt: OcrConstants,
+                                message: ProcessMessages) -> ProcessMessages:
+        extractor = TableExtractor(config_tables)
         message, custom_json = extractor.extract_from_doc_to_json(declaration_type, formular_type, dict_ocr, message)
         message = storage.save_ocr_json(output_path, ocr_json_custom_filename, custom_json, cnt, message)
         

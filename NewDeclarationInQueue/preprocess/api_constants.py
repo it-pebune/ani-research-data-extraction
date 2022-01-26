@@ -10,3 +10,4 @@ class ApiConstants:
     PROCESS_REQUEST_NODE_ATTRIBUTE_OCR_TABLE_JSON_FILENAME = 'ocr_table_json_filename'
     PROCESS_REQUEST_NODE_ATTRIBUTE_OCR_CUSTOM_JSON_FILENAME = 'ocr_custom_json_filename'
     PROCESS_REQUEST_NODE_ATTRIBUTE_FORMULAR_TYPE = 'formular_type'
+    

@@ -1,0 +1,465 @@
+{
+    "tables": [
+        {
+            "table": {
+                "name": "parcels",
+                "upper": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "1. Terenuri",
+                        "text": ""
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                "lower": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "*Categoriile indicate sunt:",
+                        "text": ""
+                    },
+                    "line_contains": [
+                        {
+                            "text_no_diacritics": "agricol",
+                            "text": ""
+                        },
+                        {
+                            "text_no_diacritics": "forestier",
+                            "text": ""
+                        }
+                    ],
+                    "all_words": true
+                },
+                "text_in_header": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "Adresa sau zona",
+                        "text": ""
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                }
+            },
+            "first_level": [],
+            "second_level": []
+        },
+        {
+            "table": {
+                "name": "buildings",
+                "upper": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "2. Cladiri",
+                        "text": "2. Clădiri"
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                "lower": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "*Categoriile indicate sunt:",
+                        "text": ""
+                    },
+                    "line_contains": [
+                        {
+                            "text_no_diacritics": "apartament",
+                            "text": ""
+                        },
+                        {
+                            "text_no_diacritics": "casa de locuit",
+                            "text": "casă de locuit"
+                        }
+                    ],
+                    "all_words": true
+                },
+                "text_in_header": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "Adresa sau zona",
+                        "text": ""
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                }
+            },
+            "first_level": [],
+            "second_level": []
+        },
+        {
+            "table": {
+                "name": "transport",
+                "upper": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "II. Bunuri mobile",
+                        "text": ""
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                "lower": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "2. Bunuri sub forma de metale pretioase",
+                        "text": ""
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                "text_in_header": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "Natura",
+                        "text": ""
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                }
+            },
+            "first_level": [],
+            "second_level": []
+        },
+        {
+            "table": {
+                "name": "art",
+                "upper": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "2. Bunuri sub forma de metale pretioase",
+                        "text": "2. Bunuri sub formă de metale prețioase"
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                "lower": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "III. Bunuri mobile, a caror valoare depaseste",
+                        "text": "III. Bunuri mobile, a căror valoare depăşește"
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                "text_in_header": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "Descriere sumara",
+                        "text": "Descriere sumarã"
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                }
+            },
+            "first_level": [],
+            "second_level": []
+        },
+        {
+            "table": {
+                "name": "mobile",
+                "upper": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "III. Bunuri mobile, a caror valoare depaseste",
+                        "text": "III. Bunuri mobile, a căror valoare depăşește"
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                "lower": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "IV. Active financiare",
+                        "text": ""
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                "text_in_header": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "Natura bunului",
+                        "text": ""
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                }
+            },
+            "first_level": [],
+            "second_level": []
+        },
+        {
+            "table": {
+                "name": "finances",
+                "upper": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "IV. Active financiare",
+                        "text": ""
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                "lower": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "*Categoriile indicate sunt",
+                        "text": ""
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                "text_in_header": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "cont curent sau echivalente",
+                        "text": ""
+                    },
+                    "line_contains": [
+                        {
+                            "text_no_diacritics": "depozit bancar sau echivalente",
+                            "text": ""
+                        },
+                        {
+                            "text_no_diacritics": "Institutia care administreaza",
+                            "text": "Instituția care administreazã"
+                        }
+                    ],
+                    "all_words": true
+                }
+            },
+            "first_level": [],
+            "second_level": []
+        },
+        {
+            "table": {
+                "name": "investments",
+                "upper": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "2. Plasamente, investitii directe si împrumuturi acordate",
+                        "text": ""
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                "lower": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "*Categoriile indicate sunt",
+                        "text": ""
+                    },
+                    "line_contains": [
+                        {
+                            "text_no_diacritics": "hartii de valoare detinute",
+                            "text": "hârtii de valoare deținute"
+                        },
+                        {
+                            "text_no_diacritics": "actiuni sau parti sociale",
+                            "text": "actiuni sau părți sociale"
+                        }
+                    ],
+                    "all_words": true
+                },
+                "text_in_header": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "Emitent titlu/societatea",
+                        "text": ""
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                }
+            },
+            "first_level": [],
+            "second_level": []
+        },
+        {
+            "table": {
+                "name": "debt",
+                "upper": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "V. Datorii",
+                        "text": ""
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                "lower": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "VI. Cadouri, servicii sau avantaje primite gratuit sau",
+                        "text": ""
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                "text_in_header": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "Creditor",
+                        "text": ""
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                }
+            },
+            "first_level": [],
+            "second_level": []
+        },
+        {
+            "table": {
+                "name": "gift",
+                "upper": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "VI. Cadouri, servicii sau avantaje primite gratuit sau",
+                        "text": ""
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                "lower": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "*Se excepteaza de la declarare cadourile si tratatiile uzuale primite",
+                        "text": "*Se excepteazã de la declarare cadourile şi tratatiile uzuale primite"
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                "text_in_header": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "Cine a realizat venitul",
+                        "text": ""
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                }
+            },
+            "first_level": [
+                {
+                    "line_starts_with": {
+                        "text_no_diacritics": ".1. Titular",
+                        "text": ""
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                {
+                    "line_starts_with": {
+                        "text_no_diacritics": ".2. Sot/sotie",
+                        "text": ".2. Soț/soție"
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                {
+                    "line_starts_with": {
+                        "text_no_diacritics": ".3. Copii",
+                        "text": ""
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                }
+            ],
+            "second_level": []
+        },
+        {
+            "table": {
+                "name": "income",
+                "upper": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "VII. Venituri ale declarantului si ale membrilor sai de familie",
+                        "text": "VII. Venituri ale declarantului si ale membrilor săi de familie"
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                "lower": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "Prezenta declaratie constituie act public si raspund potrivit legii penale",
+                        "text": "Prezenta declarație constituie act public și raspund potrivit legii penale"
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                "text_in_header": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "Cine a realizat venitul",
+                        "text": ""
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                }
+            },
+            "first_level": [
+                {
+                    "line_starts_with": {
+                        "text_no_diacritics": ".1. Titular",
+                        "text": ""
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                {
+                    "line_starts_with": {
+                        "text_no_diacritics": ".2. Sot/sotie",
+                        "text": ".2. Soț/soție"
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                {
+                    "line_starts_with": {
+                        "text_no_diacritics": ".3. Copii",
+                        "text": ""
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                }
+            ],
+            "second_level": [
+                {
+                    "line_starts_with": {
+                        "text_no_diacritics": "1. Venituri din salarii",
+                        "text": ""
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                {
+                    "line_starts_with": {
+                        "text_no_diacritics": "2. Venituri din activitati independente",
+                        "text": "2. Venituri din activități independente"
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                {
+                    "line_starts_with": {
+                        "text_no_diacritics": "3. Venituri din cedarea folosintei bunurilor",
+                        "text": "3. Venituri din cedarea folosinței bunurilor"
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                {
+                    "line_starts_with": {
+                        "text_no_diacritics": "4. Venituri din investitii",
+                        "text": "4. Venituri din investiții"
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                {
+                    "line_starts_with": {
+                        "text_no_diacritics": "5. Venituri din pensii",
+                        "text": ""
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                {
+                    "line_starts_with": {
+                        "text_no_diacritics": "6. Venituri din activitati agricole",
+                        "text": "6. Venituri din activități agricole"
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                {
+                    "line_starts_with": {
+                        "text_no_diacritics": "7. Venituri din premii si din jocuri de noroc",
+                        "text": "7. Venituri din premii și din jocuri de noroc"
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                },
+                {
+                    "line_starts_with": {
+                        "text_no_diacritics": "8. Venituri din alte surse",
+                        "text": ""
+                    },
+                    "line_contains": [],
+                    "all_words": false
+                }
+            ]
+        }
+    ]
+}

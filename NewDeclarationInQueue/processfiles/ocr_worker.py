@@ -1,4 +1,5 @@
 from typing import Tuple
+
 from NewDeclarationInQueue.preprocess.document_location import DocumentLocation
 from NewDeclarationInQueue.preprocess.ocr_constants import OcrConstants
 from NewDeclarationInQueue.processfiles.image_generation_service import ImageGenerationService
@@ -144,4 +145,23 @@ class OcrWorker:
             result.add_message('ocr worker process', 'Ocr form recognizer service called and ocr json file saved -> '
                                + self.doc_location.ocr_table_json_filename, ' - ' + self.doc_location.ocr_custom_json_filename)
         
+        return result
+    
+    
+    def process_custom_file(self, cnt: OcrConstants, config_tables: dict, \
+                                ocr_dict: dict, result: ProcessMessages) -> dict:
+        result, output_path, initial_filename = self.check_paths(cnt, result)
+        if result.has_errors():
+            return result
+    
+        
+        # create the OcrTableService, used to call the Forms Recognizer service
+        table_service = OcrTableService()
+        result = table_service.\
+            generate_and_save_custom_json(self.storage, output_path,  ocr_dict, config_tables,
+                                          self.doc_location.ocr_custom_json_filename,
+                                          self.doc_location.type,
+                                          self.doc_location.formular_type,
+                                          cnt, result)
+         
         return result

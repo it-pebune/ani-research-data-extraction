@@ -28,14 +28,12 @@ def main(msg: func.QueueMessage) -> None:
     ocr_constants.COMPUTER_VISION_ENDPOINT = os.getenv("COMPUTER_VISION_ENDPOINT")
     ocr_constants.COMPUTER_VISION_FORM_SUBSCRIPTION_KEY = os.getenv("COMPUTER_VISION_FORM_SUBSCRIPTION_KEY")
     ocr_constants.COMPUTER_VISION_FORM_ENDPOINT = os.getenv("COMPUTER_VISION_FORM_ENDPOINT")
+    ocr_constants.FORMULAR_CONFIG_AZURE_BASE = os.getenv("FORMULAR_CONFIG_AZURE_BASE")
+    ocr_constants.FORMULAR_CONFIG_PATH = os.getenv("FORMULAR_CONFIG_PATH")
     
     connect_str = os.getenv("AZURE_CONNECTION_STRING")
     queue_service = QueueService(connection_string=connect_str)
     output_queue = 'outputqueueprocess'
-
-
-    logging.info('Python queue trigger function processed a queue item: %s',
-                 msg.get_body().decode('utf-8'))
     
     message_str = msg.get_body().decode('utf-8')
     data = json.loads(message_str)
@@ -45,7 +43,7 @@ def main(msg: func.QueueMessage) -> None:
     
     queue_service.put_message(output_queue, json.dumps(process_messages_json))
     
-    
+        
 
 
 def process_document(data: dict, cnt: OcrConstants, messages_result: ProcessMessages) -> dict:
@@ -89,6 +87,7 @@ def process_document(data: dict, cnt: OcrConstants, messages_result: ProcessMess
     
     #return the processing messages as JSON
     return messages_result.get_json()
+    
 
 def check_parameter(keys, param, messages: ProcessMessages) -> ProcessMessages:
     """Checks if a key exists. Used to check if the call to OCR a document has all parameters

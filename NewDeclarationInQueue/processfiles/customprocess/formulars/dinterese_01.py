@@ -22,7 +22,7 @@ class Dinterese01(DInterese):
                     '2. Calitatea de membru în organele de conducere', None, False, \
                     'Unitatea', None, False, message)
         
-        message, result = self.extract_table_info_to_json(tables, lambda x: MemberQuality(), message)
+        message, result = self.extract_table_info_to_json('company_associate', tables, lambda x: MemberQuality(), message)
         if message.has_errors() or result is not None:
             json['parcels'] = result
             

@@ -72,16 +72,18 @@ class SearchLinesInPage:
             bContains = True if param.all_words else False
 
             if param.start_with_text is not None:
-                if line['text'].startswith(param.start_with_text):
+                if param.check_start(line['text']):
+                #line['text'].startswith(param.start_with_text):
                     bStartsWith = True
             else:
                 bStartsWith = True
 
 
             if param.contains_words is not None and len(param.contains_words) > 0:
-                for word in param.contains_words:
-                    bContainsOneWord = word in line['text']
-                    bContains = (bContains and bContainsOneWord) if param.all_words else (bContains or bContainsOneWord)
+                bContains = param.check_contains(line['text'])
+                #for word in param.contains_words:
+                    #bContainsOneWord = word in line['text']
+                    #bContains = (bContains and bContainsOneWord) if param.all_words else (bContains or bContainsOneWord)
             else:
                 bContains = True
 
@@ -112,12 +114,14 @@ class SearchLinesInPage:
         n_count = 0
 
         for line in page['form']['lines']:
-            if (min_line_no is not None and max_line_no is not None) and \
-                ((min_line_no is None or n_count < min_line_no) or (max_line_no is None or n_count > max_line_no)):
+            if (min_line_no is not None or max_line_no is not None) and \
+                ((min_line_no is not None and n_count < min_line_no) or (max_line_no is not None and n_count > max_line_no)):
                 n_count += 1
                 continue
 
-            if line['text'].startswith(param.start_with_text):
+            #if line['text'].startswith(param.start_with_text):
+            #    return line
+            if param.check_start(line['text']):
                 return line
             
             n_count += 1
@@ -140,13 +144,14 @@ class SearchLinesInPage:
         
         self.lower_limit_table, self.n_max = self.get_position_of_line(line_pages, self.page_no, self.lower_text_search)
         
-        ncount = 1
+        #ncount = 1
         while self.lower_limit_table is None and self.end_page_no < len(line_pages):
             if self.lower_limit_table is None:
-                self.end_page_no = self.page_no + ncount
-                ncount += 1
+                self.end_page_no = self.page_no + 1 #ncount
+                #ncount += 1
                 self.lower_limit_table, self.n_max = self.get_position_of_line(line_pages, self.end_page_no, self.lower_text_search)
-        
+                if self.lower_limit_table is None:
+                    break
         return True
     
     def search_lines(self, data:dict) -> Tuple[list, int]:

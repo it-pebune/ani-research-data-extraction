@@ -3,6 +3,7 @@
 from typing import Tuple
 
 from NewDeclarationInQueue.processfiles.customprocess.formulars.formular_base import FormularBase
+from NewDeclarationInQueue.processfiles.customprocess.table_config_detail import TableConfigDetail
 from NewDeclarationInQueue.processfiles.process_messages import ProcessMessages
 
 
@@ -14,7 +15,7 @@ class DAvere(FormularBase):
     def __init__(self, no_of_pages: int):
         self.no_of_pages = no_of_pages
     
-    def process_all_tables(self, data: dict, json: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages]:
+    def process_all_tables(self, config: dict, data: dict, json: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages]:
         """ This is the base class for all Welth formulars and it contains the order of tables in the formular
                 and a function for each table to process. Only this function is implemented in this class,
                 all the others are overwritten in the different formulars, to allow for different texts.
@@ -29,50 +30,53 @@ class DAvere(FormularBase):
         """
         
         n_count = 0
-        json, message, n_count = self.get_parcels(data, n_count, json, message)
-        json, message, n_count = self.get_buildings(data, n_count, json, message)
-        json, message, n_count = self.get_transport(data, n_count, json, message)
-        json, message, n_count = self.get_art(data, n_count, json, message)
-        json, message, n_count = self.get_mobile(data, n_count, json, message)
-        json, message, n_count = self.get_finances(data, n_count, json, message)
-        json, message, n_count = self.get_investments(data, n_count, json, message)
+        json, message, n_count = self.get_parcels(config['parcels'], data, n_count, json, message)
+        json, message, n_count = self.get_buildings(config['buildings'], data, n_count, json, message)
+        json, message, n_count = self.get_transport(config['transport'], data, n_count, json, message)
+        json, message, n_count = self.get_art(config['art'], data, n_count, json, message)
+        json, message, n_count = self.get_mobile(config['mobile'], data, n_count, json, message)
+        json, message, n_count = self.get_finances(config['finances'], data, n_count, json, message)
+        json, message, n_count = self.get_investments(config['investments'], data, n_count, json, message)
         json, message, n_count = self.get_extra_finance_info(data, n_count, json, message)
-        json, message, n_count = self.get_debt(data, n_count, json, message)
-        json, message, n_count = self.get_gift(data, n_count, json, message)
-        json, message, n_count = self.get_income(data, n_count, json, message)
+        json, message, n_count = self.get_debt(config['debt'], data, n_count, json, message)
+        json, message, n_count = self.get_gift(config['gift'], data, n_count, json, message)
+        json, message, n_count = self.get_income(config['income'], data, n_count, json, message)
         
         return json, message
     
-    def get_parcels(self, data: dict, n_page: int, json: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages,  int]:
+    #value:'upper: VII. Venituri ale declarantului si ale membrilor sai de familie -  - False - lower: Prezenta declaratie constituie act public si raspund potrivit legii penale -  - False'
+
+    
+    def get_parcels(self, config: TableConfigDetail, data: dict, n_page: int, json: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages,  int]:
         pass
     
-    def get_buildings(self, data: dict, n_page: int, json: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages, int]:
+    def get_buildings(self, config: TableConfigDetail, data: dict, n_page: int, json: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages, int]:
         pass
     
-    def get_transport(self, data: dict, n_page: int, json: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages, int]:
+    def get_transport(self, config: TableConfigDetail, data: dict, n_page: int, json: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages, int]:
         pass
     
-    def get_art(self, data: dict, n_page: int, json: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages, int]:
+    def get_art(self, config: TableConfigDetail, data: dict, n_page: int, json: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages, int]:
         pass
     
-    def get_mobile(self, data: dict, n_page: int, json: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages, int]:
+    def get_mobile(self, config: TableConfigDetail, data: dict, n_page: int, json: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages, int]:
         pass
     
-    def get_finances(self, data: dict, n_page: int, json: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages, int]:
+    def get_finances(self, config: TableConfigDetail, data: dict, n_page: int, json: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages, int]:
         pass
     
-    def get_investments(self, data: dict, n_page: int, json: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages, int]:
+    def get_investments(self, config: TableConfigDetail, data: dict, n_page: int, json: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages, int]:
         pass
     
     def get_extra_finance_info(self, data: dict, n_page: int, json: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages, int]:
         pass
     
-    def get_debt(self, data: dict, n_page: int, json: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages, int]:
+    def get_debt(self, config: TableConfigDetail, data: dict, n_page: int, json: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages, int]:
         pass
     
-    def get_gift(self, data: dict, n_page: int, json: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages, int]:
+    def get_gift(self, config: TableConfigDetail, data: dict, n_page: int, json: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages, int]:
         pass
     
-    def get_income(self, data: dict, n_page: int, json: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages, int]:
+    def get_income(self, config: TableConfigDetail, data: dict, n_page: int, json: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages, int]:
         pass
         

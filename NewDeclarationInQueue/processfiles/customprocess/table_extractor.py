@@ -13,8 +13,10 @@ class TableExtractor:
         generate a simplified structure
     """
     
-    def __init__(self):
-        pass
+    config_table: dict
+    
+    def __init__(self, cfg):
+        self.config_table = cfg
     
     
     def extract_from_doc_to_json(self, declaration_type: str, formular_type: str, data: dict, message: ProcessMessages) -> Tuple[ProcessMessages, dict]:
@@ -41,6 +43,7 @@ class TableExtractor:
         
         # get the correct formular based on declaration type and formular type
         formular = None
+        config_formular = None
         if declaration_type == DocumentType.DOC_WEALTH:
             if formular_type == WelthFormular.DOCUMENT01:
                 formular = Davere01(len(data['ocr_form_response']))
@@ -57,7 +60,7 @@ class TableExtractor:
             message.add_message('Formular found', declaration_type + ' - ' + formular_type, '')
         
         # get each table in the formular and process it
-        json, message = formular.process_all_tables(data, json, message)
+        json, message = formular.process_all_tables(self.config_table, data, json, message)
         
         return message, json
 
