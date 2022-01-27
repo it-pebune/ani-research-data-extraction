@@ -46,7 +46,7 @@
                 "upper": {
                     "line_starts_with": {
                         "text_no_diacritics": "2. Cladiri",
-                        "text": "2. Clădiri"
+                        "text": "2. Cl?diri"
                     },
                     "line_contains": [],
                     "all_words": false
@@ -63,7 +63,7 @@
                         },
                         {
                             "text_no_diacritics": "casa de locuit",
-                            "text": "casă de locuit"
+                            "text": "cas? de locuit"
                         }
                     ],
                     "all_words": true
@@ -117,23 +117,32 @@
                 "upper": {
                     "line_starts_with": {
                         "text_no_diacritics": "2. Bunuri sub forma de metale pretioase",
-                        "text": "2. Bunuri sub formă de metale prețioase"
+                        "text": "2. Bunuri sub form? de metale pre?ioase"
                     },
                     "line_contains": [],
                     "all_words": false
                 },
                 "lower": {
                     "line_starts_with": {
-                        "text_no_diacritics": "III. Bunuri mobile, a caror valoare depaseste",
-                        "text": "III. Bunuri mobile, a căror valoare depăşește"
+                        "text_no_diacritics": "III. Bunuri mobile",
+                        "text": ""
                     },
-                    "line_contains": [],
-                    "all_words": false
+                    "line_contains": [
+                        {
+                            "text_no_diacritics": "000",
+                            "text": ""
+                        },
+                        {
+                            "text_no_diacritics": "euro",
+                            "text": ""
+                        }
+                    ],
+                    "all_words": true
                 },
                 "text_in_header": {
                     "line_starts_with": {
                         "text_no_diacritics": "Descriere sumara",
-                        "text": "Descriere sumarã"
+                        "text": "Descriere sumar?"
                     },
                     "line_contains": [],
                     "all_words": false
@@ -147,11 +156,20 @@
                 "name": "mobile",
                 "upper": {
                     "line_starts_with": {
-                        "text_no_diacritics": "III. Bunuri mobile, a caror valoare depaseste",
-                        "text": "III. Bunuri mobile, a căror valoare depăşește"
+                        "text_no_diacritics": "III. Bunuri mobile",
+                        "text": "III. Bunuri mobile"
                     },
-                    "line_contains": [],
-                    "all_words": false
+                    "line_contains": [
+                        {
+                            "text_no_diacritics": "000",
+                            "text": ""
+                        },
+                        {
+                            "text_no_diacritics": "euro",
+                            "text": ""
+                        }
+                    ],
+                    "all_words": true
                 },
                 "lower": {
                     "line_starts_with": {
@@ -204,7 +222,7 @@
                         },
                         {
                             "text_no_diacritics": "Institutia care administreaza",
-                            "text": "Instituția care administreazã"
+                            "text": "Institu?ia care administreaz?"
                         }
                     ],
                     "all_words": true
@@ -218,11 +236,20 @@
                 "name": "investments",
                 "upper": {
                     "line_starts_with": {
-                        "text_no_diacritics": "2. Plasamente, investitii directe si împrumuturi acordate",
+                        "text_no_diacritics": "2. Plasamente",
                         "text": ""
                     },
-                    "line_contains": [],
-                    "all_words": false
+                    "line_contains": [
+                        {
+                            "text_no_diacritics": "directe",
+                            "text": ""
+                        },
+                        {
+                            "text_no_diacritics": "acordate",
+                            "text": ""
+                        }
+                    ],
+                    "all_words": true
                 },
                 "lower": {
                     "line_starts_with": {
@@ -232,11 +259,11 @@
                     "line_contains": [
                         {
                             "text_no_diacritics": "hartii de valoare detinute",
-                            "text": "hârtii de valoare deținute"
+                            "text": "h?rtii de valoare de?inute"
                         },
                         {
                             "text_no_diacritics": "actiuni sau parti sociale",
-                            "text": "actiuni sau părți sociale"
+                            "text": "actiuni sau p?r?i sociale"
                         }
                     ],
                     "all_words": true
@@ -298,7 +325,7 @@
                 "lower": {
                     "line_starts_with": {
                         "text_no_diacritics": "*Se excepteaza de la declarare cadourile si tratatiile uzuale primite",
-                        "text": "*Se excepteazã de la declarare cadourile şi tratatiile uzuale primite"
+                        "text": "*Se excepteaz? de la declarare cadourile ?i tratatiile uzuale primite"
                     },
                     "line_contains": [],
                     "all_words": false
@@ -324,7 +351,7 @@
                 {
                     "line_starts_with": {
                         "text_no_diacritics": ".2. Sot/sotie",
-                        "text": ".2. Soț/soție"
+                        "text": ".2. So?/so?ie"
                     },
                     "line_contains": [],
                     "all_words": false
@@ -346,7 +373,7 @@
                 "upper": {
                     "line_starts_with": {
                         "text_no_diacritics": "VII. Venituri ale declarantului si ale membrilor sai de familie",
-                        "text": "VII. Venituri ale declarantului si ale membrilor săi de familie"
+                        "text": "VII. Venituri ale declarantului si ale membrilor s?i de familie"
                     },
                     "line_contains": [],
                     "all_words": false
@@ -354,7 +381,7 @@
                 "lower": {
                     "line_starts_with": {
                         "text_no_diacritics": "Prezenta declaratie constituie act public si raspund potrivit legii penale",
-                        "text": "Prezenta declarație constituie act public și raspund potrivit legii penale"
+                        "text": "Prezenta declara?ie constituie act public ?i raspund potrivit legii penale"
                     },
                     "line_contains": [],
                     "all_words": false
@@ -380,7 +407,7 @@
                 {
                     "line_starts_with": {
                         "text_no_diacritics": ".2. Sot/sotie",
-                        "text": ".2. Soț/soție"
+                        "text": ".2. So?/so?ie"
                     },
                     "line_contains": [],
                     "all_words": false
@@ -406,7 +433,7 @@
                 {
                     "line_starts_with": {
                         "text_no_diacritics": "2. Venituri din activitati independente",
-                        "text": "2. Venituri din activități independente"
+                        "text": "2. Venituri din activit??i independente"
                     },
                     "line_contains": [],
                     "all_words": false
@@ -414,7 +441,7 @@
                 {
                     "line_starts_with": {
                         "text_no_diacritics": "3. Venituri din cedarea folosintei bunurilor",
-                        "text": "3. Venituri din cedarea folosinței bunurilor"
+                        "text": "3. Venituri din cedarea folosin?ei bunurilor"
                     },
                     "line_contains": [],
                     "all_words": false
@@ -422,7 +449,7 @@
                 {
                     "line_starts_with": {
                         "text_no_diacritics": "4. Venituri din investitii",
-                        "text": "4. Venituri din investiții"
+                        "text": "4. Venituri din investi?ii"
                     },
                     "line_contains": [],
                     "all_words": false
@@ -438,7 +465,7 @@
                 {
                     "line_starts_with": {
                         "text_no_diacritics": "6. Venituri din activitati agricole",
-                        "text": "6. Venituri din activități agricole"
+                        "text": "6. Venituri din activit??i agricole"
                     },
                     "line_contains": [],
                     "all_words": false
@@ -446,7 +473,7 @@
                 {
                     "line_starts_with": {
                         "text_no_diacritics": "7. Venituri din premii si din jocuri de noroc",
-                        "text": "7. Venituri din premii și din jocuri de noroc"
+                        "text": "7. Venituri din premii ?i din jocuri de noroc"
                     },
                     "line_contains": [],
                     "all_words": false
