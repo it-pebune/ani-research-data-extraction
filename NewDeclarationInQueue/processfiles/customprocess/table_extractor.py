@@ -43,7 +43,6 @@ class TableExtractor:
         
         # get the correct formular based on declaration type and formular type
         formular = None
-        config_formular = None
         if declaration_type == DocumentType.DOC_WEALTH:
             if formular_type == WelthFormular.DOCUMENT01:
                 formular = Davere01(len(data['ocr_form_response']))

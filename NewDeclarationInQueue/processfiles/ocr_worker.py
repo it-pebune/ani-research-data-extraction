@@ -81,7 +81,7 @@ class OcrWorker:
         return messages, output_path.replace(' ', '%20'), initial_filename.replace(' ', '%20')
     
     
-    def process(self, cnt: OcrConstants, result: ProcessMessages) -> ProcessMessages:
+    def process(self, cnt: OcrConstants, ocr_formular: dict, result: ProcessMessages) -> ProcessMessages:
         """ Process the document, this method is called from the API and it is
                 the entry point of this class.
             The function will:
@@ -136,6 +136,7 @@ class OcrWorker:
                                           self.doc_location.ocr_custom_json_filename,
                                           self.doc_location.type,
                                           self.doc_location.formular_type,
+                                          ocr_formular,
                                           cnt, result)
             
         #check if there are errors and if not add the status message for successfully processed

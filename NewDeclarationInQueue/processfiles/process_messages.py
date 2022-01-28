@@ -27,11 +27,13 @@ class ProcessMessages:
             Will be sent and returned from all functions that participates in the processing workflow.
     """
     operation = ''
+    input_message_id = ''
     errors = []
     messages = []
     
-    def __init__(self, operation: str):
+    def __init__(self, operation: str, input_id: str):
         self.operation = operation
+        self.input_message_id = input_id
         
         
     def add_exception(self, name: str, inst: Exception):
@@ -98,6 +100,7 @@ class ProcessMessages:
             })
             
         
+        str["input_message_id"] = self.input_message_id
         str[self.operation] = {
             'errors': dict,
             'messages': dict_msg  
