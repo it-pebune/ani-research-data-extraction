@@ -1,0 +1,13 @@
+{
+    "file_description": {
+    "type": "DInt",
+    "storage": "azure",
+    "path": "Acatrinei Dorel Gheorghe/DI/",
+    "filename": "di_202001_integritate.eu_CA.pdf",
+    "out_path": "Acatrinei Dorel Gheorghe/DI/",
+    "page_image_filename": "page_",
+    "ocr_table_json_filename": "di_202001_integritate.eu_CA_table",
+    "ocr_custom_json_filename":"di_202001_integritate.eu_CA_custom",
+    "formular_type": "Dinterese01"
+    }
+}

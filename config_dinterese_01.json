@@ -1,0 +1,228 @@
+{
+    "tables": [
+        {
+            "table": {
+                "name": "asociat",
+                "upper": {},
+                "lower": {},
+                "text_in_header": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "1. Asociat sau actionar la societati comerciale",
+                        "text": "1. Asociat sau ac?ionar la societ??i comerciale"
+                    },
+                    "line_contains": [
+                        {
+                            "text_no_diacritics": "Asociat",
+                            "text": ""
+                        },
+                        {
+                            "text_no_diacritics": "actionar",
+                            "text": "ac?ionar"
+                        },
+                        {
+                            "text_no_diacritics": "societati",
+                            "text": "societ??i"
+                        },
+                        {
+                            "text_no_diacritics": "comerciale",
+                            "text": ""
+                        }
+                    ],
+                    "all_words": true
+                }
+            },
+            "first_level": [],
+            "second_level": []
+        },
+        {
+            "table": {
+                "name": "company_comm",
+                "upper": {},
+                "lower": {},
+                "text_in_header": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "2. Calitatea de membru in organele de conducere",
+                        "text": "2. Calitatea de membru ?n organele de conducere"
+                    },
+                    "line_contains": [
+                        {
+                            "text_no_diacritics": "Calitatea",
+                            "text": ""
+                        },
+                        {
+                            "text_no_diacritics": "membru",
+                            "text": ""
+                        },
+                        {
+                            "text_no_diacritics": "organele",
+                            "text": ""
+                        },
+                        {
+                            "text_no_diacritics": "conducere",
+                            "text": ""
+                        },
+                        {
+                            "text_no_diacritics": "societatilor",
+                            "text": "societ??ilor"
+                        },
+                        {
+                            "text_no_diacritics": "comerciale",
+                            "text": "comerciale"
+                        }
+                    ],
+                    "all_words": true
+                }
+            },
+            "first_level": [],
+            "second_level": []
+        },
+        {
+            "table": {
+                "name": "management_comm",
+                "upper": {},
+                "lower": {},
+                "text_in_header": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "3. Calitatea de membru in cadrul asociatiilor profesionale",
+                        "text": "3. Calitatea de membru ?n cadrul asocia?iilor profesionale"
+                    },
+                    "line_contains": [
+                        {
+                            "text_no_diacritics": "Calitatea",
+                            "text": ""
+                        },
+                        {
+                            "text_no_diacritics": "membru",
+                            "text": ""
+                        },
+                        {
+                            "text_no_diacritics": "profesionale",
+                            "text": ""
+                        },
+                        {
+                            "text_no_diacritics": "sindicale",
+                            "text": ""
+                        }
+                    ],
+                    "all_words": true
+                }
+            },
+            "first_level": [],
+            "second_level": []
+        },
+        {
+            "table": {
+                "name": "management_association",
+                "upper": {},
+                "lower": {},
+                "text_in_header": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "4. Calitatea de membru in organele de conducere",
+                        "text": "4. Calitatea de membru ?n organele de conducere"
+                    },
+                    "line_contains": [
+                        {
+                            "text_no_diacritics": "Calitatea",
+                            "text": ""
+                        },
+                        {
+                            "text_no_diacritics": "membru",
+                            "text": ""
+                        },
+                        {
+                            "text_no_diacritics": "asociatiilor",
+                            "text": "asocia?iilor"
+                        },
+                        {
+                            "text_no_diacritics": "profesionale",
+                            "text": ""
+                        },
+                        {
+                            "text_no_diacritics": "sindicale",
+                            "text": ""
+                        }
+                    ],
+                    "all_words": true
+                }
+            },
+            "first_level": [],
+            "second_level": []
+        },
+        {
+            "table": {
+                "name": "management_party",
+                "upper": {},
+                "lower": {},
+                "text_in_header": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "4. Calitatea de membru in organele de conducere",
+                        "text": "4. Calitatea de membru ?n organele de conducere"
+                    },
+                    "line_contains": [
+                        {
+                            "text_no_diacritics": "Calitatea",
+                            "text": ""
+                        },
+                        {
+                            "text_no_diacritics": "membru",
+                            "text": ""
+                        },
+                        {
+                            "text_no_diacritics": "partidelor",
+                            "text": ""
+                        },
+                        {
+                            "text_no_diacritics": "politice",
+                            "text": ""
+                        },
+                        {
+                            "text_no_diacritics": "sindicale",
+                            "text": ""
+                        }
+                    ],
+                    "all_words": true
+                }
+            },
+            "first_level": [],
+            "second_level": []
+        },
+        {
+            "table": {
+                "name": "contracts",
+                "upper": {},
+                "lower": {},
+                "text_in_header": {
+                    "line_starts_with": {
+                        "text_no_diacritics": "5. Contracte, inclusiv cele de asistenta juridica",
+                        "text": "5. Contracte, inclusiv cele de asisten?? juridic?"
+                    },
+                    "line_contains": [
+                        {
+                            "text_no_diacritics": "Contracte",
+                            "text": ""
+                        },
+                        {
+                            "text_no_diacritics": "asistenta",
+                            "text": "asisten??"
+                        },
+                        {
+                            "text_no_diacritics": "juridica",
+                            "text": "juridic?"
+                        },
+                        {
+                            "text_no_diacritics": "obtinute",
+                            "text": "ob?inute"
+                        },
+                        {
+                            "text_no_diacritics": "desfasurare",
+                            "text": "sesf??urare"
+                        }
+                    ],
+                    "all_words": true
+                }
+            },
+            "first_level": [],
+            "second_level": []
+        }
+    ]
+}

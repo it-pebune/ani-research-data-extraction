@@ -43,8 +43,6 @@ class DAvere(FormularBase):
         json, message, n_count = self.get_income(config['income'], data, n_count, json, message)
         
         return json, message
-    
-    #value:'upper: VII. Venituri ale declarantului si ale membrilor sai de familie -  - False - lower: Prezenta declaratie constituie act public si raspund potrivit legii penale -  - False'
 
     
     def get_parcels(self, config: TableConfigDetail, data: dict, n_page: int, json: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages,  int]:

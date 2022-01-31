@@ -25,6 +25,8 @@ class FormularBase:
         """
         pass
     
+    def process_all_tables(self, config: dict, data: dict, json: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages]:
+        pass
     
     def find_table_in_document_between_lines(self, data: dict, page_no: int, max_pages_no: int, \
                     up_search: SearchTextLineParameter, low_search: SearchTextLineParameter, \

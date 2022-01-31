@@ -163,6 +163,6 @@ class OcrWorker:
                                           self.doc_location.ocr_custom_json_filename,
                                           self.doc_location.type,
                                           self.doc_location.formular_type,
-                                          cnt, result)
+                                          config_tables, cnt, result)
          
         return result

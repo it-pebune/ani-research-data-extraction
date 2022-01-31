@@ -24,6 +24,7 @@ class OcrTableFormatter:
     ATTRIBUTE_ROW = 'row'
     ATTRIBUTE_COLLUMN = 'column'
     ATTRIBUTE_ROW_SPAN = 'row_span'
+    ATTRIBUTE_COLUMN_SPAN = 'column_span'
     ATTRIBUTE_BOUNDING_BOX = 'bounding_box'
     ATTRIBUTE_CONFIDENCE = 'confidence'
     ATTRIBUTE_IS_HEADER = 'is_header'
@@ -149,6 +150,7 @@ class OcrTableFormatter:
         dict_cell = {self.ATTRIBUTE_TEXT: cell.text, self.ATTRIBUTE_ROW: cell.row_index, 
                         self.ATTRIBUTE_COLLUMN: cell.column_index, 
                         self.ATTRIBUTE_ROW_SPAN: cell.row_span, 
+                        self.ATTRIBUTE_COLUMN_SPAN: cell.column_span,
                         self.ATTRIBUTE_BOUNDING_BOX: self.get_vector_from_points(cell.bounding_box), 
                         self.ATTRIBUTE_CONFIDENCE: cell.confidence, 
                         self.ATTRIBUTE_IS_HEADER: cell.is_header, 
