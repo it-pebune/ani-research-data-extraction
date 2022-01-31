@@ -34,6 +34,8 @@ class ProcessMessages:
     def __init__(self, operation: str, input_id: str):
         self.operation = operation
         self.input_message_id = input_id
+        self.errors = []
+        self.messages = []
         
         
     def add_exception(self, name: str, inst: Exception):

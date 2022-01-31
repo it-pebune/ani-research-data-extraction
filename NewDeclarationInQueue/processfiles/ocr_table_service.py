@@ -77,7 +77,7 @@ class OcrTableService:
         message = storage.save_ocr_json(output_path, ocr_json_table_filename, dict_ocr, cnt, message)
         
         message = self.generate_and_save_custom_json(storage, output_path, dict_ocr, 
-                                                     ocr_json_custom_filename, ocr_formular,
+                                                     ocr_formular, ocr_json_custom_filename,
                                                      declaration_type, formular_type, ocr_formular, cnt, message)
         
         # process the JSON obtained from the service and generate a custom JSON
