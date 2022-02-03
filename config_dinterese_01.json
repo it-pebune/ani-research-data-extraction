@@ -7,8 +7,8 @@
                 "lower": {},
                 "text_in_header": {
                     "line_starts_with": {
-                        "text_no_diacritics": "1. Asociat sau actionar la societati comerciale",
-                        "text": "1. Asociat sau ac?ionar la societ??i comerciale"
+                        "text_no_diacritics": "1. Asociat sau",
+                        "text": ""
                     },
                     "line_contains": [
                         {
@@ -25,6 +25,14 @@
                         },
                         {
                             "text_no_diacritics": "comerciale",
+                            "text": ""
+                        }, 
+                        {
+                            "text_no_diacritics": "companii",
+                            "text": ""
+                        }, 
+                        {
+                            "text_no_diacritics": "grupuri",
                             "text": ""
                         }
                     ],

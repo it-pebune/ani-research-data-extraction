@@ -21,9 +21,9 @@ def get_input(input_file: str):
         json_data.close()
     return node
     
-def process_two_steps():
+def process_two_steps(sfile: str):
     str_msg_id = 'abc'
-    dict_input = get_input(r"input_di.json")
+    dict_input = get_input(sfile)
     
     two_steps = PreProcessTwoSteps()
     process_messages = ProcessMessages('OCR Process', str_msg_id)
@@ -40,4 +40,4 @@ def process_two_steps():
     #two_steps.save_in_output_queue(process_messages_json)
     
 process_only_second_steps(r"input_di.json")
-#process_two_steps()
+#process_two_steps(r"input_di.json")

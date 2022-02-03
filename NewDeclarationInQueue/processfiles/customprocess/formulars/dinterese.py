@@ -87,7 +87,7 @@ class DInterese(FormularBase):
         
         v_objects = None
         if header_line is None or len(header_line) == 0:
-            message.add_error('upper line not found ' + sname)
+            message.add_error('get_header_from_tables', 'upper line not found ' + sname)
             return None, message
         
         n_count_page = 0
@@ -102,9 +102,9 @@ class DInterese(FormularBase):
             for table in page['form']['tables']:
                 for cell in table['cells']:
                     if cell['bounding_box'][1] > header_line['bounding_box'][1] and \
-                        (cell['bounding_box'][1] < footer_line['bounding_box'][1] or \
+                        ((footer_line is None or cell['bounding_box'][1] < footer_line['bounding_box'][1]) or \
                             n_count_page < n_lower_page ) and \
-                        cell['text'] != footer_line['text']:
+                        (footer_line is None or cell['text'] != footer_line['text']):
                             if bfirst == False and b_skip_header == True:
                                 bfirst = True
                                 continue
@@ -136,7 +136,7 @@ class DInterese(FormularBase):
                 break
         
         json[sname] = []            
-        if len(v_objects) > 0:
+        if v_objects is not None and len(v_objects) > 0:
             for obj in v_objects:
                 json[sname].append(obj.to_json())
                 
@@ -148,7 +148,7 @@ class DInterese(FormularBase):
         json: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages]:
         
         if header_line is None or len(header_line) == 0:
-            message.add_error('upper line not found ' + sname)
+            message.add_error('get_header_from_one_line_table', 'upper line not found ' + sname)
             return None, message
         
         n_count_page = 0
@@ -160,9 +160,9 @@ class DInterese(FormularBase):
             
             for line in page['form']['lines']:
                 if line['bounding_box'][1] > header_line['bounding_box'][1] and \
-                    (line['bounding_box'][1] < footer_line['bounding_box'][1] or \
+                    ((footer_line is None or line['bounding_box'][1] < footer_line['bounding_box'][1]) or \
                         n_count_page < n_lower_page ) and \
-                    line['text'] != footer_line['text']:
+                    (footer_line is None or line['text'] != footer_line['text']):
                         
                         v_line.append(line['text'])
                 else:
@@ -191,6 +191,7 @@ class DInterese(FormularBase):
             return None, n_page, n_line, message
         
         n_count_page = 0
+        n_count_line = 0
         for page in pages:
             if n_count_page < n_page:
                 n_count_page += 1
@@ -221,7 +222,11 @@ class DInterese(FormularBase):
             n_count_page += 1
             n_line = 0
         
-        return line_stop, n_count_page, n_count_line, message
+        if line_stop is not None:
+            return line_stop, n_count_page, n_count_line, message
+        else:
+            message.add_message('get_header_from_lines', 'table not found: ' + sname, '')
+            return None, n_page, 0, message
         
     
         
