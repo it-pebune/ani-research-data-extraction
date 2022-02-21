@@ -1,13 +1,12 @@
 {
-    "file_description": {
-    "type": "DInt",
+    "fileDescription": {
+    "type": "1",
     "storage": "azure",
-    "path": "Achimas Cadariu Patriciu Andrei/DI/",
-    "filename": "di_202001_integritate.eu_CA.pdf",
-    "out_path": "Achimas Cadariu Patriciu Andrei/DI/",
-    "page_image_filename": "page_",
-    "ocr_table_json_filename": "di_202001_integritate.eu_CA_table",
-    "ocr_custom_json_filename":"di_202001_integritate.eu_CA_custom",
-    "formular_type": "Dinterese01"
+    "path": "Popa Radu Mihai/DI/",
+    "filename": "di_201206_integritate.eu_CA.pdf",
+    "outPath": "Popa Radu Mihai/DI/",
+    "ocrTableJsonFilename": "di_201206_integritate.eu_CA_table",
+    "ocrCustomJsonFilename":"di_201206_integritate.eu_CA_custom",
+    "formularType": "1"
     }
 }

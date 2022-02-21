@@ -1,12 +1,11 @@
 {
-    "file_description": {
-    "type": "DAvr",
+    "fileDescription": {
+    "type": "0",
     "storage": "azure",
     "path": "Achimas Cadariu Patriciu Andrei/DA/",
     "filename": "da_202001_integritate.eu_CA.pdf",
-    "out_path": "Achimas Cadariu Patriciu Andrei/DA/",
-    "page_image_filename": "page_",
-    "ocr_table_json_filename": "da_202001_integritate.eu_CA_table",
+    "outPath": "Achimas Cadariu Patriciu Andrei/DA/",
+    "ocrTableJsonFilename": "da_202001_integritate.eu_CA_table",
     "ocr_custom_json_filename":"da_202001_integritate.eu_CA_custom",
     "formular_type": "Davere01"
     }

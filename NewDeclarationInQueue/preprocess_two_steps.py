@@ -73,7 +73,7 @@ class PreProcessTwoSteps:
         messages_result = self.check_parameter(loc.keys(), ApiConstants.PROCESS_REQUEST_NODE_ATTRIBUTE_PATH, messages_result)
         messages_result = self.check_parameter(loc.keys(), ApiConstants.PROCESS_REQUEST_NODE_ATTRIBUTE_FILENAME, messages_result)
         messages_result = self.check_parameter(loc.keys(), ApiConstants.PROCESS_REQUEST_NODE_ATTRIBUTE_OUTPATH, messages_result)
-        messages_result = self.check_parameter(loc.keys(), ApiConstants.PROCESS_REQUEST_NODE_ATTRIBUTE_PAGE_IMAGE_FILENAME, messages_result)
+        # messages_result = self.check_parameter(loc.keys(), ApiConstants.PROCESS_REQUEST_NODE_ATTRIBUTE_PAGE_IMAGE_FILENAME, messages_result)
         messages_result = self.check_parameter(loc.keys(), ApiConstants.PROCESS_REQUEST_NODE_ATTRIBUTE_OCR_TABLE_JSON_FILENAME, messages_result)
         messages_result = self.check_parameter(loc.keys(), ApiConstants.PROCESS_REQUEST_NODE_ATTRIBUTE_OCR_CUSTOM_JSON_FILENAME, messages_result)
         messages_result = self.check_parameter(loc.keys(), ApiConstants.PROCESS_REQUEST_NODE_ATTRIBUTE_FORMULAR_TYPE, messages_result)
@@ -85,7 +85,8 @@ class PreProcessTwoSteps:
                                 loc[ApiConstants.PROCESS_REQUEST_NODE_ATTRIBUTE_PATH], 
                                 loc[ApiConstants.PROCESS_REQUEST_NODE_ATTRIBUTE_FILENAME],
                                 loc[ApiConstants.PROCESS_REQUEST_NODE_ATTRIBUTE_OUTPATH],
-                                loc[ApiConstants.PROCESS_REQUEST_NODE_ATTRIBUTE_PAGE_IMAGE_FILENAME],
+                                loc[ApiConstants.PROCESS_REQUEST_NODE_ATTRIBUTE_PAGE_IMAGE_FILENAME]
+                                    if ApiConstants.PROCESS_REQUEST_NODE_ATTRIBUTE_PAGE_IMAGE_FILENAME in loc.keys() else None,
                                 loc[ApiConstants.PROCESS_REQUEST_NODE_ATTRIBUTE_OCR_JSON_FILENAME] 
                                     if ApiConstants.PROCESS_REQUEST_NODE_ATTRIBUTE_OCR_JSON_FILENAME in loc.keys() else None,
                                 loc[ApiConstants.PROCESS_REQUEST_NODE_ATTRIBUTE_OCR_TABLE_JSON_FILENAME],
