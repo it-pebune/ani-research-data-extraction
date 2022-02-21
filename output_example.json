@@ -1,0 +1,29 @@
+{
+  "input_message_id": "441b5c4d-95c9-4aa7-a217-e05a3e7b8f22",
+  "OCR Process": {
+    "errors": [],
+    "messages": [
+      { "title": "Processing", "value": "process started" },
+      { "title": "Storage identified", "value": "Azure storage" },
+      { "title": "Check output directory", "value": "Popa Radu Mihai/DI/" },
+      {
+        "title": "form recognizer service call",
+        "value": "service called for the initial pdf file"
+      },
+      {
+        "title": "Ocr service called",
+        "value": "Json file saved Popa%20Radu%20Mihai/DI/di_201206_integritate.eu_CA_table.json"
+      },
+      { "title": "Formular found", "value": "1 - 1" },
+      {
+        "title": "Ocr service called",
+        "value": "Json file saved Popa%20Radu%20Mihai/DI/di_201206_integritate.eu_CA_custom.json"
+      },
+      {
+        "title": "ocr worker process",
+        "value": "Ocr form recognizer service called and ocr json file saved -&gt; di_201206_integritate.eu_CA_table",
+        "comments": " - di_201206_integritate.eu_CA_custom"
+      }
+    ]
+  }
+}
