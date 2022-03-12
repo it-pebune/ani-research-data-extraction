@@ -31,7 +31,7 @@ def main(msg: func.QueueMessage) -> None:
     
     process_messages_json = two_steps.process_document(ocr_file, ocr_constants, ocr_formular, process_messages)
     
-    two_steps.save_in_output_queue(process_messages_json)
+    two_steps.save_in_output_queue(data, process_messages_json)
   
   
     
