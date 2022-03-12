@@ -5,7 +5,7 @@ from NewDeclarationInQueue.formular_converter import FormularConverter
 from NewDeclarationInQueue.preprocess.api_constants import ApiConstants
 from NewDeclarationInQueue.preprocess.document_location import DocumentLocation
 from NewDeclarationInQueue.preprocess.models import DocumentType, InterestFormular, WelthFormular
-from NewDeclarationInQueue.preprocess.ocr_constants import OcrConstants
+from NewDeclarationInQueue.preprocess.ocr_constants import EnvConstants, OcrConstants
 from NewDeclarationInQueue.processfiles.ocr_worker import OcrWorker
 from NewDeclarationInQueue.processfiles.process_messages import ProcessMessages
 
@@ -21,17 +21,17 @@ class PreprocessOneStep:
             node = d["Values"]
             
             ocr_constants = OcrConstants()
-            ocr_constants.STORAGE_TYPE_AZURE = node["STORAGE_TYPE_AZURE"]
-            ocr_constants.STORAGE_AZURE_BASE = node["STORAGE_AZURE_BASE"]
-            ocr_constants.SAS_URL = node["SAS_URL"]
-            ocr_constants.AZURE_CONNECTION_STRING = node["AZURE_CONNECTION_STRING"]
-            ocr_constants.AZURE_SHARE_NAME = node["AZURE_SHARE_NAME"]
-            ocr_constants.COMPUTER_VISION_SUBSCRIPTION_KEY = node["COMPUTER_VISION_SUBSCRIPTION_KEY"]
-            ocr_constants.COMPUTER_VISION_ENDPOINT = node["COMPUTER_VISION_ENDPOINT"]
-            ocr_constants.COMPUTER_VISION_FORM_SUBSCRIPTION_KEY = node["COMPUTER_VISION_FORM_SUBSCRIPTION_KEY"]
-            ocr_constants.COMPUTER_VISION_FORM_ENDPOINT = node["COMPUTER_VISION_FORM_ENDPOINT"]
-            ocr_constants.FORMULAR_CONFIG_AZURE_BASE = node["FORMULAR_CONFIG_AZURE_BASE"]
-            ocr_constants.FORMULAR_CONFIG_PATH = node["FORMULAR_CONFIG_PATH"]
+            ocr_constants.STORAGE_TYPE_AZURE = node[EnvConstants.ENV_STORAGE_AZURE]
+            ocr_constants.STORAGE_AZURE_BASE = node[EnvConstants.ENV_STORAGE_BASE]
+            ocr_constants.SAS_URL = node[EnvConstants.ENV_SASURL]
+            ocr_constants.AZURE_CONNECTION_STRING = node[EnvConstants.ENV_CONNECTION_STRING]
+            ocr_constants.AZURE_SHARE_NAME = node[EnvConstants.ENV_SHARE_NAME]
+            ocr_constants.COMPUTER_VISION_SUBSCRIPTION_KEY = node[EnvConstants.ENV_CV_SUBSCRIPTION_KEY]
+            ocr_constants.COMPUTER_VISION_ENDPOINT = node[EnvConstants.ENV_CV_ENDPOINT]
+            ocr_constants.COMPUTER_VISION_FORM_SUBSCRIPTION_KEY = node[EnvConstants.ENV_CV_FORM_SUBSCRIPTION_KEY]
+            ocr_constants.COMPUTER_VISION_FORM_ENDPOINT = node[EnvConstants.ENV_CV_FORM_ENDPOINT]
+            ocr_constants.FORMULAR_CONFIG_AZURE_BASE = node[EnvConstants.ENV_FRM_CONFIG_AZURE_BASE]
+            ocr_constants.FORMULAR_CONFIG_PATH = node[EnvConstants.ENV_FRM_CONFIG_PATH]
             
         return ocr_constants
 

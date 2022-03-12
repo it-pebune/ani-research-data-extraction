@@ -10,7 +10,7 @@ from azure.storage.queue import (
 import azure.functions as func
 from NewDeclarationInQueue.preprocess.api_constants import ApiConstants
 from NewDeclarationInQueue.preprocess.document_location import DocumentLocation
-from NewDeclarationInQueue.preprocess.ocr_constants import OcrConstants
+from NewDeclarationInQueue.preprocess.ocr_constants import EnvConstants, OcrConstants
 from NewDeclarationInQueue.processfiles.ocr_worker import OcrWorker
 
 from NewDeclarationInQueue.processfiles.process_messages import ProcessMessages
@@ -22,11 +22,13 @@ class PreProcessTwoSteps:
     
       
     
-    def save_in_output_queue(self, msg: dict):
-        connect_str = os.getenv("AZURE_CONNECTION_STRING")
+    def save_in_output_queue(self, input_msg: dict, msg: dict):
+        input_msg[ApiConstants.PROCESS_REQUEST_NODE_OUTPUT] = msg
+        
+        connect_str = os.getenv(EnvConstants.ENV_CONNECTION_STRING)
         queue_service = QueueService(connection_string=connect_str)
         output_queue = 'outputqueueprocess'
-        queue_service.put_message(output_queue, json.dumps(msg))
+        queue_service.put_message(output_queue, json.dumps(input_msg))
 
 
     def process_document(self, doc: DocumentLocation, cnt: OcrConstants, ocr_formular: dict, messages_result: ProcessMessages) -> dict:
@@ -40,19 +42,19 @@ class PreProcessTwoSteps:
     
     def get_constats(self) -> OcrConstants:
         cnt = OcrConstants()
-        cnt.STORAGE_TYPE_AZURE = os.getenv("STORAGE_TYPE_AZURE")
-        cnt.STORAGE_AZURE_BASE = os.getenv("STORAGE_AZURE_BASE")
-        cnt.SAS_URL = os.getenv("SAS_URL")
-        cnt.AZURE_CONNECTION_STRING = os.getenv("AZURE_CONNECTION_STRING")
-        cnt.AZURE_SHARE_NAME = os.getenv("AZURE_SHARE_NAME")
-        cnt.COMPUTER_VISION_SUBSCRIPTION_KEY = os.getenv("COMPUTER_VISION_SUBSCRIPTION_KEY")
-        cnt.COMPUTER_VISION_ENDPOINT = os.getenv("COMPUTER_VISION_ENDPOINT")
-        cnt.COMPUTER_VISION_FORM_SUBSCRIPTION_KEY = os.getenv("COMPUTER_VISION_FORM_SUBSCRIPTION_KEY")
-        cnt.COMPUTER_VISION_FORM_ENDPOINT = os.getenv("COMPUTER_VISION_FORM_ENDPOINT")
-        cnt.FORMULAR_CONFIG_AZURE_BASE = os.getenv("FORMULAR_CONFIG_AZURE_BASE")
-        cnt.FORMULAR_CONFIG_PATH = os.getenv("FORMULAR_CONFIG_PATH")
-        cnt.FORMULAR_CONFIG_AZURE_BASE = os.getenv("FORMULAR_CONFIG_AZURE_BASE")
-        cnt.FORMULAR_CONFIG_PATH = os.getenv("FORMULAR_CONFIG_PATH")
+        cnt.STORAGE_TYPE_AZURE = os.getenv(EnvConstants.ENV_STORAGE_AZURE)
+        cnt.STORAGE_AZURE_BASE = os.getenv(EnvConstants.ENV_STORAGE_BASE)
+        cnt.SAS_URL = os.getenv(EnvConstants.ENV_SASURL)
+        cnt.AZURE_CONNECTION_STRING = os.getenv(EnvConstants.ENV_CONNECTION_STRING)
+        cnt.AZURE_SHARE_NAME = os.getenv(EnvConstants.ENV_SHARE_NAME)
+        cnt.COMPUTER_VISION_SUBSCRIPTION_KEY = os.getenv(EnvConstants.ENV_CV_SUBSCRIPTION_KEY)
+        cnt.COMPUTER_VISION_ENDPOINT = os.getenv(EnvConstants.ENV_CV_ENDPOINT)
+        cnt.COMPUTER_VISION_FORM_SUBSCRIPTION_KEY = os.getenv(EnvConstants.ENV_CV_FORM_SUBSCRIPTION_KEY)
+        cnt.COMPUTER_VISION_FORM_ENDPOINT = os.getenv(EnvConstants.ENV_CV_FORM_ENDPOINT)
+        cnt.FORMULAR_CONFIG_AZURE_BASE = os.getenv(EnvConstants.ENV_FRM_CONFIG_AZURE_BASE)
+        cnt.FORMULAR_CONFIG_PATH = os.getenv(EnvConstants.ENV_FRM_CONFIG_PATH)
+        cnt.FORMULAR_CONFIG_AZURE_BASE = os.getenv(EnvConstants.ENV_FRM_CONFIG_AZURE_BASE)
+        cnt.FORMULAR_CONFIG_PATH = os.getenv(EnvConstants.ENV_FRM_CONFIG_PATH)
         return cnt
     
         
