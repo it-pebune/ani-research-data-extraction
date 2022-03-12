@@ -22,8 +22,10 @@ class PreProcessTwoSteps:
     
       
     
-    def save_in_output_queue(self, input_msg: dict, msg: dict):
-        input_msg[ApiConstants.PROCESS_REQUEST_NODE_OUTPUT] = msg
+    def save_in_output_queue(self, input_msg: dict, msg: ProcessMessages):
+        input_msg[ApiConstants.PROCESS_REQUEST_NODE_OUTPUT_MESSAGEID] = msg.input_message_id
+        input_msg[ApiConstants.PROCESS_REQUEST_NODE_OUTPUT_ERRORS] = msg.get_error_json()
+        input_msg[ApiConstants.PROCESS_REQUEST_NODE_OUTPUT_MESSAGES] = msg.get_message_json()
         
         connect_str = os.getenv(EnvConstants.ENV_CONNECTION_STRING)
         queue_service = QueueService(connection_string=connect_str)
@@ -31,14 +33,14 @@ class PreProcessTwoSteps:
         queue_service.put_message(output_queue, json.dumps(input_msg))
 
 
-    def process_document(self, doc: DocumentLocation, cnt: OcrConstants, ocr_formular: dict, messages_result: ProcessMessages) -> dict:
+    def process_document(self, doc: DocumentLocation, cnt: OcrConstants, ocr_formular: dict, messages_result: ProcessMessages) -> ProcessMessages:
         #create the worker and send it the parameters for processing
         ocr = OcrWorker(doc)
         #process the document and obtain processing messages
         messages_result = ocr.process(cnt, ocr_formular, messages_result)
         
         #return the processing messages as JSON
-        return messages_result.get_json()
+        return messages_result
     
     def get_constats(self) -> OcrConstants:
         cnt = OcrConstants()

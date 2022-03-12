@@ -76,6 +76,29 @@ class ProcessMessages:
         """
         return (0 < len(self.errors))
     
+    def get_error_json(self) -> dict:
+        dict = []
+        for err in self.errors:
+            dict.append({
+                'title': err.name,
+                'value': err.value
+            })
+        return dict
+    
+    def get_message_json(self) -> dict:
+        dict_msg = []
+        
+        for msg in self.messages:
+            dict_msg.append({
+                'title': msg.name,
+                'value': msg.value,
+                'comments': msg.comment
+            } if len(msg.comment) > 0 else {
+                'title': msg.name,
+                'value': msg.value
+            })
+            
+        return dict_msg
     
     def get_json(self):
         """ Gets a JSON form of the data in this class

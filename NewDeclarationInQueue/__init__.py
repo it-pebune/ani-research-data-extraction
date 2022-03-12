@@ -29,9 +29,9 @@ def main(msg: func.QueueMessage) -> None:
     formular_converter = FormularConverter()
     ocr_formular = formular_converter.get_formular_info(ocr_constants, ocr_file)
     
-    process_messages_json = two_steps.process_document(ocr_file, ocr_constants, ocr_formular, process_messages)
+    process_messages = two_steps.process_document(ocr_file, ocr_constants, ocr_formular, process_messages)
     
-    two_steps.save_in_output_queue(data, process_messages_json)
+    two_steps.save_in_output_queue(data, process_messages)
   
   
     
