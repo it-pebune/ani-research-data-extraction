@@ -1,12 +1,12 @@
 {
-    "fileDescription": {
-    "type": "1",
+    "documentId": "some-doc-id",
+    "type": 1,
     "storage": "azure",
     "path": "Popa Radu Mihai/DI/",
     "filename": "di_201206_integritate.eu_CA.pdf",
     "outPath": "Popa Radu Mihai/DI/",
-    "ocrTableJsonFilename": "di_201206_integritate.eu_CA_table",
-    "ocrCustomJsonFilename":"di_201206_integritate.eu_CA_custom",
-    "formularType": "1"
-    }
+    "ocrTableJsonFilename": "di_201206_integritate.eu_CA_table.json",
+    "ocrCustomJsonFilename":"di_201206_integritate.eu_CA_custom.json",
+    "formularType": 1
+    
 }

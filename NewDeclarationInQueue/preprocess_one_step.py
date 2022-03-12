@@ -36,13 +36,12 @@ class PreprocessOneStep:
         return ocr_constants
 
     def get_input(self, s_input_file: str) -> DocumentLocation:
-        node = []
+        loc = []
         with open(s_input_file) as json_data:
-            node = json.load(json_data)
+            loc = json.load(json_data)
             json_data.close()
             
-        loc = (node[ApiConstants.PROCESS_REQUEST_NODE_FILE_DESCRIPTION] 
-                if ApiConstants.PROCESS_REQUEST_NODE_FILE_DESCRIPTION in node.keys() else None)
+        
         doc = DocumentLocation(loc[ApiConstants.PROCESS_REQUEST_NODE_ATTRIBUTE_TYPE], 
                                 loc[ApiConstants.PROCESS_REQUEST_NODE_ATTRIBUTE_STORAGE], 
                                 loc[ApiConstants.PROCESS_REQUEST_NODE_ATTRIBUTE_PATH], 
@@ -67,7 +66,7 @@ class PreprocessOneStep:
         #create the worker and send it the parameters for processing
         ocr = OcrWorker(doc_loc)
         url = ocr_cnt.STORAGE_AZURE_BASE + ('' if ocr_cnt.STORAGE_AZURE_BASE.endswith('/') else '/') + \
-            doc_loc.out_path.replace(' ', '%20') + ('' if doc_loc.out_path.endswith('/') else '/') + doc_loc.ocr_table_json_filename + '.json' + \
+            doc_loc.out_path.replace(' ', '%20') + ('' if doc_loc.out_path.endswith('/') else '/') + doc_loc.ocr_table_json_filename + \
             '?' + ocr_cnt.SAS_URL
             
         ocr_dict = []

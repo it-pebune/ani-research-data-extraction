@@ -39,5 +39,5 @@ def process_two_steps(sfile: str):
     
     #two_steps.save_in_output_queue(process_messages_json)
     
-process_only_second_steps(r"input_di.json")
-#process_two_steps(r"input_di.json")
+#process_only_second_steps(r"input_di.json")
+process_two_steps(r"input_di.json")

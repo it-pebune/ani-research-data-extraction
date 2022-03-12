@@ -13,13 +13,13 @@ class DocumentLocation:
     ocr_json_filename = ''
     ocr_table_json_filename = ''
     ocr_custom_json_filename = ''
-    formular_type = ''
+    formular_type = 0
     
     def __init__(self, type, storage, path, filename, outpath, pageimage, jsonfilename, tablefilename, customfilename, formulartype):
         """Constructor containg all the parameters for processing a file
 
         Args:
-            type ([type]): Type of declaration (welth of interest)
+            type ([int]): Type of declaration (welth of interest)
             storage ([type]): Type of storage: azure or something else
             path ([type]): Relative path to the file to process
             filename ([type]): Name of the file to be processed
@@ -30,7 +30,7 @@ class DocumentLocation:
                                         processing the file obtained from OCR services should be saved
             customfilename ([str]): Relative path where the custom JSON file will be saved 
                                         (obtained after processing the data from OCR service)
-            formulartype ([str]): Type of the formular (structure)
+            formulartype ([int]): Type of the formular (structure)
         """
         self.type = type
         self.storage = storage

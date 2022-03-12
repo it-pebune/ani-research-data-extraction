@@ -36,7 +36,7 @@ class OcrTableService:
     
     def table_recognizer_service_call(self, storage: StorageSupport, output_path: str, initial_filename: str, 
                                       ocr_json_table_filename: str, ocr_json_custom_filename: str,
-                                      declaration_type: str, formular_type: str, ocr_formular: dict, 
+                                      declaration_type: int, formular_type: int, ocr_formular: dict, 
                                       cnt: OcrConstants, message: ProcessMessages) -> ProcessMessages:
         """ Call the form recognizer service, save the result and generate a custom JSON and save it.
                 This is the entry point for the processing in this class.
@@ -49,8 +49,8 @@ class OcrTableService:
             initial_filename (str): initial file name
             ocr_json_table_filename (str): output JSON file based on response received from Form Recognizer service
             ocr_json_custom_filename (str): result JSON output filename
-            declaration_type (str): type of declaration: DAVERE or DINTERES
-            formular_type (str): structure of the formular (this is a constant)
+            declaration_type (int): type of declaration: DAVERE or DINTERES
+            formular_type (int): structure of the formular (this is a constant)
             message (ProcessMessages): processing messages
 
         Returns:
@@ -65,8 +65,22 @@ class OcrTableService:
         
         # call the service and wait for results
         input_file_url = storage.get_secure_file(output_path, initial_filename, cnt)
-        poller = client.begin_recognize_content_from_url(input_file_url) #, language='ro')
-        analyze_result = poller.result()
+        
+        #check file exists
+        message, output_path = storage.check_file_exists(output_path + initial_filename, cnt, message)
+        if message.has_errors():
+            return message
+        
+        try:
+            poller = client.begin_recognize_content_from_url(input_file_url) #, language='ro')
+            analyze_result = poller.result()
+        except Exception as exex:
+            message.add_exception('File OCR call failed: ' + input_file_url, exex)
+            
+        if message.has_errors():
+            return message
+        
+       
         
         # if result is received, generate the JSON from the service
         if analyze_result:
@@ -89,7 +103,7 @@ class OcrTableService:
     
     def generate_and_save_custom_json(self, storage: StorageSupport, output_path: str, dict_ocr: dict,
                                 config_tables: dict, ocr_json_custom_filename: str,
-                                declaration_type: str, formular_type: str, ocr_formular: dict, 
+                                declaration_type: int, formular_type: int, ocr_formular: dict, 
                                 cnt: OcrConstants, message: ProcessMessages) -> ProcessMessages:
         extractor = TableExtractor(ocr_formular)
         message, custom_json = extractor.extract_from_doc_to_json(declaration_type, formular_type, dict_ocr, message)

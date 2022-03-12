@@ -68,6 +68,20 @@ class StorageSupport:
         """
         pass
     
+    
+    def check_file_exists(self, path: str, cnt: OcrConstants, error: ProcessMessages) -> Tuple[ProcessMessages, str]:
+        """ Check if the file exists in the storage. If the path is not valid,
+                the methods returns the ProcessMessages with an error
+
+        Args:
+            path (str): relative path
+            error (ProcessMessages): collects processing messages
+
+        Returns:
+            Tuple[ProcessMessages, str]: message storage and the validated output path
+        """
+        pass
+    
     def save_page(self, path: str, page: PpmImageFile, count: int, cnt: OcrConstants, message: ProcessMessages) -> ProcessMessages:
         """ Save page images
 

@@ -19,14 +19,14 @@ class TableExtractor:
         self.config_table = cfg
     
     
-    def extract_from_doc_to_json(self, declaration_type: str, formular_type: str, data: dict, message: ProcessMessages) -> Tuple[ProcessMessages, dict]:
+    def extract_from_doc_to_json(self, declaration_type: int, formular_type: int, data: dict, message: ProcessMessages) -> Tuple[ProcessMessages, dict]:
         """ Extract simplified JSON structure from the JSON file received from the Form Recognizer service.
                 This is the entry point for the processing that transforms the JSON received from the service
                 to a simplified JSON
 
         Args:
-            declaration_type (str): Declaration type: DAvr or DInt
-            formular_type (str): Type of the formular, each declaration type can have document versions
+            declaration_type (int): Declaration type: DAvr or DInt
+            formular_type (int): Type of the formular, each declaration type can have document versions
                                     with different structures. They will be called Davere01...
             data (dict): JSON data from the Form Recognizer service (all data)
             message (ProcessMessages): collects process messages
@@ -53,10 +53,10 @@ class TableExtractor:
            
         # if no formular found, return     
         if formular is None:
-            message.add_error('Formular not found', declaration_type + ' - ' + formular_type)
+            message.add_error('Formular not found', str(declaration_type) + ' - ' + str(formular_type))
             return message, None
         else:
-            message.add_message('Formular found', declaration_type + ' - ' + formular_type, '')
+            message.add_message('Formular found', str(declaration_type) + ' - ' + str(formular_type), '')
         
         # get each table in the formular and process it
         json, message = formular.process_all_tables(self.config_table, data, json, message)

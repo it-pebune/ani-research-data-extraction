@@ -83,7 +83,7 @@ class AzureSupport(StorageSupport):
             ProcessMessages: collects processing messages
         """
         try:
-            file_path = path + ('' if path.endswith('/') else '/') + filename + '.json'
+            file_path = path + ('' if path.endswith('/') else '/') + filename
             file_client = ShareFileClient.from_connection_string(conn_str=cnt.AZURE_CONNECTION_STRING, 
                                                         share_name=cnt.AZURE_SHARE_NAME, 
                                                         file_path= file_path.replace('%20', ' '))
@@ -194,6 +194,28 @@ class AzureSupport(StorageSupport):
             except:
                 error.add_error('output directory not found', path)
             
+            
+        return error, path
+    
+    def check_file_exists(self, path, cnt: OcrConstants, error: ProcessMessages) -> Tuple[ProcessMessages, str]:
+        """ Check if a file exists in the storage. If the path is not valid,
+                the methods returns the ProcessMessages with an error
+
+        Args:
+            path (str): relative path
+            error (ProcessMessages): collects processing messages
+
+        Returns:
+            Tuple[ProcessMessages, str]: message storage and the validated output path
+        """
+        
+        share = ShareClient.from_connection_string(cnt.AZURE_CONNECTION_STRING, cnt.AZURE_SHARE_NAME)
+        
+        try:
+            abc = share.get_file_client(file_path=path)
+        except:
+            error.add_error('file not found', path)
+        
             
         return error, path
     

@@ -60,13 +60,8 @@ class PreProcessTwoSteps:
         return cnt
     
         
-    def get_file_info(self, data: dict, messages_result: ProcessMessages) -> Tuple(DocumentLocation, ProcessMessages):   
+    def get_file_info(self, loc: dict, messages_result: ProcessMessages) -> Tuple(DocumentLocation, ProcessMessages):   
         
-        
-        #check if parameters for processing info exists in request
-        loc = (data[ApiConstants.PROCESS_REQUEST_NODE_FILE_DESCRIPTION] 
-                if ApiConstants.PROCESS_REQUEST_NODE_FILE_DESCRIPTION in data.keys() else None)
-
         #if it does not exist, return 404 error
         if None == loc:
             messages_result.add_error('process document parameter validation', 'Missing required parameters: file_description')
