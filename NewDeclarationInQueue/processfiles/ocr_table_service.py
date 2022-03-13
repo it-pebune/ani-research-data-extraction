@@ -67,7 +67,8 @@ class OcrTableService:
         input_file_url = storage.get_secure_file(output_path, initial_filename, cnt)
         
         #check file exists
-        message, output_path = storage.check_file_exists(output_path + initial_filename, cnt, message)
+        message, out_path = storage.check_file_exists(
+            output_path + (initial_filename if output_path.endswith('/') else '/' + initial_filename) , cnt, message)
         if message.has_errors():
             return message
         
