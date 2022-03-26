@@ -88,14 +88,7 @@ class OcrCustomModelService:
                                 #declaration_type: int, formular_type: int, ocr_formular: dict, 
                                 cnt: OcrConstants, doc_location: dict, message: ProcessMessages) -> ProcessMessages:
         
-        #formular_converter = FormularConverter()
-        #ocr_formular = formular_converter.get_formular_info(ocr_constants, ocr_file)
-        
-        #extractor = TableExtractor(ocr_formular)
-        #message, custom_json = extractor.extract_from_doc_to_json(declaration_type, formular_type, dict_ocr, message)
-        #message = storage.save_ocr_json(output_path, ocr_json_custom_filename, custom_json, cnt, message)
-        
-        
+               
         # generate custom json
         extractor = ModelDefinition()
         form, document_type, message = extractor.get_formular_from_model(recognized_forms, message)

@@ -43,9 +43,6 @@ class PreProcessTwoSteps:
         return messages_result
     
     def process_document_with_custom_model(self, doc: DocumentLocation, cnt: OcrConstants, message_result: ProcessMessages) -> ProcessMessages:
-        #formular_converter = FormularConverter()
-        #ocr_formular = formular_converter.get_formular_info(ocr_constants, ocr_file)    
-        
         ocr = OcrWorker(doc)
         message_result = ocr.process_with_custom_model(cnt, message_result)
         return message_result
