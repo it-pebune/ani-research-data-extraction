@@ -18,7 +18,6 @@ class TableExtractor:
     def __init__(self, cfg):
         self.config_table = cfg
     
-    
     def extract_from_doc_to_json(self, declaration_type: int, formular_type: int, data: dict, message: ProcessMessages) -> Tuple[ProcessMessages, dict]:
         """ Extract simplified JSON structure from the JSON file received from the Form Recognizer service.
                 This is the entry point for the processing that transforms the JSON received from the service
@@ -63,4 +62,4 @@ class TableExtractor:
         
         return message, json
 
-
+    

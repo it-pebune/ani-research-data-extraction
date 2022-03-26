@@ -4,7 +4,7 @@ from typing import Tuple
 
 from NewDeclarationInQueue.processfiles.customprocess.formulars.dinterese import DInterese
 from NewDeclarationInQueue.processfiles.customprocess.table_config_detail import TableConfigDetail
-from NewDeclarationInQueue.processfiles.customprocess.tableobjects.member_quality import MemberQuality
+from NewDeclarationInQueue.processfiles.tableobjects.member_quality import MemberQuality
 from NewDeclarationInQueue.processfiles.process_messages import ProcessMessages
 
 

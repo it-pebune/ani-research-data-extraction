@@ -42,6 +42,15 @@ class PreProcessTwoSteps:
         #return the processing messages as JSON
         return messages_result
     
+    def process_document_with_custom_model(self, doc: DocumentLocation, cnt: OcrConstants, message_result: ProcessMessages) -> ProcessMessages:
+        #formular_converter = FormularConverter()
+        #ocr_formular = formular_converter.get_formular_info(ocr_constants, ocr_file)    
+        
+        ocr = OcrWorker(doc)
+        message_result = ocr.process_with_custom_model(cnt, message_result)
+        return message_result
+        
+    
     def get_constats(self) -> OcrConstants:
         cnt = OcrConstants()
         cnt.STORAGE_TYPE_AZURE = os.getenv(EnvConstants.ENV_STORAGE_AZURE)
@@ -56,7 +65,9 @@ class PreProcessTwoSteps:
         cnt.FORMULAR_CONFIG_AZURE_BASE = os.getenv(EnvConstants.ENV_FRM_CONFIG_AZURE_BASE)
         cnt.FORMULAR_CONFIG_PATH = os.getenv(EnvConstants.ENV_FRM_CONFIG_PATH)
         cnt.FORMULAR_CONFIG_AZURE_BASE = os.getenv(EnvConstants.ENV_FRM_CONFIG_AZURE_BASE)
-        cnt.FORMULAR_CONFIG_PATH = os.getenv(EnvConstants.ENV_FRM_CONFIG_PATH)
+        #cnt.FORMULAR_CONFIG_PATH = os.getenv(EnvConstants.ENV_FRM_CONFIG_PATH)
+        cnt.FORMULAR_MODEL_CONFIG_PATH = os.getenv(EnvConstants.ENV_FRM_MODEL_CONFIG_PATH)
+        cnt.FORMULAR_COMPOSITE_MODEL_GUID = os.getenv(EnvConstants.FORMULAR_COMPOSITE_MODEL_GUID)
         return cnt
     
         

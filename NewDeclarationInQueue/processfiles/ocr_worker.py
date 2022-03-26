@@ -1,8 +1,9 @@
 from typing import Tuple
+from NewDeclarationInQueue.formular_converter import FormularConverter
 
 from NewDeclarationInQueue.preprocess.document_location import DocumentLocation
 from NewDeclarationInQueue.preprocess.ocr_constants import OcrConstants
-from NewDeclarationInQueue.processfiles.image_generation_service import ImageGenerationService
+from NewDeclarationInQueue.processfiles.ocr_custom_model_service import OcrCustomModelService
 from NewDeclarationInQueue.processfiles.ocr_service import OcrService
 from NewDeclarationInQueue.processfiles.ocr_table_service import OcrTableService
 from NewDeclarationInQueue.processfiles.process_messages import ProcessMessages
@@ -80,7 +81,38 @@ class OcrWorker:
         #return the messages object, the output path and the initial filename
         return messages, output_path.replace(' ', '%20'), initial_filename.replace(' ', '%20')
     
+    def process_with_custom_model(self, cnt: OcrConstants, result: ProcessMessages) -> ProcessMessages:
+        #create the ProcessMessage object and check the paths
+        #if there are errors, return
+        result, output_path, initial_filename = self.check_paths(cnt, result)
+        if result.has_errors():
+            return result
+        
+        # create the OcrTableService, used to call the model Forms Recognizer service
+        table_service = OcrCustomModelService()
+        
+         # call the service and generate the first output JSON files
+        recognized_forms, result = table_service.custom_model_service_call(self.storage, output_path, initial_filename, 
+                                          self.doc_location.ocr_table_json_filename, 
+                                          #self.doc_location.ocr_custom_json_filename,
+                                          cnt, result)
+        #check if there are errors and if not add the status message for successfully processed
+        if result.has_errors():
+            return result
+        else:
+            result.add_message('ocr worker process', 'Ocr model form recognizer service called and ocr json table file saved -> '
+                               + self.doc_location.ocr_table_json_filename, ' - ' + self.doc_location.ocr_table_json_filename)
+        
+        result = table_service.generate_and_save_custom_json(self.storage, output_path, recognized_forms, 
+                            self.doc_location.ocr_custom_json_filename, cnt, self.doc_location, result)    
+            
+        result.add_message('ocr worker process', 'table json file saved -> '
+                               + self.doc_location.ocr_table_json_filename, ' - ' + self.doc_location.ocr_custom_json_filename)
+        
+        return result
+        
     
+    #TODO: point of divergence - make another method that uses the custom service
     def process(self, cnt: OcrConstants, ocr_formular: dict, result: ProcessMessages) -> ProcessMessages:
         """ Process the document, this method is called from the API and it is
                 the entry point of this class.

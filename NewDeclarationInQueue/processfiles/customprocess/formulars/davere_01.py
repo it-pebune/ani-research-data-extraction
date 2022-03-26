@@ -4,17 +4,17 @@ from typing import Tuple
 from NewDeclarationInQueue.processfiles.customprocess.formulars.davere import DAvere
 from NewDeclarationInQueue.processfiles.customprocess.search_text_line_parameter import SearchTextLineParameter
 from NewDeclarationInQueue.processfiles.customprocess.table_config_detail import TableConfigDetail
-from NewDeclarationInQueue.processfiles.customprocess.tableobjects.art import Art
-from NewDeclarationInQueue.processfiles.customprocess.tableobjects.building import Building
-from NewDeclarationInQueue.processfiles.customprocess.tableobjects.debt import Debt
-from NewDeclarationInQueue.processfiles.customprocess.tableobjects.finance import Finance
-from NewDeclarationInQueue.processfiles.customprocess.tableobjects.gift import Gift
-from NewDeclarationInQueue.processfiles.customprocess.tableobjects.income import Income
-from NewDeclarationInQueue.processfiles.customprocess.tableobjects.investment import Investment
-from NewDeclarationInQueue.processfiles.customprocess.tableobjects.mobile import Mobile
-from NewDeclarationInQueue.processfiles.customprocess.tableobjects.parcel import Parcel
-from NewDeclarationInQueue.processfiles.customprocess.tableobjects.transport import Transport
-from NewDeclarationInQueue.processfiles.customprocess.text_with_special_ch import TextWithSpecialCharacters
+from NewDeclarationInQueue.processfiles.tableobjects.art import Art
+from NewDeclarationInQueue.processfiles.tableobjects.building import Building
+from NewDeclarationInQueue.processfiles.tableobjects.debt import Debt
+from NewDeclarationInQueue.processfiles.tableobjects.finance import Finance
+from NewDeclarationInQueue.processfiles.tableobjects.gift import Gift
+from NewDeclarationInQueue.processfiles.tableobjects.income import Income
+from NewDeclarationInQueue.processfiles.tableobjects.investment import Investment
+from NewDeclarationInQueue.processfiles.tableobjects.mobile import Mobile
+from NewDeclarationInQueue.processfiles.tableobjects.parcel import Parcel
+from NewDeclarationInQueue.processfiles.tableobjects.transport import Transport
+#from NewDeclarationInQueue.processfiles.customprocess.text_with_special_ch import TextWithSpecialCharacters
 
 from NewDeclarationInQueue.processfiles.process_messages import ProcessMessages
 

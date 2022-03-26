@@ -1,3 +1,4 @@
+from email import message
 import urllib.request, json
 
 import json
@@ -6,6 +7,8 @@ from NewDeclarationInQueue.preprocess.api_constants import ApiConstants
 from NewDeclarationInQueue.preprocess.document_location import DocumentLocation
 from NewDeclarationInQueue.preprocess.models import DocumentType, InterestFormular, WelthFormular
 from NewDeclarationInQueue.preprocess.ocr_constants import EnvConstants, OcrConstants
+from NewDeclarationInQueue.processfiles.cmodelprocess.model_definition import ModelDefinition
+from NewDeclarationInQueue.processfiles.customprocess.table_extractor import TableExtractor
 from NewDeclarationInQueue.processfiles.ocr_worker import OcrWorker
 from NewDeclarationInQueue.processfiles.process_messages import ProcessMessages
 
@@ -32,6 +35,8 @@ class PreprocessOneStep:
             ocr_constants.COMPUTER_VISION_FORM_ENDPOINT = node[EnvConstants.ENV_CV_FORM_ENDPOINT]
             ocr_constants.FORMULAR_CONFIG_AZURE_BASE = node[EnvConstants.ENV_FRM_CONFIG_AZURE_BASE]
             ocr_constants.FORMULAR_CONFIG_PATH = node[EnvConstants.ENV_FRM_CONFIG_PATH]
+            ocr_constants.FORMULAR_MODEL_CONFIG_PATH = node[EnvConstants.ENV_FRM_MODEL_CONFIG_PATH]
+            ocr_constants.FORMULAR_COMPOSITE_MODEL_GUID = node[EnvConstants.FORMULAR_COMPOSITE_MODEL_GUID]
             
         return ocr_constants
 
@@ -74,18 +79,18 @@ class PreprocessOneStep:
         with urllib.request.urlopen(url) as url:
             ocr_dict = json.loads(url.read().decode())
 
-        s_formular_config = ocr_cnt.FORMULAR_CONFIG_AZURE_BASE + ('' if ocr_cnt.FORMULAR_CONFIG_AZURE_BASE.endswith('/') else '/') + \
-            ocr_cnt.FORMULAR_CONFIG_PATH + ('' if ocr_cnt.FORMULAR_CONFIG_PATH.endswith('/') else '/') 
+        #s_formular_config = ocr_cnt.FORMULAR_CONFIG_AZURE_BASE + ('' if ocr_cnt.FORMULAR_CONFIG_AZURE_BASE.endswith('/') else '/') + \
+        #    ocr_cnt.FORMULAR_CONFIG_PATH + ('' if ocr_cnt.FORMULAR_CONFIG_PATH.endswith('/') else '/') 
             
-        if doc_loc.type == DocumentType.DOC_WEALTH:
-            if doc_loc.formular_type == WelthFormular.DOCUMENT01:
-                s_formular_config += 'config_davere_01.json'
-        else:
-            if doc_loc.formular_type == DocumentType.DOC_INTERESTS:
-                if doc_loc.formular_type == InterestFormular.DOCUMENT01:
-                    s_formular_config += 'config_dinterese_01.json'
+        #if doc_loc.type == DocumentType.DOC_WEALTH:
+        #    if doc_loc.formular_type == WelthFormular.DOCUMENT01:
+        #        s_formular_config += 'config_davere_01.json'
+        #else:
+        #    if doc_loc.formular_type == DocumentType.DOC_INTERESTS:
+        #        if doc_loc.formular_type == InterestFormular.DOCUMENT01:
+        #            s_formular_config += 'config_dinterese_01.json'
 
-        s_formular_config += '?' + ocr_cnt.SAS_URL
+        #s_formular_config += '?' + ocr_cnt.SAS_URL
 
         formular_converter = FormularConverter()
         config_tables = formular_converter.get_formular_info(ocr_cnt, doc_loc)
@@ -100,4 +105,62 @@ class PreprocessOneStep:
 
         s_message = process_messages.get_json()
         print(json.dumps(s_message))
+        
+        
+    def process_custom_model_step_two(self, input_file_name: str) -> ProcessMessages:
+        ocr_cnt = self.get_env()
+        doc_loc = self.get_input(input_file_name)
+        process_messages = ProcessMessages('OCR Process', 'dummy_id')
+
+        #create the worker and send it the parameters for processing
+        ocr = OcrWorker(doc_loc)
+        url = ocr_cnt.STORAGE_AZURE_BASE + ('' if ocr_cnt.STORAGE_AZURE_BASE.endswith('/') else '/') + \
+            doc_loc.out_path.replace(' ', '%20') + ('' if doc_loc.out_path.endswith('/') else '/') + doc_loc.ocr_table_json_filename + \
+            '?' + ocr_cnt.SAS_URL
+            
+        ocr_dict = []
+
+        with urllib.request.urlopen(url) as url:
+            ocr_dict = json.loads(url.read().decode())
+            
+        extractor = ModelDefinition()
+        form, document_type, process_messages = extractor.get_formular_from_model(ocr_dict, process_messages)
+        if process_messages.has_errors():
+            return process_messages
+        
+        formular_converter = FormularConverter()
+        ocr_formular = formular_converter.get_formular_model_info(ocr_cnt, doc_loc, document_type)
+        
+        root_json, process_messages = form.identify_all_data(ocr_formular, process_messages)
+        
+        print(json.dumps(root_json))
+        
+        return process_messages
+
+        #s_formular_config = ocr_cnt.FORMULAR_CONFIG_AZURE_BASE + ('' if ocr_cnt.FORMULAR_CONFIG_AZURE_BASE.endswith('/') else '/') + \
+        #    ocr_cnt.FORMULAR_CONFIG_PATH + ('' if ocr_cnt.FORMULAR_CONFIG_PATH.endswith('/') else '/') 
+            
+        #if doc_loc.type == DocumentType.DOC_WEALTH:
+        #    if doc_loc.formular_type == WelthFormular.DOCUMENT01:
+        #        s_formular_config += 'config_davere_01.json'
+        #else:
+        #    if doc_loc.formular_type == DocumentType.DOC_INTERESTS:
+        #        if doc_loc.formular_type == InterestFormular.DOCUMENT01:
+        #            s_formular_config += 'config_dinterese_01.json'
+
+        #s_formular_config += '?' + ocr_cnt.SAS_URL
+
+        #formular_converter = FormularConverter()
+        #config_tables = formular_converter.get_formular_info(ocr_cnt, doc_loc)
+
+        #process_messages = ocr.process_custom_file(ocr_cnt, config_tables, ocr_dict, process_messages)
+        ##process the document and obtain processing messages
+        ##messages_result = ocr.process(cnt, messages_result)
+
+        ##return the processing messages as JSON
+        ##return messages_result.get_json()
+
+
+        #s_message = process_messages.get_json()
+        #print(json.dumps(s_message))
         

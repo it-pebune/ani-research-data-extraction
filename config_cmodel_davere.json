@@ -1,0 +1,55 @@
+{
+    "tables": [
+        {
+            "table_id": "Parcels",
+            "model_table_names": "Parcels,Parcels 1",
+            "columns":"Address,Category,Year of aquisition,Surface,Quota,Type of procurement,Owner"
+        },
+        {
+            "table_id": "Buildings",
+            "model_table_names": "Buldings,Buldings 1",
+            "columns":"Address,Category,Year of aquisition,Surface,Quota,Type of procurement,Owner"
+        },
+        {
+            "table_id": "Transport",
+            "model_table_names": "Transport",
+            "columns":"Type,Model,Number of items,Year of production"
+        },
+        {
+            "table_id": "Art",
+            "model_table_names": "Art",
+            "columns":"Description,Year of aquisition,Estimated value"
+        },
+        {
+            "table_id": "Mobile items",
+            "model_table_names": "Mobile items",
+            "columns":"Type of sold item,Date of sale, Buyer,Type of sale,Value"
+        },
+        {
+            "table_id": "Finance",
+            "model_table_names": "Finance,Finance 1",
+            "columns":"Administration institution and address,Type,Currency,Year of opening,Current value"
+        },
+        {
+            "table_id": "Investement",
+            "model_table_names": "Investement,Investment 1",
+            "columns":"Issuer,Type,Number of titles,Total Current Value"
+        },
+        {
+            "table_id": "Debt",
+            "model_table_names": "Debt",
+            "columns":"Borrower,Start date,End date,Value"
+        },
+        {
+            "table_id": "Gift",
+            "model_table_names": "Gift,Gift 1",
+            "columns":"Holder,Source,Service,Yearly income collected"
+        },
+        {
+            "table_id": "Income",
+            "model_table_names": "Income,Income 2,Income 3",
+            "columns":"Holder,Source,Service,Yearly income collected"
+        }
+    ]
+}
+

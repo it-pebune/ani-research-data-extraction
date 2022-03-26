@@ -91,6 +91,7 @@ class OcrTableService:
         message.add_message('form recognizer service call', 'service called for the initial pdf file', '')
         message = storage.save_ocr_json(output_path, ocr_json_table_filename, dict_ocr, cnt, message)
         
+        #TODO: maybe get this out in another call
         message = self.generate_and_save_custom_json(storage, output_path, dict_ocr, 
                                                      ocr_formular, ocr_json_custom_filename,
                                                      declaration_type, formular_type, ocr_formular, cnt, message)

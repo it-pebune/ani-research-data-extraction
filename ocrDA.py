@@ -12,7 +12,9 @@ from NewDeclarationInQueue.processfiles.process_messages import ProcessMessages
 
 def process_only_second_steps(input_file_path: str):
     second_step = PreprocessOneStep()
-    second_step.process_step_two(input_file_path)
+    #second_step.process_step_two(input_file_path)
+    second_step.process_custom_model_step_two(input_file_path)
+    
     
 def get_input(input_file: str):
     node = []
@@ -35,9 +37,12 @@ def process_two_steps(sfile: str):
     formular_converter = FormularConverter()
     ocr_formular = formular_converter.get_formular_info(ocr_constants, ocr_file)
     
-    process_messages_json = two_steps.process_document(ocr_file, ocr_constants, ocr_formular, process_messages)
+    #process_messages_json = two_steps.process_document(ocr_file, ocr_constants, ocr_formular, process_messages)
+    process_messages = two_steps.process_document_with_custom_model(ocr_file, ocr_constants, process_messages)
+    
+    
     
     #two_steps.save_in_output_queue(process_messages_json)
     
-process_only_second_steps(r"test_url.json")
-#process_two_steps(r"test_url.json")
+#process_only_second_steps(r"test_url.json")
+process_two_steps(r"test_url.json")

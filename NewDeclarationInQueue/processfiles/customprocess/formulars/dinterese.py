@@ -5,10 +5,10 @@ from typing import Tuple
 from NewDeclarationInQueue.processfiles.customprocess.formulars.formular_base import FormularBase
 from NewDeclarationInQueue.processfiles.customprocess.table_config_detail import TableConfigDetail
 from NewDeclarationInQueue.processfiles.customprocess.table_stop_header import TableStopHeader
-from NewDeclarationInQueue.processfiles.customprocess.tableobjects.associate import Associate
-from NewDeclarationInQueue.processfiles.customprocess.tableobjects.contracts import Contracts
-from NewDeclarationInQueue.processfiles.customprocess.tableobjects.man_commercial import ManCommercial
-from NewDeclarationInQueue.processfiles.customprocess.tableobjects.man_professional import ManProfessional
+from NewDeclarationInQueue.processfiles.tableobjects.associate import Associate
+from NewDeclarationInQueue.processfiles.tableobjects.contracts import Contracts
+from NewDeclarationInQueue.processfiles.tableobjects.man_commercial import ManCommercial
+from NewDeclarationInQueue.processfiles.tableobjects.man_professional import ManProfessional
 from NewDeclarationInQueue.processfiles.process_messages import ProcessMessages
 
 

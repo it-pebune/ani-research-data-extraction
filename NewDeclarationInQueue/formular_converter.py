@@ -97,3 +97,28 @@ class FormularConverter:
             vresult.append(self.get_summary_config_from_node(level))
         
         return vresult 
+    
+    
+    def get_formular_model_info(self, cnt: OcrConstants, doc: DocumentLocation, document_type: int) -> dict:
+        s_formular_config = cnt.FORMULAR_CONFIG_AZURE_BASE + ('' if cnt.FORMULAR_CONFIG_AZURE_BASE.endswith('/') else '/') + \
+        cnt.FORMULAR_MODEL_CONFIG_PATH + ('' if cnt.FORMULAR_MODEL_CONFIG_PATH.endswith('/') else '/') 
+        
+        if document_type == DocumentType.DOC_WEALTH:
+            s_formular_config += 'config_cmodel_davere.json'
+        else:
+            if document_type == DocumentType.DOC_INTERESTS:
+               s_formular_config += 'config_cmodel_dinterese.json'
+
+        s_formular_config += '?' + cnt.SAS_URL
+
+        node = []
+        with urllib.request.urlopen(s_formular_config) as json_data:
+            node = json.load(json_data)
+            json_data.close()
+            
+        config_tables = {}
+        for table in node['tables']:
+            config_tables[table['table_id']] = table
+            
+            
+        return config_tables
