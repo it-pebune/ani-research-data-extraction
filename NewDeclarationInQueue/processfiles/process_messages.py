@@ -28,6 +28,11 @@ class ProcessMessages:
     """
     operation = ''
     input_message_id = ''
+    
+    identified_model_name = ''
+    formular_type = 0
+    declaration_type = 0
+    
     errors = []
     messages = []
     
@@ -36,6 +41,15 @@ class ProcessMessages:
         self.input_message_id = input_id
         self.errors = []
         self.messages = []
+        
+    def set_model_name(self, model_name: str):
+        self.identified_model_name = model_name
+        
+    def set_declaration_type(self, dtype: int):
+        self.declaration_type = dtype
+        
+    def set_formular_type(self, ftype: int):
+        self.formular_type = ftype
         
         
     def add_exception(self, name: str, inst: Exception):

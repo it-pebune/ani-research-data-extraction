@@ -91,9 +91,12 @@ class OcrCustomModelService:
                
         # generate custom json
         extractor = ModelDefinition()
-        form, document_type, message = extractor.get_formular_from_model(recognized_forms, message)
+        form, document_type, model_name, message = extractor.get_formular_from_model(recognized_forms, message)
         if message.has_errors():
             return message
+        
+        message.set_model_name(model_name)
+        message.set_declaration_type(document_type)
         
         formular_converter = FormularConverter()
         ocr_formular = formular_converter.get_formular_model_info(cnt, doc_location, document_type)
@@ -120,7 +123,7 @@ class OcrCustomModelService:
         
         custom_test_action_result, message = self.get_service_result(storage, output_path, initial_filename, cnt, message)
         if message.has_errors():
-            return message
+            return {}, message
         
         saved_json, message = self.save_model_result(custom_test_action_result, storage, output_path,
                         ocr_json_table_filename, cnt, message)

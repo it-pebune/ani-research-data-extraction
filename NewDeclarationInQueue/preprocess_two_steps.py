@@ -24,6 +24,11 @@ class PreProcessTwoSteps:
     
     def save_in_output_queue(self, input_msg: dict, msg: ProcessMessages):
         input_msg[ApiConstants.PROCESS_REQUEST_NODE_OUTPUT_MESSAGEID] = msg.input_message_id
+        
+        input_msg[ApiConstants.PROCESS_REQUEST_NODE_ATTRIBUTE_TYPE] = msg.declaration_type
+        input_msg[ApiConstants.PROCESS_REQUEST_NODE_ATTRIBUTE_FORMULAR_TYPE] = msg.formular_type
+        input_msg[ApiConstants.PROCESS_REQUEST_NODE_ATTRIBUTE_MODEL_NAME] = msg.identified_model_name
+        
         input_msg[ApiConstants.PROCESS_REQUEST_NODE_OUTPUT_ERRORS] = msg.get_error_json()
         input_msg[ApiConstants.PROCESS_REQUEST_NODE_OUTPUT_MESSAGES] = msg.get_message_json()
         

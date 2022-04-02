@@ -15,9 +15,14 @@ class ModelDefinition:
     FORMULAR_DI_2 = "declaratii-de-integritate-cmodel:declaratii-de-interese-F02"
     
     
-    def get_formular_from_model(self, identified_forms: dict, messages: ProcessMessages) -> Tuple[CmFormularBase, int, ProcessMessages]:
+    def get_formular_from_model(self, identified_forms: dict, messages: ProcessMessages) -> Tuple[CmFormularBase, int, str, ProcessMessages]:
         confidence = 0
         main_key = None
+        
+        if len(identified_forms) == 0:
+            messages.add_error('No model was identified: ', 'get_formular_from_model')
+            return None, 0, '', messages
+        
         for key in identified_forms.keys():
             form = identified_forms[key]
             if confidence < form[CmFormularBase.FORM_CONFIDENCE]:
@@ -26,7 +31,7 @@ class ModelDefinition:
                 
         if main_key is None:
             messages.add_error('Formular not found in the custom model results')
-            return None, 0, messages
+            return None, 0, '', messages
         
         #declaratii-de-integritate-cmodel:declaratii-de-avere-F01
         form = identified_forms[main_key]
@@ -35,10 +40,10 @@ class ModelDefinition:
         formular, document_type = self.get_formular_by_type(form_type)
         if formular is None:
             messages.add_error('Formular type not found: ' + form_type)
-            return None, 0, messages
+            return None, 0, '', messages
         
         formular.load_from_model(form)
-        return formular, document_type, messages
+        return formular, document_type, main_key, messages
         
         
     def get_formular_by_type(self, form_type: str) -> Tuple[CmFormularBase, int]:
