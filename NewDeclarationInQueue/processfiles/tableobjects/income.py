@@ -3,8 +3,8 @@ from NewDeclarationInQueue.processfiles.tableobjects.declaration_data import Dec
 from NewDeclarationInQueue.processfiles.tableobjects.table_in_document import TableInDocument
 
 class Income(TableInDocument):
-    COL_INCOME_TYPE = 'income_type'
-    COL_PERSON_TYPE = 'person_type'
+    #COL_INCOME_TYPE = 'income_type'
+    #COL_PERSON_TYPE = 'person_type'
     COL_OWNER = 'owner'
     COL_SOURCE = 'source'
     COL_SERVICE = 'service'
@@ -21,12 +21,12 @@ class Income(TableInDocument):
         return
     
     def create_from_row(self, row):
-        self.income_type = row[0] if 0 < len(row) else None
-        self.person_type = row[1] if 1 < len(row) else None
-        self.owner = row[2] if 2 < len(row) else None
-        self.source = row[3] if 3 < len(row) else None
-        self.service = row[4] if 4 < len(row) else None
-        self.year_income = row[5] if 5 < len(row) else None
+        #self.income_type = row[0] if 0 < len(row) else None
+        #self.person_type = row[1] if 1 < len(row) else None
+        self.owner = row[0] if 0 < len(row) else None
+        self.source = row[1] if 1 < len(row) else None
+        self.service = row[2] if 2 < len(row) else None
+        self.year_income = row[3] if 3 < len(row) else None
         
     def create_from_row_two_level(self, level_zero, level_one, row):
         self.income_type = level_zero,
@@ -42,13 +42,14 @@ class Income(TableInDocument):
                 self.source is not None or self.service is not None  or self.year_income is not None
     
     def to_string(self):
-        return self.income_type.to_string() + ' - ' + self.person_type.to_string() + ' - ' + self.owner.to_string() + ' - ' + \
+        #return self.income_type.to_string() + ' - ' + self.person_type.to_string() + ' - ' + 
+        return self.owner.to_string() + ' - ' + \
             self.source.to_string() + ' - ' + self.service.to_string() + ' - ' + self.year_income
     
     def to_json(self):
         result = {
-            self.COL_INCOME_TYPE: self.income_type.to_json() if self.income_type is not None else {},
-            self.COL_PERSON_TYPE: self.person_type.to_json() if self.person_type is not None else {},
+            #self.COL_INCOME_TYPE: self.income_type.to_json() if self.income_type is not None else {},
+            #self.COL_PERSON_TYPE: self.person_type.to_json() if self.person_type is not None else {},
             self.COL_OWNER: self.owner.to_json() if self.owner is not None else {},
             self.COL_SOURCE: self.source.to_json() if self.source is not None else {},
             self.COL_SERVICE: self.service.to_json() if self.service is not None else {},

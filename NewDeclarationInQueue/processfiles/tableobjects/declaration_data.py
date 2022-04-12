@@ -4,7 +4,7 @@
 class DeclarationData:
     text = ''
     page_number = 0
-    confidence = 0
+    confidence = 0.0
     bounding_box = [] # this should be a vector of dict, so it is easily transformed in json
     
         

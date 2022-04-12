@@ -11,7 +11,7 @@ class CmFormularBase:
     
     cmformular: dict
     form_type: str
-    form_confidence: int
+    form_confidence: float
     page_range: dict
     
     name: str
@@ -75,6 +75,8 @@ class CmFormularBase:
                 
             if vect is not None and len(vect) > 0:
                 json_root[out_json_node_name] = vect
+            else:
+                json_root[out_json_node_name] = []
         except Exception as exex:
             message.add_exception('Error reading the model ' + table_name, exex)
             

@@ -3,10 +3,10 @@
     "type": 2,
     "formularType": 1,
     "storage": "azure",
-    "path": "Anastase-Roberta-Alma-f4e3335b-281f-4170-b014-f1d781fb041b/DA/",
-    "filename": "b1461a63-eb69-4190-a53c-291e3ff6423b",
-    "outPath": "Anastase-Roberta-Alma-f4e3335b-281f-4170-b014-f1d781fb041b/DA",
-    "ocrTableJsonFilename": "avere-2016.pdf-09e20310-9f50-4935-89ad-280d9c4312a9-table.json",
-    "ocrCustomJsonFilename": "avere-2016.pdf-09e20310-9f50-4935-89ad-280d9c4312a9-custom.json"
+    "path": "debug-ocr",
+    "filename": "roberata_da_next_page.pdf",
+    "outPath": "debug-ocr",
+    "ocrTableJsonFilename": "roberta_da_next_page_table.json",
+    "ocrCustomJsonFilename": "roberta_da_next_page_custom.json"
   }
   
