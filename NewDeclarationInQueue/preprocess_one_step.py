@@ -124,7 +124,7 @@ class PreprocessOneStep:
             ocr_dict = json.loads(url.read().decode())
             
         extractor = ModelDefinition()
-        form, document_type, process_messages = extractor.get_formular_from_model(ocr_dict, process_messages)
+        form, document_type, main_key, process_messages = extractor.get_formular_from_model(ocr_dict, process_messages)
         if process_messages.has_errors():
             return process_messages
         

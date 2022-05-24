@@ -61,6 +61,8 @@ class CmWealthFormular(CmFormularBase):
     def identify_tables(self, config_formular: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages]:
         fields = self.cmformular["fields"]
         
+        
+        
         json = {}
         try:
             message, json = self.identify_one_table(self.TABLE_PARCELS, 'parcels', lambda x: Parcel(), \

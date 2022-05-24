@@ -58,6 +58,7 @@ class OcrTableFormatter:
     def __init__(self):
         pass
     
+    #TODO: save the file exactly how it comes from the OCR service
     def get_json_from_form_recognizer_response(self, message: ProcessMessages, pages: any) -> Tuple[ProcessMessages, dict]:
         """ Generate custom JSON from the JSON received from form recognizer service. 
                 This is the entry point for the processing happening in this class.
