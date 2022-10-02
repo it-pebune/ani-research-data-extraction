@@ -39,10 +39,10 @@ class CmWealthFormular(CmFormularBase):
     def __init__(self):
         pass
     
-    def identify_all_data(self, config_formular: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages]:
+    def identify_all_data(self, config_formular: dict, raw_tables: list, message: ProcessMessages) -> Tuple[dict, dict, ProcessMessages]:
         message = self.identify_id_data(message)
-        json, message = self.identify_tables(config_formular, message)
-        return json, message
+        json, raw_json, message = self.identify_tables(config_formular, raw_tables, message)
+        return json, raw_json, message
     
     def identify_id_data(self, message: ProcessMessages) -> ProcessMessages:
         fields = self.cmformular["fields"]
@@ -58,42 +58,49 @@ class CmWealthFormular(CmFormularBase):
     
         
         
-    def identify_tables(self, config_formular: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages]:
+    def identify_tables(self, config_formular: dict, raw_tables: list, message: ProcessMessages) -> Tuple[dict, dict, ProcessMessages]:
         fields = self.cmformular["fields"]
         
         json = {}
+        raw_json = {}
         try:
-            message, json = self.identify_one_table(self.TABLE_PARCELS, 'parcels', lambda x: Parcel(), \
-                config_formular, fields, json, message)
-            message, json = self.identify_one_table(self.TABLE_BUILDINGS, 'buildings', lambda x: Building(), \
-                config_formular, fields, json, message)
-            message, json = self.identify_one_table(self.TABLE_TRANSPORT, 'transport', lambda x: Transport(), \
-                config_formular, fields, json, message)
-            message, json = self.identify_one_table(self.TABLE_ART, 'art', lambda x: Art(), \
-                config_formular, fields, json, message)
-            message, json = self.identify_one_table(self.TABLE_MOBILE, 'mobile', lambda x: Mobile(), \
-                config_formular, fields, json, message)
-            message, json = self.identify_one_table(self.TABLE_FINANCE, 'finance', lambda x: Finance(), \
-                config_formular, fields, json, message)
-            message, json = self.identify_one_table(self.TABLE_INVESTMENT, 'investment', lambda x: Investment(), \
-                config_formular, fields, json, message)
-            message, json = self.identify_one_table(self.TABLE_DEBT, 'debt', lambda x: Debt(), \
-                config_formular, fields, json, message)
-            message, json = self.identify_one_table(self.TABLE_GIFT, 'gift', lambda x: Gift(), \
-                config_formular, fields, json, message)
-            message, json = self.identify_one_table(self.TABLE_INCOME, 'income', lambda x: Income(), \
-                config_formular, fields, json, message)
+            message, json, raw_json = self.identify_one_table(self.TABLE_PARCELS, 'parcels', lambda x: Parcel(), \
+                config_formular, fields, raw_tables, json, raw_json, message)
+            message, json, raw_json = self.identify_one_table(self.TABLE_BUILDINGS, 'buildings', lambda x: Building(), \
+                config_formular, fields, raw_tables, json, raw_json, message)
+            message, json, raw_json = self.identify_one_table(self.TABLE_TRANSPORT, 'transport', lambda x: Transport(), \
+                config_formular, fields, raw_tables, json, raw_json, message)
+            message, json, raw_json = self.identify_one_table(self.TABLE_ART, 'art', lambda x: Art(), \
+                config_formular, fields, raw_tables, json, raw_json, message)
+            message, json, raw_json = self.identify_one_table(self.TABLE_MOBILE, 'mobile', lambda x: Mobile(), \
+                config_formular, fields, raw_tables, json, raw_json, message)
+            message, json, raw_json = self.identify_one_table(self.TABLE_FINANCE, 'finance', lambda x: Finance(), \
+                config_formular, fields, raw_tables, json, raw_json, message)
+            message, json, raw_json = self.identify_one_table(self.TABLE_INVESTMENT, 'investment', lambda x: Investment(), \
+                config_formular, fields, raw_tables, json, raw_json, message)
+            message, json, raw_json = self.identify_one_table(self.TABLE_DEBT, 'debt', lambda x: Debt(), \
+                config_formular, fields, raw_tables, json, raw_json, message)
+            message, json, raw_json = self.identify_one_table(self.TABLE_GIFT, 'gift', lambda x: Gift(), \
+                config_formular, fields, raw_tables, json, raw_json, message)
+            message, json, raw_json = self.identify_one_table(self.TABLE_INCOME, 'income', lambda x: Income(), \
+                config_formular, fields, raw_tables, json, raw_json, message)
             
-            json['finance_extra_info'] = self.get_field_value(fields[self.FIELD_OTHER_INCOME])
-            json[self.FIELD_NAME] = self.name
-            json[self.FIELD_JOB_TITLE] = self.job_title
-            json[self.FIELD_INSTITUTION] = self.institution
-            json[self.FIELD_ADDRESS] = self.address
-            json[self.FIELD_DOCUMENT_DATE] = self.doc_date
+            json = self.add_finance_extra_to_json(json, fields)
+            raw_json = self.add_finance_extra_to_json(raw_json, fields)
         except Exception as exex:
             message.add_exception('Error reading the model', exex)
                   
-        return json, message
+        return json, raw_json, message
+    
+    def add_finance_extra_to_json(self, root: dict, fields) -> dict:
+        root['finance_extra_info'] = self.get_field_value(fields[self.FIELD_OTHER_INCOME])
+        root[self.FIELD_NAME] = self.name
+        root[self.FIELD_JOB_TITLE] = self.job_title
+        root[self.FIELD_INSTITUTION] = self.institution
+        root[self.FIELD_ADDRESS] = self.address
+        root[self.FIELD_DOCUMENT_DATE] = self.doc_date
+        
+        return root
         
         
     

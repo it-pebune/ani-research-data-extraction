@@ -3,52 +3,72 @@
         {
             "table_id": "Parcels",
             "model_table_names": "Parcels,Parcels 1",
-            "columns":"Address,Category,Year of aquisition,Surface,Quota,Type of procurement,Owner"
+            "columns":"Address,Category,Year of aquisition,Surface,Quota,Type of procurement,Owner",
+            "label_start":"LB_BUNURI_IMOBILE,LB_TERENURI",
+            "label_end": "LB_CLADIRI"
         },
         {
             "table_id": "Buildings",
             "model_table_names": "Buldings,Buldings 1",
-            "columns":"Address,Category,Year of aquisition,Surface,Quota,Type of procurement,Owner"
+            "columns":"Address,Category,Year of aquisition,Surface,Quota,Type of procurement,Owner",
+            "label_start":"LB_CLADIRI",
+            "label_end": "LB_BUNURI_MOBILE,LB_AUTOVEHICULE"
         },
         {
             "table_id": "Transport",
             "model_table_names": "Transport",
-            "columns":"Type,Model,Number of items,Year of production"
+            "columns":"Type,Model,Number of items,Year of production",
+            "label_start":"LB_BUNURI_MOBILE,LB_AUTOVEHICULE",
+            "label_end": "LB_ART"
         },
         {
             "table_id": "Art",
             "model_table_names": "Art",
-            "columns":"Description,Year of aquisition,Estimated value"
+            "columns":"Description,Year of aquisition,Estimated value",
+            "label_start":"LB_ART",
+            "label_end": "LB_BUNURI_MOBILE_3000"
         },
         {
             "table_id": "Mobile items",
             "model_table_names": "Mobile items",
-            "columns":"Type of sold item,Date of sale, Buyer,Type of sale,Value"
+            "columns":"Type of sold item,Date of sale, Buyer,Type of sale,Value",
+            "label_start":"LB_BUNURI_MOBILE_3000",
+            "label_end": "LB_ACTIVE_FINANCIARE,LB_CONTURI_SI_DEPOZITE"
         },
         {
             "table_id": "Finance",
             "model_table_names": "Finance,Finance 1",
-            "columns":"Administration institution and address,Type,Currency,Year of opening,Current value"
+            "columns":"Administration institution and address,Type,Currency,Year of opening,Current value",
+            "label_start":"LB_ACTIVE_FINANCIARE,LB_CONTURI_SI_DEPOZITE",
+            "label_end": "LB_PLASAMENTE"
         },
         {
             "table_id": "Investement",
             "model_table_names": "Investement,Investment 1",
-            "columns":"Issuer,Type,Number of titles,Total Current Value"
+            "columns":"Issuer,Type,Number of titles,Total Current Value",
+            "label_start":"LB_PLASAMENTE",
+            "label_end": "LB_ALTE_ACTIVE"
         },
         {
             "table_id": "Debt",
             "model_table_names": "Debt",
-            "columns":"Borrower,Start date,End date,Value"
+            "columns":"Borrower,Start date,End date,Value",
+            "label_start":"LB_DATORII,LB_DEBITE",
+            "label_end": "LB_CADOURI"
         },
         {
             "table_id": "Gift",
             "model_table_names": "Gift,Gift 1",
-            "columns":"Holder,Source,Service,Yearly income collected"
+            "columns":"Holder,Source,Service,Yearly income collected",
+            "label_start":"LB_CADOURI",
+            "label_end": "LB_VENITURI"
         },
         {
             "table_id": "Income",
             "model_table_names": "Income,Income 2,Income 3",
-            "columns":"Holder,Source,Service,Yearly income collected"
+            "columns":"Holder,Source,Service,Yearly income collected",
+            "label_start":"LB_VENITURI",
+            "label_end": "LB_END_TEXT"
         }
     ]
 }

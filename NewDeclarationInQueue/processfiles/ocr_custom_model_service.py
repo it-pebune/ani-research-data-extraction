@@ -9,6 +9,7 @@ import json
 from NewDeclarationInQueue.formular_converter import FormularConverter
 
 from NewDeclarationInQueue.preprocess.ocr_constants import OcrConstants
+from NewDeclarationInQueue.processfiles.cmodelprocess.formulars.raw_table import RawTable
 from NewDeclarationInQueue.processfiles.cmodelprocess.model_definition import ModelDefinition
 from NewDeclarationInQueue.processfiles.process_messages import ProcessMessages
 from NewDeclarationInQueue.processfiles.storage.storage_support import StorageSupport
@@ -98,17 +99,28 @@ class OcrCustomModelService:
         message.set_model_name(model_name)
         message.set_declaration_type(document_type)
         
+        raw_pages = form.cmformular['pages']
+        raw_tables = []
+        for raw_page in raw_pages:
+            for raw_tab in raw_page['tables']:
+                raw_tables.append(RawTable(raw_tab))
+        
         formular_converter = FormularConverter()
         ocr_formular = formular_converter.get_formular_model_info(cnt, doc_location, document_type)
         
-        json_dict, message = form.identify_all_data(ocr_formular, message)
+        json_dict, raw_json, message = form.identify_all_data(ocr_formular, raw_tables, message)
+        
+        #get raw table info as main info, and add model table as extra info
+        raw_json['model_info'] = json_dict
+        
+        
         if message.has_errors():
             return message
         else:
             message.add_message('ocr worker process', 'Custon json generation -> '
                                + doc_location.ocr_table_json_filename, ' - ' + doc_location.ocr_table_json_filename)
         
-        message = storage.save_ocr_json(output_path, ocr_json_custom_filename, json_dict, cnt, message)
+        message = storage.save_ocr_json(output_path, ocr_json_custom_filename, raw_json, cnt, message)
             
         message.add_message('ocr worker process', 'custom json file saved -> '
                                + doc_location.ocr_table_json_filename, ' - ' + doc_location.ocr_custom_json_filename)

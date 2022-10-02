@@ -19,11 +19,20 @@ class Mobile(TableInDocument):
         return
     
     def create_from_row(self, row):
-        self.type_of_product = row[0] if 0 < len(row) else None
-        self.date_of_sale = row[1] if 1 < len(row) else None
-        self.buyer = row[2] if 2 < len(row) else None
-        self.type_of_sale = row[3] if 3 < len(row) else None
-        self.value = row[4] if 4 < len(row) else None
+        self.type_of_product = self.get_field_from_row(0, row)
+        self.date_of_sale = self.get_field_from_row(1, row)
+        self.buyer = self.get_field_from_row(2, row)
+        self.type_of_sale = self.get_field_from_row(3, row)
+        self.value = self.get_field_from_row(4, row)
+        
+    def create_from_cells(self, row):
+        cell_map = self.transform_cells(row)
+
+        self.type_of_product = self.get_field_from_cells(0, cell_map)
+        self.date_of_sale = self.get_field_from_cells(1, cell_map)
+        self.buyer = self.get_field_from_cells(2, cell_map)
+        self.type_of_sale = self.get_field_from_cells(3, cell_map)
+        self.value = self.get_field_from_cells(4, cell_map)
         
     def check_validity(self):
         return self.type_of_product is not None or self.date_of_sale is not None or self.buyer is not None or \

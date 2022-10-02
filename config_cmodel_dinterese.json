@@ -1,29 +1,40 @@
 {
     "tables": [
         {
-            "table_id": "PartyManagement",
-            "model_table_names": "PartyManagement",
-            "columns":"Party"
-        },
-        {
-            "table_id": "Contracts",
-            "model_table_names": "Contracts",
-            "columns":"Owner,Institution,Aquisition Procedure,Type of contract,A,B,C'"
-        },
-        {
-            "table_id": "Association",
-            "model_table_names": "Association",
-            "columns":"Name of Association"
-        },
-        {
             "table_id": "CompanyShares",
             "model_table_names": "CompanyShares",
-            "columns":"Company,Position,Number of Shares,Total Value"
+            "columns":"Company,Position,Number of Shares,Total Value",
+            "label_start":"LB_Company_Shares",
+            "label_end": "LB_Management_Company"
         },
         {
             "table_id": "ManagementCompany",
             "model_table_names": "ManagementCompany",
-            "columns":"Company,Position,Value"
+            "columns":"Company,Position,Value",
+            "label_start":"LB_Management_Company",
+            "label_end": "LB_ASSOCIATION"
+        },
+        
+        {
+            "table_id": "Association",
+            "model_table_names": "Association",
+            "columns":"Name of Association",
+            "label_start":"LB_ASSOCIATION",
+            "label_end": "LB_Party_Management"
+        },
+        {
+            "table_id": "PartyManagement",
+            "model_table_names": "PartyManagement",
+            "columns":"Party",
+            "label_start":"LB_Party_Management",
+            "label_end": "LB_Contracts"
+        },
+        {
+            "table_id": "Contracts",
+            "model_table_names": "Contracts",
+            "columns":"Owner,Institution,Aquisition Procedure,Type of contract,A,B,C'",
+            "label_start":"LB_Contracts",
+            "label_end": "Date of document"
         }
     ]
 }
