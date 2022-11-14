@@ -19,11 +19,20 @@ class Finance(TableInDocument):
         return
     
     def create_from_row(self, row):
-        self.adm_institution = row[0] if 0 < len(row) else None
-        self.type_of_investment = row[1] if 1 < len(row) else None
-        self.currency = row[2] if 2 < len(row) else None
-        self.year_of_opening = row[3] if 3 < len(row) else None
-        self.current_value = row[4] if 4 < len(row) else None
+        self.adm_institution = self.get_field_from_row(0, row)
+        self.type_of_investment = self.get_field_from_row(1, row)
+        self.currency = self.get_field_from_row(2, row)
+        self.year_of_opening = self.get_field_from_row(3, row)
+        self.current_value = self.get_field_from_row(4, row)
+        
+    def create_from_cells(self, row):
+        cell_map = self.transform_cells(row)
+        
+        self.adm_institution = self.get_field_from_cells(0, cell_map)
+        self.type_of_investment = self.get_field_from_cells(1, cell_map)
+        self.currency = self.get_field_from_cells(2, cell_map)
+        self.year_of_opening = self.get_field_from_cells(3, cell_map)
+        self.current_value = self.get_field_from_cells(4, cell_map)
         
     def check_validity(self):
         return self.adm_institution is not None or self.type_of_investment is not None or self.currency is not None or \

@@ -24,14 +24,24 @@ class Contracts(TableInDocument):
         return
     
     def create_from_row(self, row):
-        self.owner = row[0] if 0 < len(row) else None
-        self.institution = row[1] if 1 < len(row) else None
-        self.procedure = row[2] if 2 < len(row) else None
-        self.contract_type = row[3] if 3 < len(row) else None
-        self.date_of_contract = row[4] if 4 < len(row) else None
-        self.duration = row[5] if 5 < len(row) else None
-        self.value = row[6] if 6 < len(row) else None
+        self.owner = self.get_field_from_row(0, row)
+        self.institution = self.get_field_from_row(1, row)
+        self.procedure = self.get_field_from_row(2, row)
+        self.contract_type = self.get_field_from_row(3, row)
+        self.date_of_contract = self.get_field_from_row(4, row)
+        self.duration = self.get_field_from_row(5, row)
+        self.value = self.get_field_from_row(6, row)
         
+    def create_from_cells(self, row):
+        cell_map = self.transform_cells(row)
+        
+        self.owner = self.get_field_from_cells(0, cell_map)
+        self.institution = self.get_field_from_cells(1, cell_map)
+        self.procedure = self.get_field_from_cells(2, cell_map)
+        self.contract_type = self.get_field_from_cells(3, cell_map)
+        self.date_of_contract = self.get_field_from_cells(4, cell_map)
+        self.duration = self.get_field_from_cells(5, cell_map)
+        self.value = self.get_field_from_cells(6, cell_map)
  
         
     def check_validity(self):

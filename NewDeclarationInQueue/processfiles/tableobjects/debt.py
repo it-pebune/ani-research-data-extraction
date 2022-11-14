@@ -17,10 +17,18 @@ class Debt(TableInDocument):
         return
     
     def create_from_row(self, row):
-        self.lender = row[0] if 0 < len(row) else None
-        self.year_of_loan = row[1] if 1 < len(row) else None
-        self.due_year = row[2] if 2 < len(row) else None
-        self.value = row[3] if 3 < len(row) else None
+        self.lender = self.get_field_from_row(0, row)
+        self.year_of_loan = self.get_field_from_row(1, row)
+        self.due_year = self.get_field_from_row(2, row)
+        self.value = self.get_field_from_row(3, row)
+        
+    def create_from_cells(self, row):
+        cell_map = self.transform_cells(row)
+        
+        self.lender = self.get_field_from_cells(0, cell_map)
+        self.year_of_loan = self.get_field_from_cells(1, cell_map)
+        self.due_year = self.get_field_from_cells(2, cell_map)
+        self.value = self.get_field_from_cells(3, cell_map)
         
     def check_validity(self):
         return self.lender is not None or self.year_of_loan is not None or self.due_year is not None or \

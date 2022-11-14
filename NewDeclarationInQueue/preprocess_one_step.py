@@ -7,6 +7,7 @@ from NewDeclarationInQueue.preprocess.api_constants import ApiConstants
 from NewDeclarationInQueue.preprocess.document_location import DocumentLocation
 from NewDeclarationInQueue.preprocess.models import DocumentType, InterestFormular, WelthFormular
 from NewDeclarationInQueue.preprocess.ocr_constants import EnvConstants, OcrConstants
+from NewDeclarationInQueue.processfiles.cmodelprocess.formulars.raw_table import RawTable
 from NewDeclarationInQueue.processfiles.cmodelprocess.model_definition import ModelDefinition
 from NewDeclarationInQueue.processfiles.customprocess.table_extractor import TableExtractor
 from NewDeclarationInQueue.processfiles.ocr_worker import OcrWorker
@@ -124,16 +125,24 @@ class PreprocessOneStep:
             ocr_dict = json.loads(url.read().decode())
             
         extractor = ModelDefinition()
-        form, document_type, process_messages = extractor.get_formular_from_model(ocr_dict, process_messages)
+        form, document_type, main_key, process_messages = extractor.get_formular_from_model(ocr_dict, process_messages)
         if process_messages.has_errors():
             return process_messages
+        
+        raw_pages = form.cmformular['pages']
+        raw_tables = []
+        for raw_page in raw_pages:
+            for raw_tab in raw_page['tables']:
+                raw_tables.append(RawTable(raw_tab))
         
         formular_converter = FormularConverter()
         ocr_formular = formular_converter.get_formular_model_info(ocr_cnt, doc_loc, document_type)
         
-        root_json, process_messages = form.identify_all_data(ocr_formular, process_messages)
+        root_json, raw_json, process_messages = form.identify_all_data(ocr_formular, raw_tables, process_messages)
+        #get raw table info as main info, and add model table as extra info
+        raw_json['model_info'] = root_json
         
-        print(json.dumps(root_json))
+        print(json.dumps(raw_json))
         
         return process_messages
 

@@ -26,6 +26,17 @@ class DeclarationData:
         
         return True
     
+    def create_from_cell(self, obj) -> bool:
+        if obj is None:
+            return False
+        
+        self.text = obj['text']
+        self.page_number = obj['page_number']
+        self.confidence = obj['confidence']
+        self.bounding_box = obj['bounding_box']
+        
+        return True
+    
         
     def check_validity(self):
         return len(self.text) > 0

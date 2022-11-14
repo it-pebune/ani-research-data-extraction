@@ -17,10 +17,18 @@ class MemberQuality(TableInDocument):
         return
     
     def create_from_row(self, row):
-        self.company = row[0] if 0 < len(row) else None
-        self.position = row[1] if 1 < len(row) else None
-        self.number_of_shares = row[2] if 2 < len(row) else None
-        self.total_value = row[3] if 3 < len(row) else None
+        self.company = self.get_field_from_row(0, row)
+        self.position = self.get_field_from_row(1, row)
+        self.number_of_shares = self.get_field_from_row(2, row)
+        self.total_value = self.get_field_from_row(3, row)
+        
+    def create_from_cells(self, row):
+        cell_map = self.transform_cells(row)
+        
+        self.company = self.get_field_from_cells(0, cell_map)
+        self.position = self.get_field_from_cells(1, cell_map)
+        self.number_of_shares = self.get_field_from_cells(2, cell_map)
+        self.total_value = self.get_field_from_cells(3, cell_map)
         
     def check_validity(self):
         return self.company is not None or self.position is not None or self.number_of_shares is not None or \

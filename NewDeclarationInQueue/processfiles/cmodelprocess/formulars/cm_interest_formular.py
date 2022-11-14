@@ -1,5 +1,6 @@
 
 
+from distutils.command.upload import upload
 from typing import Tuple
 from NewDeclarationInQueue.processfiles.cmodelprocess.formulars.cm_formular_base import CmFormularBase
 from NewDeclarationInQueue.processfiles.process_messages import ProcessMessages
@@ -27,10 +28,10 @@ class CmInterestFormular(CmFormularBase):
     def __init__(self):
         pass
     
-    def identify_all_data(self, config_formular: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages]:
+    def identify_all_data(self, config_formular: dict, raw_tables: list, message: ProcessMessages) -> Tuple[dict, dict, ProcessMessages]:
         message = self.identify_id_data(message)
-        json, message = self.identify_tables(config_formular, message)
-        return json, message
+        json, raw_json, message = self.identify_tables(config_formular, raw_tables, message)
+        return json, raw_json, message
     
     def identify_id_data(self, message: ProcessMessages) -> ProcessMessages:
         fields = self.cmformular["fields"]
@@ -44,28 +45,40 @@ class CmInterestFormular(CmFormularBase):
         return message
     
     
-    def identify_tables(self, config_formular: dict, message: ProcessMessages) -> Tuple[dict, ProcessMessages]:
+    def identify_tables(self, config_formular: dict, raw_tables: list, message: ProcessMessages) -> Tuple[dict, dict, ProcessMessages]:
         fields = self.cmformular["fields"]
         
         json = {}
+        raw_json = {}
         try:
-            message, json = self.identify_one_table(self.TABLE_PARTY, 'party', lambda x: ManProfessional(), \
-                config_formular, fields, json, message)
-            message, json = self.identify_one_table(self.TABLE_CONTRACTS, 'contracts', lambda x: Contracts(), \
-                config_formular, fields, json, message)
-            message, json = self.identify_one_table(self.TABLE_ASSOCIATIONS, 'asociations', lambda x: ManProfessional(), \
-                config_formular, fields, json, message)
-            message, json = self.identify_one_table(self.TABLE_SHARES, 'company_shares', lambda x: MemberQuality(), \
-                config_formular, fields, json, message)
-            message, json = self.identify_one_table(self.TABLE_COMPANY, 'man_companies', lambda x: ManCommercial(), \
-                config_formular, fields, json, message)
+            message, json, raw_json = self.identify_one_table(self.TABLE_SHARES, 'company_shares', lambda x: MemberQuality(), \
+                config_formular, fields, raw_tables, json, raw_json, message)
+            message, json, raw_json = self.identify_one_table(self.TABLE_COMPANY, 'man_companies', lambda x: ManCommercial(), \
+                config_formular, fields, raw_tables, json, raw_json, message)
+            message, json, raw_json = self.identify_one_table(self.TABLE_ASSOCIATIONS, 'asociations', lambda x: ManProfessional(), \
+                config_formular, fields, raw_tables, json, raw_json, message)
+            message, json, raw_json = self.identify_one_table(self.TABLE_PARTY, 'party', lambda x: ManProfessional(), \
+                config_formular, fields, raw_tables, json, raw_json, message)
+            message, json, raw_json = self.identify_one_table(self.TABLE_CONTRACTS, 'contracts', lambda x: Contracts(), \
+                config_formular, fields, raw_tables, json, raw_json, message)
             
-            json[self.FIELD_NAME] = self.name
-            json[self.FIELD_JOB_TITLE] = self.job_title
-            json[self.FIELD_INSTITUTION] = self.institution
-            json[self.FIELD_ADDRESS] = self.address
-            json[self.FIELD_DOCUMENT_DATE] = self.doc_date
+            
+            
+            
+            json = self.upload_fixed_data(json)
+            raw_json = self.upload_fixed_data(raw_json)
+            
         except Exception as exex:
             message.add_exception('Error reading the model', exex)
                   
-        return json, message
+        return json, raw_json, message
+
+
+    def upload_fixed_data(self, json: dict) -> dict:
+        json[self.FIELD_NAME] = self.name
+        json[self.FIELD_JOB_TITLE] = self.job_title
+        json[self.FIELD_INSTITUTION] = self.institution
+        json[self.FIELD_ADDRESS] = self.address
+        json[self.FIELD_DOCUMENT_DATE] = self.doc_date
+        
+        return json
