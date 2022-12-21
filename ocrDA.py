@@ -8,6 +8,8 @@ from NewDeclarationInQueue.processfiles.customprocess.table_config_detail import
 from NewDeclarationInQueue.processfiles.customprocess.text_with_special_ch import TextWithSpecialCharacters
 from NewDeclarationInQueue.processfiles.ocr_worker import OcrWorker
 from NewDeclarationInQueue.processfiles.process_messages import ProcessMessages
+from pdf_model.configs.configs import WealthDeclarationConfig
+from pdf_model.wealth_declaration_parser import WealthDeclarationParser
 
 
 def process_only_second_steps(input_file_path: str):
@@ -40,11 +42,16 @@ def process_two_steps(sfile: str):
     #process_messages_json = two_steps.process_document(ocr_file, ocr_constants, ocr_formular, process_messages)
     process_messages = two_steps.process_document_with_custom_model(ocr_file, ocr_constants, process_messages)
     
-    
-    
     #two_steps.save_in_output_queue(process_messages_json)
+   
     
-process_only_second_steps(r"test_url.json")
+def test_pdf_model():
+    WealthDeclarationParser(WealthDeclarationConfig).parse("pdf_model/ciuca_1_da.pdf")
+
+    
+test_pdf_model()
+
+# process_only_second_steps(r"test_url.json")
 #process_two_steps(r"test_url.json")
 
 

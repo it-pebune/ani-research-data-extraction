@@ -30,11 +30,11 @@ class CmFormularBase:
         
         return value_data["value"]
     
-    def load_from_model(self, dict):
-        self.cmformular = dict
-        self.form_type = dict[self.FORM_TYPE]
-        self.form_confidence = dict[self.FORM_CONFIDENCE]
-        self.page_range = dict[self.PAGE_RANGE]
+    def load_from_model(self, raw_model: dict):
+        self.cmformular = raw_model
+        self.form_type = raw_model[self.FORM_TYPE]
+        self.form_confidence = raw_model[self.FORM_CONFIDENCE]
+        self.page_range = raw_model[self.PAGE_RANGE]
         
     
     def get_labels(self, tab_config, fields, slabel_name) -> Tuple[int, int]:

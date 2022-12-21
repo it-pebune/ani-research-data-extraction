@@ -54,8 +54,6 @@ class CmWealthFormular(CmFormularBase):
         self.doc_date = self.get_field_value(fields[self.FIELD_DOCUMENT_DATE])
         
         return message
-    
-    
         
         
     def identify_tables(self, config_formular: dict, raw_tables: list, message: ProcessMessages) -> Tuple[dict, dict, ProcessMessages]:
