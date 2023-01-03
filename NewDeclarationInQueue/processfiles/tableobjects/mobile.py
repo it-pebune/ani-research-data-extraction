@@ -15,24 +15,30 @@ class Mobile(TableInDocument):
     type_of_sale: DeclarationData = None
     value: DeclarationData = None
         
-    def __init__(self):
-        return
+    def __init__(self, type_of_product, date_of_sale, buyer, type_of_sale, value):
+        self.type_of_product = type_of_product
+        self.date_of_sale = date_of_sale
+        self.buyer = buyer
+        self.type_of_sale = type_of_sale
+        self.value = value
     
-    def create_from_row(self, row):
-        self.type_of_product = self.get_field_from_row(0, row)
-        self.date_of_sale = self.get_field_from_row(1, row)
-        self.buyer = self.get_field_from_row(2, row)
-        self.type_of_sale = self.get_field_from_row(3, row)
-        self.value = self.get_field_from_row(4, row)
+    # def create_from_row(self, row):
+    #     self.type_of_product = self.get_field_from_row(0, row)
+    #     self.date_of_sale = self.get_field_from_row(1, row)
+    #     self.buyer = self.get_field_from_row(2, row)
+    #     self.type_of_sale = self.get_field_from_row(3, row)
+    #     self.value = self.get_field_from_row(4, row)
+    #     return self
         
-    def create_from_cells(self, row):
-        cell_map = self.transform_cells(row)
+    # def create_from_cells(self, row):
+    #     cell_map = self.transform_cells(row)
 
-        self.type_of_product = self.get_field_from_cells(0, cell_map)
-        self.date_of_sale = self.get_field_from_cells(1, cell_map)
-        self.buyer = self.get_field_from_cells(2, cell_map)
-        self.type_of_sale = self.get_field_from_cells(3, cell_map)
-        self.value = self.get_field_from_cells(4, cell_map)
+    #     self.type_of_product = self.get_field_from_cells(0, cell_map)
+    #     self.date_of_sale = self.get_field_from_cells(1, cell_map)
+    #     self.buyer = self.get_field_from_cells(2, cell_map)
+    #     self.type_of_sale = self.get_field_from_cells(3, cell_map)
+    #     self.value = self.get_field_from_cells(4, cell_map)
+    #     return self
         
     def check_validity(self):
         return self.type_of_product is not None or self.date_of_sale is not None or self.buyer is not None or \

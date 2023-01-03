@@ -1,14 +1,19 @@
 
 
-from distutils.command.upload import upload
 from typing import Tuple
 from NewDeclarationInQueue.processfiles.cmodelprocess.formulars.cm_formular_base import CmFormularBase
 from NewDeclarationInQueue.processfiles.process_messages import ProcessMessages
+from NewDeclarationInQueue.processfiles.table_builders.contracts_builder import ContractsBuilder
+from NewDeclarationInQueue.processfiles.table_builders.man_commercial_builder import ManCommercialBuilder
+from NewDeclarationInQueue.processfiles.table_builders.man_professional import ManProfessionalBuilder
+from NewDeclarationInQueue.processfiles.table_builders.member_quality_builder import MemberQualityBuilder
+from NewDeclarationInQueue.processfiles.table_builders.table_content_extractors.ocr_extractor import OcrExtractor
 from NewDeclarationInQueue.processfiles.tableobjects.associate import Associate
 from NewDeclarationInQueue.processfiles.tableobjects.contracts import Contracts
 from NewDeclarationInQueue.processfiles.tableobjects.man_commercial import ManCommercial
 from NewDeclarationInQueue.processfiles.tableobjects.man_professional import ManProfessional
 from NewDeclarationInQueue.processfiles.tableobjects.member_quality import MemberQuality
+from NewDeclarationInQueue.processfiles.tableobjects.table_content_extractors import ocr_extractor
 
 
 class CmInterestFormular(CmFormularBase):
@@ -51,15 +56,16 @@ class CmInterestFormular(CmFormularBase):
         json = {}
         raw_json = {}
         try:
-            message, json, raw_json = self.identify_one_table(self.TABLE_SHARES, 'company_shares', lambda x: MemberQuality(), \
+            # Here
+            message, json, raw_json = self.identify_one_table(self.TABLE_SHARES, 'company_shares', lambda x: MemberQualityBuilder(OcrExtractor()), \
                 config_formular, fields, raw_tables, json, raw_json, message)
-            message, json, raw_json = self.identify_one_table(self.TABLE_COMPANY, 'man_companies', lambda x: ManCommercial(), \
+            message, json, raw_json = self.identify_one_table(self.TABLE_COMPANY, 'man_companies', lambda x: ManCommercialBuilder(OcrExtractor()), \
                 config_formular, fields, raw_tables, json, raw_json, message)
-            message, json, raw_json = self.identify_one_table(self.TABLE_ASSOCIATIONS, 'asociations', lambda x: ManProfessional(), \
+            message, json, raw_json = self.identify_one_table(self.TABLE_ASSOCIATIONS, 'asociations', lambda x: ManProfessionalBuilder(OcrExtractor()), \
                 config_formular, fields, raw_tables, json, raw_json, message)
-            message, json, raw_json = self.identify_one_table(self.TABLE_PARTY, 'party', lambda x: ManProfessional(), \
+            message, json, raw_json = self.identify_one_table(self.TABLE_PARTY, 'party', lambda x: ManProfessionalBuilder(OcrExtractor()), \
                 config_formular, fields, raw_tables, json, raw_json, message)
-            message, json, raw_json = self.identify_one_table(self.TABLE_CONTRACTS, 'contracts', lambda x: Contracts(), \
+            message, json, raw_json = self.identify_one_table(self.TABLE_CONTRACTS, 'contracts', lambda x: ContractsBuilder(OcrExtractor()), \
                 config_formular, fields, raw_tables, json, raw_json, message)
             
             

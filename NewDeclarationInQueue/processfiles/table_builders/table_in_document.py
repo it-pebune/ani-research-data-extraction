@@ -3,9 +3,9 @@
 from NewDeclarationInQueue.processfiles.tableobjects.declaration_data import DeclarationData
 
 
-class TableInDocument:
+class OcrTableBuilder:
     """
-        Defines a table in a document and methods to proces it
+        Builds a table from formular data
     """
     
     def __init__(self):
@@ -23,11 +23,11 @@ class TableInDocument:
     def create_from_cells(self, row):
         return None
     
-    def check_validity(self):
-        return None
+    # def check_validity(self):
+    #     return None
     
-    def to_json(self):
-        return None
+    # def to_json(self):
+    #     return None
     
     
     def get_data_from_cell(self, cell, idx: dict) -> dict:

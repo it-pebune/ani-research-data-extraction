@@ -17,32 +17,42 @@ class Income(TableInDocument):
     service: DeclarationData = None
     year_income: DeclarationData = None
         
-    def __init__(self):
-        return
+    def __init__(self, owner, source, service, year_income, income_type = None, person_type = None):
+        self.owner = owner
+        self.source = source
+        self.service = service
+        self.year_income = year_income
+        self.person_type = person_type
+        self.income_type = income_type
     
-    def create_from_row(self, row):
-        #self.income_type = row[0] if 0 < len(row) else None
-        #self.person_type = row[1] if 1 < len(row) else None
-        self.owner = self.get_field_from_row(0, row)
-        self.source = self.get_field_from_row(1, row)
-        self.service = self.get_field_from_row(2, row)
-        self.year_income = self.get_field_from_row(3, row)
+    # def create_from_row(self, row):
+    #     #self.income_type = row[0] if 0 < len(row) else None
+    #     #self.person_type = row[1] if 1 < len(row) else None
+    #     self.owner = self.get_field_from_row(0, row)
+    #     self.source = self.get_field_from_row(1, row)
+    #     self.service = self.get_field_from_row(2, row)
+    #     self.year_income = self.get_field_from_row(3, row)
+    #     return self
         
-    def create_from_cells(self, row):
-        cell_map = self.transform_cells(row)
+    # def create_from_cells(self, row):
+    #     cell_map = self.transform_cells(row)
 
-        self.owner = self.get_field_from_cells(0, cell_map)
-        self.source = self.get_field_from_cells(1, cell_map)
-        self.service = self.get_field_from_cells(2, cell_map)
-        self.year_income = self.get_field_from_cells(3, cell_map)
+    #     self.owner = self.get_field_from_cells(0, cell_map)
+    #     self.source = self.get_field_from_cells(1, cell_map)
+    #     self.service = self.get_field_from_cells(2, cell_map)
+    #     self.year_income = self.get_field_from_cells(3, cell_map)
         
-    def create_from_row_two_level(self, level_zero, level_one, row):
-        self.income_type = level_zero,
-        self.person_type = level_one
-        self.owner = row[0] if 0 < len(row) else None
-        self.source = row[1] if 1 < len(row) else None
-        self.service = row[2] if 2 < len(row) else None
-        self.year_income = row[3] if 3 < len(row) else None
+    #     return self
+        
+    # def create_from_row_two_level(self, level_zero, level_one, row):
+    #     self.income_type = level_zero,
+    #     self.person_type = level_one
+    #     self.owner = row[0] if 0 < len(row) else None
+    #     self.source = row[1] if 1 < len(row) else None
+    #     self.service = row[2] if 2 < len(row) else None
+    #     self.year_income = row[3] if 3 < len(row) else None
+        
+    #     return self
         
         
     def check_validity(self):

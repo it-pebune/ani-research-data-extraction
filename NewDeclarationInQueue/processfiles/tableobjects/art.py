@@ -14,20 +14,24 @@ class Art(TableInDocument):
     year_of_aquisition: DeclarationData = None
     estimated_value: DeclarationData = None
         
-    def __init__(self):
-        return
+    def __init__(self, short_description, year_of_aquisition, estimated_value):
+        self.short_description = short_description
+        self.year_of_aquisition = year_of_aquisition
+        self.estimated_value = estimated_value
     
-    def create_from_row(self, row):
-        self.short_description = self.get_field_from_row(0, row)
-        self.year_of_aquisition = self.get_field_from_row(1, row)
-        self.estimated_value = self.get_field_from_row(2, row)
+    # def create_from_row(self, row):
+    #     self.short_description = self.get_field_from_row(0, row)
+    #     self.year_of_aquisition = self.get_field_from_row(1, row)
+    #     self.estimated_value = self.get_field_from_row(2, row)
+    #     return self
         
-    def create_from_cells(self, row):
-        cell_map = self.transform_cells(row)
+    # def create_from_cells(self, row):
+    #     cell_map = self.transform_cells(row)
         
-        self.short_description = self.get_field_from_cells(0, cell_map)
-        self.year_of_aquisition = self.get_field_from_cells(1, cell_map)
-        self.estimated_value = self.get_field_from_cells(2, cell_map)
+    #     self.short_description = self.get_field_from_cells(0, cell_map)
+    #     self.year_of_aquisition = self.get_field_from_cells(1, cell_map)
+    #     self.estimated_value = self.get_field_from_cells(2, cell_map)
+    #     return self
         
     def check_validity(self):
         return self.short_description is not None or self.year_of_aquisition is not None or self.estimated_value is not None

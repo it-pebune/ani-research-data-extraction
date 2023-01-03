@@ -7,18 +7,8 @@ class ManProfessional(TableInDocument):
         
     company: DeclarationData = None
         
-    def __init__(self):
-        return
-    
-    def create_from_row(self, row):
-        self.company = self.get_field_from_row(0, row)
-        
-        
-    def create_from_cells(self, row):
-        cell_map = self.transform_cells(row)
-        
-        self.company = self.get_field_from_cells(0, cell_map)
- 
+    def __init__(self, company):
+        self.company = company
         
     def check_validity(self):
         return self.company is not None 

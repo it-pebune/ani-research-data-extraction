@@ -8,7 +8,6 @@ from NewDeclarationInQueue.processfiles.customprocess.table_stop_header import T
 from NewDeclarationInQueue.processfiles.tableobjects.associate import Associate
 from NewDeclarationInQueue.processfiles.tableobjects.contracts import Contracts
 from NewDeclarationInQueue.processfiles.tableobjects.man_commercial import ManCommercial
-from NewDeclarationInQueue.processfiles.tableobjects.man_professional import ManProfessional
 from NewDeclarationInQueue.processfiles.process_messages import ProcessMessages
 
 
@@ -117,8 +116,8 @@ class DInterese(FormularBase):
                                 if v_objects is None and b_skip_header == True:
                                     v_objects = []
                                 else:
-                                    obj = predicate(None)
-                                    obj.create_from_row(v_line)
+                                    obj_builder = predicate(None)
+                                    obj = obj_builder.create_from_row(v_line)
                                     if obj.check_validity():
                                         if v_objects is None:
                                             v_objects = []

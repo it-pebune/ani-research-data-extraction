@@ -130,9 +130,9 @@ class CmFormularBase:
             vrow = [v for v in cells_result if v['row_index'] == i]
             vrow.sort(key = lambda v: v['column_index'])
             if (vrow is not None and len(vrow) > 0): 
-                obj_row = predicate(None)
-                obj_row.create_from_cells(vrow)
-                v_obj_row.append(obj_row)
+                obj_builder = predicate(None)
+                obj = obj_builder.create_from_cells(vrow)
+                v_obj_row.append(obj)
             
         
         return v_obj_row
@@ -190,11 +190,10 @@ class CmFormularBase:
                 obj = row_data[column_name] if column_name in row_data.keys() else None
                 if declaration_data.create_from_row(obj):
                     v_value.append(declaration_data)
-                    
-                
-            obj_row = predicate(None) 
-            obj_row.create_from_row(v_value)
-            v_result.append(obj_row)
+            
+            obj_builder = predicate(None)
+            obj = obj_builder.create_from_row(v_value)
+            v_result.append(obj)
                     
         return v_result
         

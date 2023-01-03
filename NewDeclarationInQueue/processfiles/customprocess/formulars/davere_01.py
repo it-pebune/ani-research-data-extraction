@@ -13,6 +13,7 @@ from NewDeclarationInQueue.processfiles.tableobjects.income import Income
 from NewDeclarationInQueue.processfiles.tableobjects.investment import Investment
 from NewDeclarationInQueue.processfiles.tableobjects.mobile import Mobile
 from NewDeclarationInQueue.processfiles.tableobjects.parcel import Parcel
+from NewDeclarationInQueue.processfiles.tableobjects.table_content_extractors.ocr_extractor import OcrExtractor
 from NewDeclarationInQueue.processfiles.tableobjects.transport import Transport
 #from NewDeclarationInQueue.processfiles.customprocess.text_with_special_ch import TextWithSpecialCharacters
 
@@ -44,7 +45,7 @@ class Davere01(DAvere):
         tables, message, end_page_no = self.find_table_in_document_between_lines(data['ocr_form_response'], \
             n_page, self.no_of_pages, config.upper, config.lower, config.header, message)
         
-        message, result = self.extract_table_info_to_json('parcels', tables, lambda x: Parcel(), message)
+        message, result = self.extract_table_info_to_json('parcels', tables, lambda x: Parcel(OcrExtractor()), message)
         if message.has_errors() or result is not None:
             json['parcels'] = result
             

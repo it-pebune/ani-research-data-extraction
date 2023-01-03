@@ -15,24 +15,33 @@ class Finance(TableInDocument):
     year_of_opening: DeclarationData = None
     current_value: DeclarationData = None
         
-    def __init__(self):
-        return
+    def __init__(self, adm_institution, type_of_investment, currency, year_of_opening, current_value):
+        self.adm_institution = adm_institution
+        self.type_of_investment = type_of_investment
+        self.currency = currency
+        self.year_of_opening = year_of_opening
+        self.current_value = current_value
+        
     
-    def create_from_row(self, row):
-        self.adm_institution = self.get_field_from_row(0, row)
-        self.type_of_investment = self.get_field_from_row(1, row)
-        self.currency = self.get_field_from_row(2, row)
-        self.year_of_opening = self.get_field_from_row(3, row)
-        self.current_value = self.get_field_from_row(4, row)
+    # def create_from_row(self, row):
+    #     self.adm_institution = self.get_field_from_row(0, row)
+    #     self.type_of_investment = self.get_field_from_row(1, row)
+    #     self.currency = self.get_field_from_row(2, row)
+    #     self.year_of_opening = self.get_field_from_row(3, row)
+    #     self.current_value = self.get_field_from_row(4, row)
         
-    def create_from_cells(self, row):
-        cell_map = self.transform_cells(row)
+    #     return self
         
-        self.adm_institution = self.get_field_from_cells(0, cell_map)
-        self.type_of_investment = self.get_field_from_cells(1, cell_map)
-        self.currency = self.get_field_from_cells(2, cell_map)
-        self.year_of_opening = self.get_field_from_cells(3, cell_map)
-        self.current_value = self.get_field_from_cells(4, cell_map)
+    # def create_from_cells(self, row):
+    #     cell_map = self.transform_cells(row)
+        
+    #     self.adm_institution = self.get_field_from_cells(0, cell_map)
+    #     self.type_of_investment = self.get_field_from_cells(1, cell_map)
+    #     self.currency = self.get_field_from_cells(2, cell_map)
+    #     self.year_of_opening = self.get_field_from_cells(3, cell_map)
+    #     self.current_value = self.get_field_from_cells(4, cell_map)
+        
+    #     return self
         
     def check_validity(self):
         return self.adm_institution is not None or self.type_of_investment is not None or self.currency is not None or \

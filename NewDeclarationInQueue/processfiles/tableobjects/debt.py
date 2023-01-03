@@ -13,22 +13,27 @@ class Debt(TableInDocument):
     due_year: DeclarationData = None
     value: DeclarationData = None
         
-    def __init__(self):
-        return
+    def __init__(self, lender, year_of_loan, due_year, value):
+        self.lender = lender
+        self.year_of_loan = year_of_loan
+        self.due_year = due_year
+        self.value = value
     
-    def create_from_row(self, row):
-        self.lender = self.get_field_from_row(0, row)
-        self.year_of_loan = self.get_field_from_row(1, row)
-        self.due_year = self.get_field_from_row(2, row)
-        self.value = self.get_field_from_row(3, row)
+    # def create_from_row(self, row):
+    #     self.lender = self.get_field_from_row(0, row)
+    #     self.year_of_loan = self.get_field_from_row(1, row)
+    #     self.due_year = self.get_field_from_row(2, row)
+    #     self.value = self.get_field_from_row(3, row)
+    #     return self
         
-    def create_from_cells(self, row):
-        cell_map = self.transform_cells(row)
+    # def create_from_cells(self, row):
+    #     cell_map = self.transform_cells(row)
         
-        self.lender = self.get_field_from_cells(0, cell_map)
-        self.year_of_loan = self.get_field_from_cells(1, cell_map)
-        self.due_year = self.get_field_from_cells(2, cell_map)
-        self.value = self.get_field_from_cells(3, cell_map)
+    #     self.lender = self.get_field_from_cells(0, cell_map)
+    #     self.year_of_loan = self.get_field_from_cells(1, cell_map)
+    #     self.due_year = self.get_field_from_cells(2, cell_map)
+    #     self.value = self.get_field_from_cells(3, cell_map)
+    #     return self
         
     def check_validity(self):
         return self.lender is not None or self.year_of_loan is not None or self.due_year is not None or \

@@ -19,28 +19,38 @@ class Building(TableInDocument):
     type_of_aquisition: DeclarationData = None
     owner: DeclarationData = None
         
-    def __init__(self):
-        return
+    def __init__(self, address, category, year_of_purchase, surface, quota, type_of_aquisition, owner):
+        self.address = address
+        self.category = category
+        self.year_of_purchase = year_of_purchase
+        self.quota = quota
+        self.surface = surface
+        self.type_of_aquisition = type_of_aquisition
+        self.owner = owner
     
-    def create_from_row(self, row):
-        self.address = self.get_field_from_row(0, row)
-        self.category = self.get_field_from_row(1, row)
-        self.year_of_purchase = self.get_field_from_row(2, row)
-        self.surface = self.get_field_from_row(3, row)
-        self.quota = self.get_field_from_row(4, row)
-        self.type_of_aquisition = self.get_field_from_row(5, row)
-        self.owner = self.get_field_from_row(6, row)
+    # def create_from_row(self, row):
+    #     self.address = self.get_field_from_row(0, row)
+    #     self.category = self.get_field_from_row(1, row)
+    #     self.year_of_purchase = self.get_field_from_row(2, row)
+    #     self.surface = self.get_field_from_row(3, row)
+    #     self.quota = self.get_field_from_row(4, row)
+    #     self.type_of_aquisition = self.get_field_from_row(5, row)
+    #     self.owner = self.get_field_from_row(6, row)
         
-    def create_from_cells(self, row):
-        cell_map = self.transform_cells(row)
+    #     return self
         
-        self.address = self.get_field_from_cells(0, cell_map)
-        self.category = self.get_field_from_cells(1, cell_map)
-        self.year_of_purchase = self.get_field_from_cells(2, cell_map)
-        self.surface = self.get_field_from_cells(3, cell_map)
-        self.quota = self.get_field_from_cells(4, cell_map)
-        self.type_of_aquisition = self.get_field_from_cells(5, cell_map)
-        self.owner = self.get_field_from_cells(6, cell_map)
+    # def create_from_cells(self, row):
+    #     cell_map = self.transform_cells(row)
+        
+    #     self.address = self.get_field_from_cells(0, cell_map)
+    #     self.category = self.get_field_from_cells(1, cell_map)
+    #     self.year_of_purchase = self.get_field_from_cells(2, cell_map)
+    #     self.surface = self.get_field_from_cells(3, cell_map)
+    #     self.quota = self.get_field_from_cells(4, cell_map)
+    #     self.type_of_aquisition = self.get_field_from_cells(5, cell_map)
+    #     self.owner = self.get_field_from_cells(6, cell_map)
+        
+    #     return self
         
     def check_validity(self):
         return self.address is not None or self.category is not None or self.year_of_purchase is not None or \

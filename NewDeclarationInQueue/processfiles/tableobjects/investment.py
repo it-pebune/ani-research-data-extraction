@@ -13,24 +13,30 @@ class Investment(TableInDocument):
     number_of_shares: DeclarationData = None
     current_value: DeclarationData = None
         
-    def __init__(self):
-        return
+    def __init__(self, issuer, type_of_investment, number_of_shares, year_of_opening, current_value):
+        self.issuer = issuer
+        self.type_of_investment = type_of_investment
+        self.number_of_shares = number_of_shares
+        self.year_of_opening = year_of_opening
+        self.current_value = current_value
     
-    def create_from_row(self, row):
-        self.issuer = self.get_field_from_row(0, row)
-        self.type_of_investment = self.get_field_from_row(1, row)
-        self.number_of_shares = self.get_field_from_row(2, row)
-        self.year_of_opening = self.get_field_from_row(3, row)
-        self.current_value = self.get_field_from_row(4, row)
+    # def create_from_row(self, row):
+    #     self.issuer = self.get_field_from_row(0, row)
+    #     self.type_of_investment = self.get_field_from_row(1, row)
+    #     self.number_of_shares = self.get_field_from_row(2, row)
+    #     self.year_of_opening = self.get_field_from_row(3, row)
+    #     self.current_value = self.get_field_from_row(4, row)
+    #     return self
         
-    def create_from_cells(self, row):
-        cell_map = self.transform_cells(row)
+    # def create_from_cells(self, row):
+    #     cell_map = self.transform_cells(row)
 
-        self.issuer = self.get_field_from_cells(0, cell_map)
-        self.type_of_investment = self.get_field_from_cells(1, cell_map)
-        self.number_of_shares = self.get_field_from_cells(2, cell_map)
-        self.year_of_opening = self.get_field_from_cells(3, cell_map)
-        self.current_value = self.get_field_from_cells(4, cell_map)
+    #     self.issuer = self.get_field_from_cells(0, cell_map)
+    #     self.type_of_investment = self.get_field_from_cells(1, cell_map)
+    #     self.number_of_shares = self.get_field_from_cells(2, cell_map)
+    #     self.year_of_opening = self.get_field_from_cells(3, cell_map)
+    #     self.current_value = self.get_field_from_cells(4, cell_map)
+    #     return self
         
     def check_validity(self):
         return self.issuer is not None or self.type_of_investment is not None or self.number_of_shares is not None or \

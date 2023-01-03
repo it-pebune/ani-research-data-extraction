@@ -125,6 +125,7 @@ class PreprocessOneStep:
             
         extractor = ModelDefinition()
         form, document_type, main_key, process_messages = extractor.get_formular_from_model(raw_ocr_dict, process_messages)
+        # print("lalal", process_messages)
         if process_messages.has_errors():
             return process_messages
         
@@ -136,11 +137,13 @@ class PreprocessOneStep:
         
         formular_converter = FormularConverter()
         ocr_formular = formular_converter.get_formular_model_info(ocr_cnt, doc_loc, document_type)
+        # print(ocr_formular)
         
         root_json, raw_json, process_messages = form.identify_all_data(ocr_formular, raw_tables, process_messages)
         #get raw table info as main info, and add model table as extra info
         raw_json['model_info'] = root_json
         
+        # print (raw_json)
         print("first", json.dumps(root_json))
 
         return process_messages
