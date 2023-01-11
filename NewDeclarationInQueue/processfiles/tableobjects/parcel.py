@@ -30,34 +30,6 @@ class Parcel(TableInDocument):
         self.type_of_aquisition = type_of_aquisition
         self.owner = owner
         
-        # self.extractor = extractor
-    
-    def create_from_row(self, row):
-        self.address = self.extractor.get_field_from_row(0, row)
-        self.category = self.extractor.get_field_from_row(1, row)
-        self.year_of_purchase = self.extractor.get_field_from_row(2, row)
-        self.surface = self.extractor.get_field_from_row(3, row)
-        self.quota = self.extractor.get_field_from_row(4, row)
-        self.type_of_aquisition = self.extractor.get_field_from_row(5, row)
-        self.owner = self.extractor.get_field_from_row(6, row)
-        
-        return self
-        
-    def create_from_cells(self, row):
-        cell_map = self.transform_cells(row)
-            
-        self.address = self.extractor.get_field_from_cells(0, cell_map)
-        self.category = self.extractor.get_field_from_cells(1, cell_map)
-        self.year_of_purchase = self.extractor.get_field_from_cells(2, cell_map)
-        self.surface = self.extractor.get_field_from_cells(3, cell_map)
-        self.quota = self.extractor.get_field_from_cells(4, cell_map)
-        self.type_of_aquisition = self.extractor.get_field_from_cells(5, cell_map)
-        self.owner = self.extractor.get_field_from_cells(6, cell_map)
-        
-        return self
-            
-    
-        
     def check_validity(self):
         return self.address is not None or self.category is not None or self.year_of_purchase is not None or \
                 self.surface is not None or self.quota is not None or self.type_of_aquisition is not None or \

@@ -10,20 +10,23 @@ class WealthDeclarationParser:
 
     def __init__(self, config):
         self.config = config
-    
+
     def parse(self, filePath: str) -> None:
         try:
             tables = camelot.read_pdf(filePath, pages='all', line_scale=40)
             parsed_tables_with_configs = parseRawTables(tables, self.config)
-            result = []
+            result = {}
             for idx, table_with_config in enumerate(parsed_tables_with_configs):
-                result.append(parseTable(table_with_config["header"], table_with_config['content'], self.config["table_{0}".format(idx + 1)]))
+                table_config = self.config["table_{0}".format(idx + 1)]
+                if not table_config["rowBuilder"]:
+                    continue
+                result[table_config["name"]] = parseTable(table_with_config['content'], table_config)
         except FileNotFoundError as e:
             print("File doesn't exist." + e.strerror)
 
-        for parsed_table in result:
-            print(parsed_table)
-            pp = pprint.PrettyPrinter(indent=4)
-            pp.pprint(dict(parsed_table))
+        r = {}
+        for table_name, table_content in result.items():
+            r[table_name] = [line.to_json() for line in table_content]
 
+        print(json.dumps(r, indent=4))
         return None

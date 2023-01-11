@@ -6,37 +6,12 @@ class DeclarationData:
     page_number = 0
     confidence = 0.0
     bounding_box = [] # this should be a vector of dict, so it is easily transformed in json
-    
         
-    def __init__(self):
-        pass
-    
-    def create_from_row(self, obj) -> bool:
-        if obj is None:
-            return False
-        
-        value_data = obj['value_data']
-        if value_data is None:
-            return False
-        
-        self.text = obj['value']
-        self.page_number = value_data['page_number']
-        self.confidence = obj['confidence']
-        self.bounding_box = value_data['bounding_box']
-        
-        return True
-    
-    def create_from_cell(self, obj) -> bool:
-        if obj is None:
-            return False
-        
-        self.text = obj['text']
-        self.page_number = obj['page_number']
-        self.confidence = obj['confidence']
-        self.bounding_box = obj['bounding_box']
-        
-        return True
-    
+    def __init__(self, content: str, page_number: int, confidence: float, bounding_box):
+        self.text = content 
+        self.page_number = page_number
+        self.confidence = confidence
+        self.bounding_box = bounding_box
         
     def check_validity(self):
         return len(self.text) > 0
