@@ -7,11 +7,10 @@ from NewDeclarationInQueue.processfiles.tableobjects.table_content_extractors.ex
 
 
 class OcrExtractor(Extractor):
-    def get_field_from_row(self, index: int, row:list) -> DeclarationData:
+
+    def get_field_from_row(self, index: int, row: list) -> DeclarationData:
         return row[index] if index < len(row) else None
-    
+
     def get_field_from_cells(self, index: int, cells: dict) -> DeclarationData:
         result = cells[str(index)] if str(index) in cells else None
         return result
-    
-    
