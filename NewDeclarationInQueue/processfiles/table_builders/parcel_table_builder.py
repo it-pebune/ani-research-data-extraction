@@ -1,7 +1,7 @@
 from NewDeclarationInQueue.processfiles.table_builders.declaration_data import DeclarationDataBuilder
 from NewDeclarationInQueue.processfiles.table_builders.table_builder import TableBuilder
 from NewDeclarationInQueue.processfiles.tableobjects.parcel import Parcel
-from NewDeclarationInQueue.processfiles.tableobjects.table_content_extractors.extractor import Extractor
+from NewDeclarationInQueue.processfiles.table_builders.table_content_extractors.extractor import Extractor
 
 
 class ParcelTableBuilder(TableBuilder):

@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 from NewDeclarationInQueue.processfiles.tableobjects.declaration_data import \
     DeclarationData
-from NewDeclarationInQueue.processfiles.tableobjects.table_content_extractors.extractor import \
+from NewDeclarationInQueue.processfiles.table_builders.table_content_extractors.extractor import \
     Extractor
 
 

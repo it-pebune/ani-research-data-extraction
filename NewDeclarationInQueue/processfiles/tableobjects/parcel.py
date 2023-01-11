@@ -1,11 +1,8 @@
 from NewDeclarationInQueue.processfiles.tableobjects.declaration_data import DeclarationData
-from NewDeclarationInQueue.processfiles.tableobjects.table_content_extractors.extractor import Extractor
 from NewDeclarationInQueue.processfiles.tableobjects.table_in_document import TableInDocument
 
 
 class Parcel(TableInDocument):
-    extractor: Extractor = None
-
     COL_ADDRESS = 'address'
     COL_CATEGORY = 'category'
     COL_YEAR_OF_PURCHASE = 'year_of_purchase'
