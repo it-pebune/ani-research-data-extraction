@@ -3,6 +3,8 @@ from pdfminer.high_level import extract_text
 
 from pdf_model.parse_lib.helpers import isEmptyLine
 
+PDF_TYPE_TEXT_THRESHOLD = 100
+
 
 def shouldUseOcr(pdf_file_path):
     extracted_text = extract_text(pdf_file_path)
@@ -16,7 +18,7 @@ def shouldUseOcr(pdf_file_path):
     phase_2_format = '\n'.join(phase_2)
 
     print(len(phase_2_format))
-    if len(phase_2_format) > 100:
+    if len(phase_2_format) > PDF_TYPE_TEXT_THRESHOLD:
         return False
 
     return True
