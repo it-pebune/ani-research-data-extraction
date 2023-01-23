@@ -1,4 +1,5 @@
-def isEmptyLine(line: list): 
+def isEmptyLine(line: list):
     emptyString = all(map(lambda x: x == "", line))
     dashedLineString = all(map(lambda x: x == "-", line))
-    return emptyString or dashedLineString
+    whiteSpaceLineString = all(map(lambda x: x == " ", line))
+    return emptyString or dashedLineString or whiteSpaceLineString

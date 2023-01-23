@@ -28,5 +28,5 @@ class WealthDeclarationParser:
         for table_name, table_content in result.items():
             r[table_name] = [line.to_json() for line in table_content]
 
-        # print(json.dumps(r, indent=4))
+        print(json.dumps(r, indent=4))
         return r
