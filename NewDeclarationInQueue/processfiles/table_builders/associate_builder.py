@@ -26,3 +26,6 @@ class AssociateBuilder(TableBuilder):
         value_of_shares = self.extractor.get_field_from_cells(3, cell_map)
 
         return Associate(company, position, no_of_shares, value_of_shares)
+    
+    def create_from_well_formated_line(self, line, extra_args=None):
+        return None

@@ -26,3 +26,6 @@ class ManCommercialBuilder(TableBuilder):
         value_of_shares = self.get_field_from_cells(2, cell_map)
 
         return ManCommercial(company, position, value_of_shares)
+    
+    def create_from_well_formated_line(self, line, extra_args=None):
+        return None

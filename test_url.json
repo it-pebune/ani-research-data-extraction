@@ -4,9 +4,9 @@
     "formularType": 1,
     "storage": "azure",
     "path": "debug-ocr",
-    "filename": "roberata_da_next_page.pdf",
+    "filename": "3fa61933-c7ae-4c4d-be5f-c1d05d1b53a9.pdf",
     "outPath": "debug-ocr",
-    "ocrTableJsonFilename": "roberta_da_next_page_table.json",
-    "ocrCustomJsonFilename": "roberta_da_next_page_custom.json"
+    "ocrTableJsonFilename": "3fa61933-c7ae-4c4d-be5f-c1d05d1b53a9_table.json",
+    "ocrCustomJsonFilename": "3fa61933-c7ae-4c4d-be5f-c1d05d1b53a9_custom.json"
   }
   

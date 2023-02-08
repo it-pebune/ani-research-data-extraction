@@ -29,3 +29,8 @@ class MemberQualityBuilder(TableBuilder):
         total_value = self.get_field_from_cells(3, cell_map)
 
         return MemberQuality(company, position, number_of_shares, total_value)
+    
+    def create_from_well_formated_line(self, line, extra_args=None):
+        return None
+
+

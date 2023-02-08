@@ -19,3 +19,6 @@ class ManProfessionalBuilder(TableBuilder):
         company = self.get_field_from_cells(0, cell_map)
 
         return ManProfessional(company)
+    
+    def create_from_well_formated_line(self, line, extra_args=None):
+        return None

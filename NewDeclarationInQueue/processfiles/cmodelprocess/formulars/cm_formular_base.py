@@ -176,6 +176,8 @@ class CmFormularBase:
                 json_root[out_json_node_name] = []
         except Exception as exex:
             message.add_exception('Error reading the model ' + table_name, exex)
+            #"__init__() missing 4 required positional arguments: 'content', 'page_number', 'confidence', and 'bounding_box'"
+
             
         return message, json_root, raw_json_root
     
@@ -186,7 +188,7 @@ class CmFormularBase:
             
             v_value = []
             for column_name in config['columns'].split(','):
-                declaration_data = DeclarationData()
+                declaration_data = DeclarationData('', 0, 0, None)
                 obj = row_data[column_name] if column_name in row_data.keys() else None
                 if declaration_data.create_from_row(obj):
                     v_value.append(declaration_data)

@@ -35,4 +35,8 @@ class ContractsBuilder(TableInDocument):
         value = self.extractor.get_field_from_cells(6, cell_map)
         
         return Contracts(owner, institution, procedure, contract_type, date_of_contract, duration, value)
+    
+    
+    def create_from_well_formated_line(self, line, extra_args=None):
+        return None
  

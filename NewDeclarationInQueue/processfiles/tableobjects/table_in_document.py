@@ -28,7 +28,7 @@ class TableInDocument:
         return None
 
     def get_data_from_cell(self, cell, idx: dict) -> dict:
-        data = DeclarationData()
+        data = DeclarationData('', 0, 0, None)
         data.create_from_cell(cell)
         idx[str(cell['column_index'])] = data
         return idx

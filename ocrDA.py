@@ -49,10 +49,11 @@ if __name__ == '__main__':
         pass
     else:
         WealthDeclarationParser(WealthDeclarationConfig).parse(pdf_file_path)
+        
 
 # def test_pdf_model():
 
 # test_pdf_model()
 #
-# process_only_second_steps(r"test_url.json")
+#process_only_second_steps(r"test_url_di.json")
 # process_two_steps(r"test_url.json")
