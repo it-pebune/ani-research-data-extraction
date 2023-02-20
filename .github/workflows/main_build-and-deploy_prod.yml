@@ -21,6 +21,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Install ghostscript
+        run: |
+          sudo apt update 
+          sudo apt -y install ghostscript
+
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
