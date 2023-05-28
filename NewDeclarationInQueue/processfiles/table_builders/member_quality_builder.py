@@ -1,3 +1,4 @@
+from NewDeclarationInQueue.processfiles.table_builders.declaration_data import DeclarationDataBuilder
 from NewDeclarationInQueue.processfiles.table_builders.table_content_extractors.extractor import Extractor
 from NewDeclarationInQueue.processfiles.table_builders.table_builder import TableBuilder
 from NewDeclarationInQueue.processfiles.tableobjects.declaration_data import DeclarationData
@@ -29,8 +30,11 @@ class MemberQualityBuilder(TableBuilder):
         total_value = self.get_field_from_cells(3, cell_map)
 
         return MemberQuality(company, position, number_of_shares, total_value)
-    
+
     def create_from_well_formated_line(self, line, extra_args=None):
-        return None
+        company = DeclarationDataBuilder.create_from_well_formated_cell(line[0], 1)
+        position = DeclarationDataBuilder.create_from_well_formated_cell(line[1], 1)
+        number_of_shares = DeclarationDataBuilder.create_from_well_formated_cell(line[2], 1)
+        total_value = DeclarationDataBuilder.create_from_well_formated_cell(line[3], 1)
 
-
+        return MemberQuality(company, position, number_of_shares, total_value)

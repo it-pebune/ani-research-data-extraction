@@ -1,3 +1,4 @@
+from NewDeclarationInQueue.processfiles.table_builders.declaration_data import DeclarationDataBuilder
 from NewDeclarationInQueue.processfiles.table_builders.table_content_extractors.extractor import \
     Extractor
 from NewDeclarationInQueue.processfiles.table_builders.table_builder import \
@@ -26,6 +27,10 @@ class ManCommercialBuilder(TableBuilder):
         value_of_shares = self.get_field_from_cells(2, cell_map)
 
         return ManCommercial(company, position, value_of_shares)
-    
+
     def create_from_well_formated_line(self, line, extra_args=None):
-        return None
+        company = DeclarationDataBuilder.create_from_well_formated_cell(line[0], 1)
+        position = DeclarationDataBuilder.create_from_well_formated_cell(line[1], 1)
+        value_of_shares = DeclarationDataBuilder.create_from_well_formated_cell(line[2], 1)
+
+        return ManCommercial(company, position, value_of_shares)

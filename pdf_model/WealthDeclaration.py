@@ -5,8 +5,3 @@ class WealthDeclaration:
     def __init__(self, wealthDeclarationInfo):
         self.data = wealthDeclarationInfo['data']
         self.name = wealthDeclarationInfo['name']
-        
-
-
-
-        

@@ -1,3 +1,4 @@
+from enum import Enum
 import json
 
 from NewDeclarationInQueue.formular_converter import FormularConverter
@@ -5,7 +6,8 @@ from NewDeclarationInQueue.preprocess_one_step import PreprocessOneStep
 from NewDeclarationInQueue.preprocess_two_steps import PreProcessTwoSteps
 from NewDeclarationInQueue.processfiles.declaration_type_helpers import shouldUseOcr
 from NewDeclarationInQueue.processfiles.process_messages import ProcessMessages
-from pdf_model.configs.configs import WealthDeclarationConfig
+from pdf_model.InterestDeclaration import InterestDeclarationParser
+from pdf_model.configs.configs import InterestDeclarationConfig, WealthDeclarationConfig
 from pdf_model.wealth_declaration_parser import WealthDeclarationParser
 
 
@@ -43,13 +45,26 @@ def process_two_steps(sfile: str):
     #two_steps.save_in_output_queue(process_messages_json)
 
 
+class FormularType(Enum):
+    WEALTH_DECLARATION = 1
+    INTEREST_DECLARATION = 2
+
+
 if __name__ == '__main__':
-    pdf_file_path = 'pdf_model/ciuca_1_da.pdf'
+
+    formularType, pdf_file_path = FormularType.WEALTH_DECLARATION, 'pdf_model/ciuca_1_da.pdf'
+    # formularType, pdf_file_path = FormularType.INTEREST_DECLARATION, 'pdf_model/ciolos_di.pdf'
+    formularType, pdf_file_path = FormularType.INTEREST_DECLARATION, 'pdf_model/ciolacu_di_2022.pdf'
+
     if shouldUseOcr(pdf_file_path):
         pass
     else:
-        WealthDeclarationParser(WealthDeclarationConfig).parse(pdf_file_path)
-        
+        if formularType is FormularType.WEALTH_DECLARATION:
+            print("Processing wealth declaration")
+            WealthDeclarationParser(WealthDeclarationConfig).parse(pdf_file_path)
+        elif formularType is FormularType.INTEREST_DECLARATION:
+            print("Processing interest declaration")
+            InterestDeclarationParser(InterestDeclarationConfig).parse(pdf_file_path)
 
 # def test_pdf_model():
 

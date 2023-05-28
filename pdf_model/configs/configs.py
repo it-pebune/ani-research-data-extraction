@@ -1,97 +1,135 @@
-from NewDeclarationInQueue.processfiles.table_builders.art_builder import ArtBuilder
-from NewDeclarationInQueue.processfiles.table_builders.building_table_builder import BuildingTableBuilder
-from NewDeclarationInQueue.processfiles.table_builders.debt_builder import DebtBuilder
-from NewDeclarationInQueue.processfiles.table_builders.finance_builder import FinanceBuilder
-from NewDeclarationInQueue.processfiles.table_builders.gift_builder import GiftBuilder
-from NewDeclarationInQueue.processfiles.table_builders.income_builder import IncomeBuilder
-from NewDeclarationInQueue.processfiles.table_builders.investment_builder import InvestmentBuilder
-from NewDeclarationInQueue.processfiles.table_builders.mobile_builder import MobileBuilder
-from NewDeclarationInQueue.processfiles.table_builders.parcel_table_builder import ParcelTableBuilder
-from NewDeclarationInQueue.processfiles.table_builders.transport_builder import TransportBuilder
-from pdf_model.parse_lib.parse_table_content import (parseSimpleTable, parseTableWithSubcategories,
+from NewDeclarationInQueue.processfiles.table_builders.art_builder import \
+    ArtBuilder
+from NewDeclarationInQueue.processfiles.table_builders.contracts_builder import ContractsBuilder
+from NewDeclarationInQueue.processfiles.table_builders.man_party_builder import \
+    ManagementPartyBuilder
+from NewDeclarationInQueue.processfiles.table_builders.building_table_builder import \
+    BuildingTableBuilder
+from NewDeclarationInQueue.processfiles.table_builders.debt_builder import \
+    DebtBuilder
+from NewDeclarationInQueue.processfiles.table_builders.finance_builder import \
+    FinanceBuilder
+from NewDeclarationInQueue.processfiles.table_builders.gift_builder import \
+    GiftBuilder
+from NewDeclarationInQueue.processfiles.table_builders.income_builder import \
+    IncomeBuilder
+from NewDeclarationInQueue.processfiles.table_builders.investment_builder import \
+    InvestmentBuilder
+from NewDeclarationInQueue.processfiles.table_builders.man_commercial_builder import \
+    ManCommercialBuilder
+from NewDeclarationInQueue.processfiles.table_builders.member_quality_builder import MemberQualityBuilder
+from NewDeclarationInQueue.processfiles.table_builders.mobile_builder import \
+    MobileBuilder
+from NewDeclarationInQueue.processfiles.table_builders.parcel_table_builder import \
+    ParcelTableBuilder
+from NewDeclarationInQueue.processfiles.table_builders.transport_builder import \
+    TransportBuilder
+from NewDeclarationInQueue.processfiles.tableobjects.man_professional import \
+    ManProfessional
+from pdf_model.parse_lib.parse_table_content import (parseSimpleTable, parseTableWithSpecialHeader,
+                                                     parseTableWithSubcategories,
+                                                     parseTableWithSubcategoriesWithSpecialHeader,
                                                      parseTableWithSubtablesAndSubcategories)
 
 WealthDeclarationConfig = {
     "table_1": {
         "name": "parcels",
-        "cols": [{
-            "name": "address",
-            "format": {
-                "startingPattern": "Tara:",
-                "pattern": r'Tara: (\w+) Judet: (\w+) Localitate: (\w+)',
-                "patternOutputField": ['country', 'county', 'locality']
+        "cols": [
+            {
+                "name": "adresa sau zona",
+                # "format": {
+                #     "startingPattern": "Tara:",
+                #     "pattern": r'Tara: (\w+) Judet: (\w+) Localitate: (\w+)',
+                #     "patternOutputField": ['country', 'county', 'locality']
+                # },
+                # "outputType": 'dict'
+                "outputType": 'str'
             },
-            "outputType": 'dict'
-        }, {
-            "name": "cateogory",
-            "outputType": 'str'
-        }, {
-            "name": "year_of_purchase",
-            "outputType": 'str'
-        }, {
-            "name": "surface",
-            "outputType": 'str'
-        }, {
-            "name": "quota",
-            "outputType": 'str'
-        }, {
-            "name": "type_of_aquisition",
-            "outputType": 'str'
-        }, {
-            "name": "owner",
-            "outputType": 'str'
-        }],
+            {
+                "name": "categoria*",
+                "outputType": 'str'
+            },
+            {
+                "name": "anul dobandirii",
+                "outputType": 'str'
+            },
+            {
+                "name": "suprafata",
+                "outputType": 'str'
+            },
+            {
+                "name": "cota-parte",
+                "outputType": 'str'
+            },
+            {
+                "name": "modul de dobandire",
+                "outputType": 'str'
+            },
+            {
+                "name": "titularul",
+                "outputType": 'str'
+            }
+        ],
         "parseContentFunc": parseSimpleTable,
         "rowBuilder": ParcelTableBuilder
     },
     "table_2": {
         "name": "buildings",
-        "cols": [{
-            "name": "address",
-            "format": {
-                "startingPattern": "Tara:",
-                "pattern": r'Tara: (\w+) Judet: (\w+) Localitate: (\w+)',
-                "patternOutputField": ['country', 'county', 'locality']
+        "cols": [
+            {
+                "name": "adresa sau zona",
+                # "format": {
+                #     "startingPattern": "Tara:",
+                #     "pattern": r'Tara: (\w+) Judet: (\w+) Localitate: (\w+)',
+                #     "patternOutputField": ['country', 'county', 'locality']
+                # },
+                # "outputType": 'dict'
+                "outputType": 'str'
             },
-            "outputType": 'dict'
-        }, {
-            "name": "category",
-            "outputType": 'str'
-        }, {
-            "name": "year_of_purchase",
-            "outputType": 'str'
-        }, {
-            "name": "surface",
-            "outputType": 'str'
-        }, {
-            "name": "quota",
-            "outputType": 'str'
-        }, {
-            "name": "type_of_aquisition",
-            "outputType": 'str'
-        }, {
-            "name": "owner",
-            "outputType": 'str'
-        }],
+            {
+                "name": "categoria*",
+                "outputType": 'str'
+            },
+            {
+                "name": "Anul dobândirii",
+                "outputType": 'str'
+            },
+            {
+                "name": "Suprafata",
+                "outputType": 'str'
+            },
+            {
+                "name": "cota-parte",
+                "outputType": 'str'
+            },
+            {
+                "name": "modul de dobândire",
+                "outputType": 'str'
+            },
+            {
+                "name": "titularul",
+                "outputType": 'str'
+            }
+        ],
         "parseContentFunc": parseSimpleTable,
         "rowBuilder": BuildingTableBuilder
     },
     "table_3": {
         "name": "transport",
         "cols": [{
-            "name": "type_of_transport",
+            "name": "natura",
             "outputType": 'str'
         }, {
-            "name": "model",
+            "name": "marca",
             "outputType": 'str'
         }, {
-            "name": "number_of_pieces",
+            "name": "nr. de bucati",
             "outputType": 'str'
         }, {
-            "name": "year_of_production",
+            "name": "anul de fabricatie",
             "outputType": 'str'
         }, {
-            "name": "type_of_aquisition",
+            "name": "modul de dobândire",
             "outputType": 'str'
         }],
         "parseContentFunc": parseSimpleTable,
@@ -100,13 +138,13 @@ WealthDeclarationConfig = {
     "table_4": {
         "name": "art",
         "cols": [{
-            "name": "short_description",
+            "name": "descriere sumară",
             "outputType": 'str'
         }, {
-            "name": "year_of_aquisition",
+            "name": "anul dobândiri",
             "outputType": 'str'
         }, {
-            "name": "estimated_value",
+            "name": "valoarea estimata",
             "outputType": 'str'
         }],
         "parseContentFunc": parseSimpleTable,
@@ -115,7 +153,7 @@ WealthDeclarationConfig = {
     "table_5": {
         "name": "mobile",
         "cols": [{
-            "name": "",
+            "name": "Natura bunului înstrăinat",
             "outputType": 'str'
         }, {
             "name": "Data instrainarii",
@@ -250,6 +288,146 @@ WealthDeclarationConfig = {
             "name": "Semnătura",
             "outputType": 'str'
         }],
+        "parseContentFunc": parseSimpleTable,
+        "rowBuilder": None
+    }
+}
+
+InterestDeclarationConfig = {
+    "table_1": {
+        "main_header": [
+            "Asociat sau acţionar la societăţi comerciale, companii/societăţi naţionale, instituţii de credit, grupuri de interes economic, precum şi membru în asociaţii, fundaţii sau alte organizaţii neguvernamentale:"
+        ],
+        "name": "company_associate",
+        "cols": [
+            {
+                "name": "company",
+                # "format": {
+                #     # "startingPattern": "Tara:",
+                #     "pattern": r'Tara: (\w+) Judet: (\w+) Localitate: (\w+)',
+                #     "patternOutputField": ['country', 'county', 'locality']
+                # },
+                # "outputType": 'dict'
+                "outputType": 'str'
+            },
+            {
+                "name": "position",
+                "outputType": 'str'
+            },
+            {
+                "name": "quantity",
+                "outputType": 'str'
+            },
+            {
+                "name": "total_value",
+                "outputType": 'str'
+            }
+        ],
+        # TODO
+        "parseContentFunc": parseTableWithSpecialHeader,
+        "rowBuilder": MemberQualityBuilder
+    },
+    "table_2": {
+        "name": "management_commercial",
+        "main_header": [
+            "Calitatea de membru în organele de conducere, administrare şi control ale societăţilor comerciale, ale companiilor/societăţilor naţionale, ale instituţiilor de credit, ale grupurilor de interes economic, ale asociaţiilor sau fundaţiilor ori ale altor organizaţii neguvernamentale:"
+        ],
+        "cols": [
+            {
+                "name": "company",
+                # "format": {
+                #     "startingPattern": "Tara:",
+                #     "pattern": r'Tara: (\w+) Judet: (\w+) Localitate: (\w+)',
+                #     "patternOutputField": ['country', 'county', 'locality']
+                # },
+                "outputType": 'str'
+            },
+            {
+                "name": "position",
+                "outputType": 'str'
+            },
+            {
+                "name": "value_of_shares",
+                "outputType": 'str'
+            }
+        ],
+        #TODO
+        "parseContentFunc": parseTableWithSpecialHeader,
+        "rowBuilder": ManCommercialBuilder
+    },
+    "table_3": {
+        "main_header": ["Calitatea de membru în cadrul asociaţiilor profesionale şi/sau sindicale"],
+        "header": False,
+        "name": "management_professional",
+        "cols": [{
+            "name": "company",
+            "outputType": 'str'
+        }],
+        "parseContentFunc": parseSimpleTable,
+        "rowBuilder": ManProfessional
+    },
+    "table_4": {
+        "main_header": [
+            "Calitatea de membru în organele de conducere, administrare şi control, retribuite sau neretribuite, deţinute în cadrul partidelor politice, funcţia deţinută şi denumirea partidului politic"
+        ],
+        "header": False,
+        "name": "management_party",
+        "cols": [{
+            "name": "party",
+            "outputType": 'str'
+        }],
+        # TODO
+        "parseContentFunc": parseSimpleTable,
+        "rowBuilder": ManagementPartyBuilder
+    },
+    "table_5": {
+        "main_header": [
+            "Contracte, inclusiv cele de asistenţă juridică, consultanță juridică, consultanţă şi civile, obţinute ori aflate în derulare în timpul exercitării funcţiilor, mandatelor sau demnităţilor publice finanţate de la bugetul de stat, local şi din fonduri externe ori încheiate cu societăţi comerciale cu capital de stat sau unde statul este acţionar majoritar/minoritar:"
+        ],
+        "header": True,
+        'subcategories': [
+            'Titular', 'Soţ/soţie', 'Rude de gradul I ale titularului',
+            'Societăţi comerciale/ Persoană fizică autorizată/ Asociaţii familiale/ Cabinete individuale, cabinete asociate, societăţi civile profesionale sau societăţi civile profesionale cu răspundere limitată care desfăşoară profesia de avocat/ Organizaţii neguvernamentale/ Fundaţii/ Asociaţi'
+        ],
+        "name": "contracts",
+        "cols": [{
+            "name": "5.1 Beneficiarul de contract: numele, prenumele / denumirea şi adresa",
+            "outputType": 'str'
+        }, {
+            "name": "Instituţia contractantă: denumirea şi adresa",
+            "outputType": 'str'
+        }, {
+            "name": "Procedura prin care a fost încredinţat contractul",
+            "outputType": 'str'
+        }, {
+            "name": "Tipul contractului",
+            "outputType": 'str'
+        }, {
+            "name": "Data încheierii contractului",
+            "outputType": 'str'
+        }, {
+            "name": "Durata contractului",
+            "outputType": 'str'
+        }, {
+            "name": "Valoarea totală a contractului",
+            "outputType": 'str'
+        }],
+        # TODO
+        "parseContentFunc": parseTableWithSubcategoriesWithSpecialHeader,
+        "rowBuilder": ContractsBuilder
+    },
+    "table_6": {
+        "main_header": ["Data completării Semnătura"],
+        "name": "Date",
+        "cols": [{
+            "name": "Data completarii",
+            "outputType": 'str'
+        }
+                 #          , {
+                 #     "name": "Semnătura",
+                 #     "outputType": 'str'
+                 # }],
+                ],
         "parseContentFunc": parseSimpleTable,
         "rowBuilder": None
     }

@@ -4,8 +4,15 @@ from NewDeclarationInQueue.processfiles.table_builders.table_builder import Tabl
 from NewDeclarationInQueue.processfiles.table_builders.table_content_extractors.ocr_extractor import OcrExtractor
 from pdf_model.parse_lib.helpers import isEmptyLine
 
-SubcategoryReg = r'([\d]+)\.([\d]+)\.? ([\w|\s]+)'
+SubcategoryReg = r'([\d]+)\.([\d]+)\. ([\w|\s]+)'
 SubtableReg = r'([\d]+)\.? ([\w|\s]+)'
+
+# Will do an extra check here
+POSSIBLE_SUBCATEGORIES = [
+    'Soţ/soţie', 'Titular', 'Rude de gradul I ale titularului',
+    'Societăţi comerciale/ Persoană fizică autorizată/ Asociaţii familiale/ Cabinete individuale, cabinete asociate, societăţi civile profesionale sau societăţi civile profesionale cu răspundere limitată care desfăşoară profesia de avocat/ Organizaţii neguvernamentale/ Fundaţii/ Asociaţii',
+    'Copii'
+]
 
 
 def _parseCellWithFormatting(cell_content: str, format_config: dict) -> str:
@@ -26,7 +33,7 @@ def _parseCellWithFormatting(cell_content: str, format_config: dict) -> str:
 
 def _parseLine(line: list[str], columns_config) -> list[dict]:
     if len(line) != len(columns_config):
-        print("ERROR missmatch lines and columns")
+        print("ERROR missmatch lines and columns", line, columns_config)
         return []
 
     row_content = []
@@ -46,7 +53,7 @@ def _parseLine(line: list[str], columns_config) -> list[dict]:
     return row_content
 
 
-def parseSimpleTable(raw_content, config) -> list:
+def parseSimpleTable(raw_content, config, should_remove_header: bool = True) -> list:
     content = []
     row_builder: TableBuilder = config['rowBuilder'](OcrExtractor())
 
@@ -68,9 +75,12 @@ def onlyFirstCellHasText(line: list[int]):
     return non_empty_cells == 1 and line[0] != ""
 
 
-def isTableSubcategory(line: list, curr_subtable: int) -> bool:
+def isTableSubcategory(line: list, curr_subtable: int, subcategoriy_has_numbers: bool = True) -> bool:
     if not onlyFirstCellHasText(line):
         return False
+
+    if not subcategoriy_has_numbers:
+        return True
 
     subcategory_cell = line[0]
     m = re.match(SubcategoryReg, subcategory_cell, re.M | re.I)
@@ -81,28 +91,29 @@ def isTableSubcategory(line: list, curr_subtable: int) -> bool:
     if len(m.groups()) == 3 and int(m[1]) == curr_subtable:
         return True
     else:
-        import ipdb
-        ipdb.set_trace()
         print("ERROR", m.groups(), subcategory_cell)
         return False
 
 
-def extractTableSubcategory(line: list) -> str:
+def extractTableSubcategory(line: list, has_numbers: bool = True) -> str:
+    if not has_numbers:
+        return line[0]
+
     m = re.match(SubcategoryReg, line[0], re.M | re.I)
     if not m:
         print("wtf extract", line)
     return m[3]
 
 
-def parseTableWithSubcategories(raw_content, config: dict) -> list:
+def parseTableWithSubcategories(raw_content, config: dict, subcategory_has_numbers: bool = True) -> list:
     content = []
     current_category = None
     current_subtable_idx = 1
 
     row_builder: TableBuilder = config['rowBuilder'](OcrExtractor())
     for line in raw_content:
-        if isTableSubcategory(line, current_subtable_idx):
-            current_category = extractTableSubcategory(line)
+        if isTableSubcategory(line, current_subtable_idx, subcategory_has_numbers):
+            current_category = extractTableSubcategory(line, subcategory_has_numbers)
         else:
             if isEmptyLine(line):
                 continue
@@ -116,7 +127,7 @@ def parseTableWithSubcategories(raw_content, config: dict) -> list:
     return content
 
 
-def extractSubTableName(line: list) -> str:
+def _extractSubTableName(line: list) -> str:
     m = re.match(SubtableReg, line[0], re.M | re.I)
     if not m:
         print("ERROR - should be subtable", line)
@@ -140,7 +151,7 @@ def _isSubtable(line: list, currentSubtable: int) -> bool:
         return False
 
 
-def parseTableWithSubtablesAndSubcategories(raw_content, config) -> dict:
+def parseTableWithSubtablesAndSubcategories(raw_content, config) -> list:
     content = []
     current_subtable, current_table_idx = None, 0
     current_category = None, None
@@ -149,7 +160,7 @@ def parseTableWithSubtablesAndSubcategories(raw_content, config) -> dict:
             continue
 
         if _isSubtable(line, current_table_idx):
-            current_subtable = extractSubTableName(line)
+            current_subtable = _extractSubTableName(line)
             current_category = None
             current_table_idx += 1
         elif isTableSubcategory(line, current_table_idx):
@@ -175,6 +186,24 @@ def parseTableWithSubtablesAndSubcategories(raw_content, config) -> dict:
                                                            }))
 
     return content
+
+
+def parseTableWithSpecialHeader(raw_content, config) -> list:
+    if len(raw_content) < 1:
+        print("ERROR - table is not suited for removing the special header")
+        return []
+
+    content_without_special_header = raw_content[1:]
+    return parseSimpleTable(content_without_special_header, config)
+
+
+def parseTableWithSubcategoriesWithSpecialHeader(raw_content, config: dict) -> list:
+    if len(raw_content) < 1:
+        print("ERROR - table is not suited for removing the special header")
+        return []
+
+    content_without_special_header = raw_content[1:]
+    return parseTableWithSubcategories(content_without_special_header, config, False)
 
 
 def parseTable(raw_content, config):

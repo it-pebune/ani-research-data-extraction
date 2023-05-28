@@ -37,7 +37,6 @@ class GiftBuilder(TableBuilder):
         return Gift(owner, source, service, year_income, person_type)
 
     def create_from_well_formated_line(self, line, extra_args=None):
-        print(line)
         owner = DeclarationDataBuilder.create_from_well_formated_cell(line[0], 1)
         source = DeclarationDataBuilder.create_from_well_formated_cell(line[1], 1)
         service = DeclarationDataBuilder.create_from_well_formated_cell(line[2], 1)

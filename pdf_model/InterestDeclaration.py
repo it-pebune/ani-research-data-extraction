@@ -1,12 +1,11 @@
 import json
-# import pprint
-import copy
+
 import camelot
 from pdf_model.parse_lib.parse_raw_tables import parseRawTables2
 from pdf_model.parse_lib.parse_table_content import parseTable
 
 
-class WealthDeclarationParser:
+class InterestDeclarationParser:
 
     def __init__(self, config):
         self.config = config
@@ -14,14 +13,13 @@ class WealthDeclarationParser:
     def parse(self, filePath: str) -> None:
         try:
             tables = camelot.read_pdf(filePath, pages='all', line_scale=40)
-            parsed_tables = parseRawTables2(tables, self.config)
+            parsed_tables_with_configs = parseRawTables2(tables, self.config)
             result = {}
-            for idx, table_with_config in enumerate(parsed_tables):
+            for idx, table_with_config in enumerate(parsed_tables_with_configs):
                 table_config = self.config["table_{0}".format(idx + 1)]
                 if not table_config["rowBuilder"]:
                     continue
                 result[table_config["name"]] = parseTable(table_with_config['content'], table_config)
-
         except FileNotFoundError as e:
             print("File doesn't exist." + e.strerror)
 
