@@ -7,13 +7,6 @@ from pdf_model.parse_lib.helpers import isEmptyLine
 SubcategoryReg = r'([\d]+)\.([\d]+)\. ([\w|\s]+)'
 SubtableReg = r'([\d]+)\.? ([\w|\s]+)'
 
-# Will do an extra check here
-POSSIBLE_SUBCATEGORIES = [
-    'Soţ/soţie', 'Titular', 'Rude de gradul I ale titularului',
-    'Societăţi comerciale/ Persoană fizică autorizată/ Asociaţii familiale/ Cabinete individuale, cabinete asociate, societăţi civile profesionale sau societăţi civile profesionale cu răspundere limitată care desfăşoară profesia de avocat/ Organizaţii neguvernamentale/ Fundaţii/ Asociaţii',
-    'Copii'
-]
-
 
 def _parseCellWithFormatting(cell_content: str, format_config: dict) -> str:
     if "startingPattern" in format_config:
@@ -184,8 +177,6 @@ def parseTableWithSubtablesAndSubcategories(raw_content, config) -> list:
                                                                    "raw_cell": current_subtable
                                                                },
                                                            }))
-    # import ipdb
-    # ipdb.set_trace()
     return content
 
 

@@ -1,7 +1,6 @@
-import json
-
 import camelot
-from pdf_model.parse_lib.parse_raw_tables import parseRawTables2, parseTables
+
+from pdf_model.parse_lib.parse_raw_tables import parseTables
 from pdf_model.parse_lib.parse_table_content import parseTable
 
 
