@@ -18,9 +18,6 @@ def parseTables(tables: list[Table], table_configs: dict):
     while table_idx < len(tables) and config_idx < len(table_configs):
         config_key = 'table_{0}'.format(config_idx + 1)
         previous_config_key = 'table_{0}'.format(config_idx)
-        if config_key == 'table_6':
-            import ipdb
-            ipdb.set_trace()
         should_merge = shouldMergeTables(current_table, tables[table_idx], table_configs[config_key])
         if not should_merge:
             result.append({"table_content": current_table["data"], "table_config": table_configs[previous_config_key]})
