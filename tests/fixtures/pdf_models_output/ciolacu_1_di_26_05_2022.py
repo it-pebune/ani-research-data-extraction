@@ -1,4 +1,4 @@
-CIUCA_DI_1_PDF_OUTPUT = {
+CIOLACU_DI_1_PDF_OUTPUT = {
     "company_associate": [{
         "company": {
             "text": "1.1 ALCOM SRL - Buzau Buzau *******************************",

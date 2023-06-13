@@ -53,11 +53,11 @@ def _parseLine(line: list[str], columns_config) -> list[dict]:
     return row_content
 
 
-def parseSimpleTable(raw_content, config, should_remove_header: bool = True) -> list:
+def parseSimpleTable(raw_content, config) -> list:
     content = []
     row_builder: TableBuilder = config['rowBuilder'](OcrExtractor())
 
-    for row in raw_content:
+    for row in raw_content[1:]:
         if isEmptyLine(row):
             continue
         parsed_line = _parseLine(row, config["cols"])
@@ -111,7 +111,7 @@ def parseTableWithSubcategories(raw_content, config: dict, subcategory_has_numbe
     current_subtable_idx = 1
 
     row_builder: TableBuilder = config['rowBuilder'](OcrExtractor())
-    for line in raw_content:
+    for line in raw_content[1:]:
         if isTableSubcategory(line, current_subtable_idx, subcategory_has_numbers):
             current_category = extractTableSubcategory(line, subcategory_has_numbers)
         else:
@@ -155,7 +155,7 @@ def parseTableWithSubtablesAndSubcategories(raw_content, config) -> list:
     content = []
     current_subtable, current_table_idx = None, 0
     current_category = None, None
-    for line in raw_content:
+    for line in raw_content[1:]:
         if isEmptyLine(line):
             continue
 
@@ -184,7 +184,8 @@ def parseTableWithSubtablesAndSubcategories(raw_content, config) -> list:
                                                                    "raw_cell": current_subtable
                                                                },
                                                            }))
-
+    # import ipdb
+    # ipdb.set_trace()
     return content
 
 
