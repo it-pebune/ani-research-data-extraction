@@ -30,11 +30,11 @@ class CmFormularBase:
         
         return value_data["value"]
     
-    def load_from_model(self, dict):
-        self.cmformular = dict
-        self.form_type = dict[self.FORM_TYPE]
-        self.form_confidence = dict[self.FORM_CONFIDENCE]
-        self.page_range = dict[self.PAGE_RANGE]
+    def load_from_model(self, raw_model: dict):
+        self.cmformular = raw_model
+        self.form_type = raw_model[self.FORM_TYPE]
+        self.form_confidence = raw_model[self.FORM_CONFIDENCE]
+        self.page_range = raw_model[self.PAGE_RANGE]
         
     
     def get_labels(self, tab_config, fields, slabel_name) -> Tuple[int, int]:
@@ -130,9 +130,9 @@ class CmFormularBase:
             vrow = [v for v in cells_result if v['row_index'] == i]
             vrow.sort(key = lambda v: v['column_index'])
             if (vrow is not None and len(vrow) > 0): 
-                obj_row = predicate(None)
-                obj_row.create_from_cells(vrow)
-                v_obj_row.append(obj_row)
+                obj_builder = predicate(None)
+                obj = obj_builder.create_from_cells(vrow)
+                v_obj_row.append(obj)
             
         
         return v_obj_row
@@ -176,6 +176,8 @@ class CmFormularBase:
                 json_root[out_json_node_name] = []
         except Exception as exex:
             message.add_exception('Error reading the model ' + table_name, exex)
+            #"__init__() missing 4 required positional arguments: 'content', 'page_number', 'confidence', and 'bounding_box'"
+
             
         return message, json_root, raw_json_root
     
@@ -186,15 +188,14 @@ class CmFormularBase:
             
             v_value = []
             for column_name in config['columns'].split(','):
-                declaration_data = DeclarationData()
+                declaration_data = DeclarationData('', 0, 0, None)
                 obj = row_data[column_name] if column_name in row_data.keys() else None
                 if declaration_data.create_from_row(obj):
                     v_value.append(declaration_data)
-                    
-                
-            obj_row = predicate(None) 
-            obj_row.create_from_row(v_value)
-            v_result.append(obj_row)
+            
+            obj_builder = predicate(None)
+            obj = obj_builder.create_from_row(v_value)
+            v_result.append(obj)
                     
         return v_result
         

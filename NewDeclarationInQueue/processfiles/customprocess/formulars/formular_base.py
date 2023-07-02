@@ -126,8 +126,8 @@ class FormularBase:
             while vect is not None and len(vect) > 0:
                 vect.sort(key=lambda x: x['column'])
                 
-                table_in_doc = predicate(None)
-                table_in_doc.create_from_row([x['text'] for x in vect])
+                obj_builder = predicate(None)
+                table_in_doc = obj_builder.create_from_row([x['text'] for x in vect])
                 if table_in_doc.check_validity() == True:
                     lt_objects.append(table_in_doc)
 

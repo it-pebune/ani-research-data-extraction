@@ -1,14 +1,8 @@
-import json, os
-
-from azure.storage.queue import (
-        QueueService,
-        QueueMessageFormat
-)
-
+import json
 
 import azure.functions as func
-from NewDeclarationInQueue.formular_converter import FormularConverter
 
+from NewDeclarationInQueue.formular_converter import FormularConverter
 from NewDeclarationInQueue.preprocess.document_location import DocumentLocation
 from NewDeclarationInQueue.preprocess.ocr_constants import OcrConstants
 from NewDeclarationInQueue.preprocess_two_steps import PreProcessTwoSteps
