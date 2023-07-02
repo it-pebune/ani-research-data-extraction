@@ -12,8 +12,10 @@ class WealthDeclarationParser:
     def parse(self, filePath: str) -> None:
         try:
             tables = camelot.read_pdf(filePath, pages='all', line_scale=40)
-            # parsed_tables = parseRawTables2(tables, self.config)
             parsed_tables = parseTables(tables, self.config)
+
+            # import ipdb
+            # ipdb.set_trace()
 
             result = {}
             for _, table_with_config in enumerate(parsed_tables):

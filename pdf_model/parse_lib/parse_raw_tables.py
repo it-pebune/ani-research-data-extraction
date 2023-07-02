@@ -1,8 +1,10 @@
+import re
 from fuzzywuzzy import fuzz
 from NewDeclarationInQueue.processfiles.table_builders.contracts_builder import ContractsBuilder
 from camelot.core import Table
 
 from pdf_model.parse_lib.helpers import isEmptyLine
+from pdf_model.parse_lib.parse_table_content import SubcategoryReg, SubtableReg, parseTableWithSubcategories, parseTableWithSubtablesAndSubcategories
 
 
 def parseTables(tables: list[Table], table_configs: dict):
@@ -19,26 +21,37 @@ def parseTables(tables: list[Table], table_configs: dict):
         config_key = 'table_{0}'.format(config_idx + 1)
         previous_config_key = 'table_{0}'.format(config_idx)
         should_merge = shouldMergeTables(current_table, tables[table_idx], table_configs[config_key])
+        # if table_idx == 10:
+        #     import ipdb
+        #     ipdb.set_trace()
         if not should_merge:
             result.append({"table_content": current_table["data"], "table_config": table_configs[previous_config_key]})
             current_table = {
                 "data": tables[table_idx].data,
                 "page": tables[table_idx].page,
             }
-            table_idx += 1
             config_idx += 1
 
         else:
+            # extract it in another function and write some tests
+            # This is the most important function in parsing.
             if isCombiningMoreAccurateMainHeader(current_table["data"][-1], tables[table_idx].data[0],
                                                  table_configs[previous_config_key]):
                 current_table = combineWithLineMerge(current_table, tables[table_idx])
             elif isCombiningMoreAccurateHeader(current_table["data"][-1], tables[table_idx].data[0],
                                                table_configs[previous_config_key]):
                 current_table = combineWithLineMerge(current_table, tables[table_idx])
+            elif currentTableLastRowHasOnlyLines(current_table["data"][-1]):
+                current_table = combineWithoutLineMerge(current_table, tables[table_idx])
+            elif currentTableLastLineIsSubtable(current_table["data"][-1], table_configs[previous_config_key]):
+                current_table = combineWithoutLineMerge(current_table, tables[table_idx])
+            elif currentTableLastLineIsSubcategory(current_table["data"][-1], table_configs[previous_config_key]):
+                current_table = combineWithoutLineMerge(current_table, tables[table_idx])
             elif nextTableFirstRowHasEmptyLines(tables[table_idx].data[0]):
                 current_table = combineWithLineMerge(current_table, tables[table_idx])
             else:
                 current_table = combineWithoutLineMerge(current_table, tables[table_idx])
+        table_idx += 1
 
     for parsedTable in result:
         parsedTable['table_content'] = [
@@ -93,8 +106,50 @@ def isCombiningMoreAccurateHeader(last_line, first_line, config):
     return False
 
 
+def currentTableLastLineIsSubtable(last_line: list[str], config: dict) -> bool:
+    if config["parseContentFunc"] != parseTableWithSubtablesAndSubcategories:
+        return False
+
+    if not onlyFirstCellHasText(last_line):
+        return False
+
+    subtable_cell = last_line[0]
+    m = re.match(SubtableReg, subtable_cell, re.M | re.I)
+    if not m:
+        return False
+
+    if len(m.groups()) == 2:
+        return True
+
+    return False
+
+
+def currentTableLastLineIsSubcategory(last_line: list[str], config: dict) -> bool:
+    if config["parseContentFunc"] != parseTableWithSubtablesAndSubcategories and config[
+            "parseContentFunc"] != parseTableWithSubcategories:
+        return False
+
+    if not onlyFirstCellHasText(last_line):
+        return False
+
+    subcategory_cell = last_line[0]
+    m = re.match(SubcategoryReg, subcategory_cell, re.M | re.I)
+    if not m:
+        # print("ERROR not match", last_line)
+        return False
+
+    if len(m.groups()) == 3:
+        return True
+
+    return False
+
+
 def nextTableFirstRowHasEmptyLines(first_line: list[str]) -> bool:
     return any(map(lambda cell: cell == "", first_line))
+
+
+def currentTableLastRowHasOnlyLines(last_line: list[str]) -> bool:
+    return all(map(lambda cell: cell == "-", last_line))
 
 
 def shouldMergeTables(acc_table: dict, tableB: Table, table_configB: dict) -> bool:
@@ -108,7 +163,7 @@ def shouldMergeTables(acc_table: dict, tableB: Table, table_configB: dict) -> bo
     if acc_table["page"] == tableB.page:
         return False
 
-    is_main_header, _ = _isMainHeader(tableB.data[0], table_configB)
+    is_main_header = _isMainHeader(tableB.data[0], table_configB)
     if is_main_header:
         return False
 
@@ -143,28 +198,30 @@ def onlyFirstCellHasText(line: list[str]) -> bool:
     return len(line[0]) > 0 and isEmptyLine(line[1:])
 
 
-def _isMainHeader(line: list[str], config: dict) -> tuple[bool, dict]:
+def _isMainHeader(line: list[str], table_config: dict) -> bool:
     if isEmptyLine(line):
-        return False, None
+        return False
 
     if not onlyFirstCellHasText(line):
-        return False, None
+        return False
 
     max_config_score = -1
-    max_config_key = None
-    for table_config_key, table_config in config.items():
-        if 'main_header' not in table_config:
-            continue
+    # max_config_key = None
+    # import ipdb
+    # ipdb.set_trace()
+    # for table_config_key, table_config in config.items():
+    if 'main_header' not in table_config:
+        return False
 
-        score = fuzz.ratio(line[0], table_config["main_header"])
-        if score > max_config_score and score > 90:
-            max_config_score = score
-            max_config_key = table_config_key
+    score = fuzz.ratio(line[0], table_config["main_header"])
+    if score > max_config_score and score > 90:
+        max_config_score = score
+        # max_config_key = table_config_key
 
-    if not max_config_key:
-        return False, None
+    # if not max_config_key:
+    #     return False, None
 
-    return True, config[max_config_key]
+    return True
 
 
 def _isTableHeader(line: list[str], table_config: dict) -> bool:
